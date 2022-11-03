@@ -66,7 +66,7 @@ The values can be updated via gov proposal implemented in the `params` module.
 ### Update Params Via [ParamChangeProposal](https://github.com/cosmos/cosmos-sdk/blob/v0.45.3/proto/cosmos/params/v1beta1/params.proto#L10)
 Example to submit a parameter change gov proposal:
 ```sh
-wasmd tx gov submit-proposal param-change <proposal-json-file> --from validator --chain-id=testing -b block
+andromedad tx gov submit-proposal param-change <proposal-json-file> --from validator --chain-id=testing -b block
 ```
 #### Content examples
 * Disable wasm code uploads
@@ -170,7 +170,7 @@ The `ParamChangeProposal` is always enabled.
 ## CLI
 
 ```shell script
-  wasmd tx gov submit-proposal [command]
+  andromedad tx gov submit-proposal [command]
 
 Available Commands:
   wasm-store           Submit a wasm binary proposal

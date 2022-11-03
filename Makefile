@@ -82,7 +82,7 @@ build: go.sum
 ifeq ($(OS),Windows_NT)
 	exit 1
 else
-	go build -mod=readonly $(BUILD_FLAGS) -o build/wasmd ./cmd/wasmd
+	go build -mod=readonly $(BUILD_FLAGS) -o build/andromedad ./cmd/andromedad
 endif
 
 build-contract-tests-hooks:
@@ -93,7 +93,7 @@ else
 endif
 
 install: go.sum
-	go install -mod=readonly $(BUILD_FLAGS) ./cmd/wasmd
+	go install -mod=readonly $(BUILD_FLAGS) ./cmd/andromedad
 
 ########################################
 ### Tools & dependencies
@@ -109,7 +109,7 @@ go.sum: go.mod
 draw-deps:
 	@# requires brew install graphviz or apt-get install graphviz
 	go install github.com/RobotsAndPencils/goviz@latest
-	@goviz -i ./cmd/wasmd -d 2 | dot -Tpng -o dependency-graph.png
+	@goviz -i ./cmd/andromedad -d 2 | dot -Tpng -o dependency-graph.png
 
 clean:
 	rm -rf snapcraft-local.yaml build/

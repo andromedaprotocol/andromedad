@@ -77,7 +77,7 @@ type WasmVMResponseHandler interface {
 	) ([]byte, error)
 }
 
-// list of account types that are accepted for wasm contracts. Chains importing wasmd
+// list of account types that are accepted for wasm contracts. Chains importing andromedad
 // can overwrite this list with the WithAcceptedAccountTypesOnContractInstantiation option.
 var defaultAcceptedAccountTypes = map[reflect.Type]struct{}{
 	reflect.TypeOf(&authtypes.BaseAccount{}): {},
