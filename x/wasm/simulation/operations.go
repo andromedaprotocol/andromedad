@@ -14,10 +14,10 @@ import (
 	simtypes "github.com/cosmos/cosmos-sdk/types/simulation"
 	"github.com/cosmos/cosmos-sdk/x/simulation"
 
-	"github.com/CosmWasm/wasmd/app/params"
-	wasmkeeper "github.com/CosmWasm/wasmd/x/wasm/keeper"
-	"github.com/CosmWasm/wasmd/x/wasm/keeper/testdata"
-	"github.com/CosmWasm/wasmd/x/wasm/types"
+	"github.com/andromedaprotocol/andromedad/app/params"
+	wasmkeeper "github.com/andromedaprotocol/andromedad/x/wasm/keeper"
+	"github.com/andromedaprotocol/andromedad/x/wasm/keeper/testdata"
+	"github.com/andromedaprotocol/andromedad/x/wasm/types"
 )
 
 // Simulation operation weights constants

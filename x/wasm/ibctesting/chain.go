@@ -34,10 +34,10 @@ import (
 	tmtypes "github.com/tendermint/tendermint/types"
 	tmversion "github.com/tendermint/tendermint/version"
 
-	"github.com/CosmWasm/wasmd/app"
-	"github.com/CosmWasm/wasmd/app/params"
+	"github.com/andromedaprotocol/andromedad/app"
+	"github.com/andromedaprotocol/andromedad/app/params"
 
-	"github.com/CosmWasm/wasmd/x/wasm"
+	"github.com/andromedaprotocol/andromedad/x/wasm"
 )
 
 // TestChain is a testing struct that wraps a simapp with the last TM Header, the current ABCI
