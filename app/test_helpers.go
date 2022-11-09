@@ -32,7 +32,7 @@ import (
 	tmtypes "github.com/tendermint/tendermint/types"
 	dbm "github.com/tendermint/tm-db"
 
-	"github.com/CosmWasm/wasmd/x/wasm"
+	"github.com/andromedaprotocol/andromedad/x/wasm"
 )
 
 // DefaultConsensusParams defines the default Tendermint consensus params used in

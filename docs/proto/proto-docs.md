@@ -604,7 +604,7 @@ order. The intention is to have more human readable data that is auditable.
 | ----- | ---- | ----- | ----------- |
 | `store_code` | [MsgStoreCode](#cosmwasm.wasm.v1.MsgStoreCode) |  |  |
 | `instantiate_contract` | [MsgInstantiateContract](#cosmwasm.wasm.v1.MsgInstantiateContract) |  |  |
-| `execute_contract` | [MsgExecuteContract](#cosmwasm.wasm.v1.MsgExecuteContract) |  | MsgInstantiateContract2 intentionally not supported see https://github.com/CosmWasm/wasmd/issues/987 |
+| `execute_contract` | [MsgExecuteContract](#cosmwasm.wasm.v1.MsgExecuteContract) |  | MsgInstantiateContract2 intentionally not supported see https://github.com/andromedaprotocol/andromedad/issues/987 |
 
 
 

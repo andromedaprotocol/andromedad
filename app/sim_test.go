@@ -38,8 +38,8 @@ import (
 	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"
 	dbm "github.com/tendermint/tm-db"
 
-	"github.com/CosmWasm/wasmd/x/wasm"
-	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
+	"github.com/andromedaprotocol/andromedad/x/wasm"
+	wasmtypes "github.com/andromedaprotocol/andromedad/x/wasm/types"
 )
 
 // Get flags every time the simulator is run

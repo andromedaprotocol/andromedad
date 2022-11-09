@@ -12,8 +12,8 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/CosmWasm/wasmd/x/wasm/keeper/wasmtesting"
-	"github.com/CosmWasm/wasmd/x/wasm/types"
+	"github.com/andromedaprotocol/andromedad/x/wasm/keeper/wasmtesting"
+	"github.com/andromedaprotocol/andromedad/x/wasm/types"
 )
 
 func TestOnOpenChannel(t *testing.T) {
