@@ -55,11 +55,11 @@ build_tags_comma_sep := $(subst $(empty),$(comma),$(build_tags))
 
 # process linker flags
 
-ldflags = -X github.com/cosmos/cosmos-sdk/version.Name=wasm \
-		  -X github.com/cosmos/cosmos-sdk/version.AppName=wasmd \
+ldflags = -X github.com/cosmos/cosmos-sdk/version.Name=andromeda \
+		  -X github.com/cosmos/cosmos-sdk/version.AppName=andromedad \
 		  -X github.com/cosmos/cosmos-sdk/version.Version=$(VERSION) \
 		  -X github.com/cosmos/cosmos-sdk/version.Commit=$(COMMIT) \
-		  -X github.com/andromedaprotocol/andromedad/app.Bech32Prefix=wasm \
+		  -X github.com/andromedaprotocol/andromedad/app.Bech32Prefix=andr \
 		  -X "github.com/cosmos/cosmos-sdk/version.BuildTags=$(build_tags_comma_sep)"
 
 ifeq ($(WITH_CLEVELDB),yes)
