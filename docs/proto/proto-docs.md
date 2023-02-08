@@ -116,7 +116,7 @@
 ### AcceptedMessageKeysFilter
 AcceptedMessageKeysFilter accept only the specific contract message keys in
 the json object to be executed.
-Since: wasmd 0.30
+Since: andromedad 0.30
 
 
 | Field | Type | Label | Description |
@@ -133,7 +133,7 @@ Since: wasmd 0.30
 ### AcceptedMessagesFilter
 AcceptedMessagesFilter accept only the specific raw contract messages to be
 executed.
-Since: wasmd 0.30
+Since: andromedad 0.30
 
 
 | Field | Type | Label | Description |
@@ -150,7 +150,7 @@ Since: wasmd 0.30
 ### AllowAllMessagesFilter
 AllowAllMessagesFilter is a wildcard to allow any type of contract payload
 message.
-Since: wasmd 0.30
+Since: andromedad 0.30
 
 
 
@@ -162,7 +162,7 @@ Since: wasmd 0.30
 ### CombinedLimit
 CombinedLimit defines the maximal amounts that can be sent to a contract and
 the maximal number of calls executable. Both need to remain >0 to be valid.
-Since: wasmd 0.30
+Since: andromedad 0.30
 
 
 | Field | Type | Label | Description |
@@ -179,7 +179,7 @@ Since: wasmd 0.30
 
 ### ContractExecutionAuthorization
 ContractExecutionAuthorization defines authorization for wasm execute.
-Since: wasmd 0.30
+Since: andromedad 0.30
 
 
 | Field | Type | Label | Description |
@@ -195,7 +195,7 @@ Since: wasmd 0.30
 
 ### ContractGrant
 ContractGrant a granted permission for a single contract
-Since: wasmd 0.30
+Since: andromedad 0.30
 
 
 | Field | Type | Label | Description |
@@ -213,7 +213,7 @@ Since: wasmd 0.30
 
 ### ContractMigrationAuthorization
 ContractMigrationAuthorization defines authorization for wasm contract
-migration. Since: wasmd 0.30
+migration. Since: andromedad 0.30
 
 
 | Field | Type | Label | Description |
@@ -229,7 +229,7 @@ migration. Since: wasmd 0.30
 
 ### MaxCallsLimit
 MaxCallsLimit limited number of calls to the contract. No funds transferable.
-Since: wasmd 0.30
+Since: andromedad 0.30
 
 
 | Field | Type | Label | Description |
@@ -245,7 +245,7 @@ Since: wasmd 0.30
 
 ### MaxFundsLimit
 MaxFundsLimit defines the maximal amounts that can be sent to the contract.
-Since: wasmd 0.30
+Since: andromedad 0.30
 
 
 | Field | Type | Label | Description |

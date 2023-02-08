@@ -32,7 +32,7 @@ import (
 	tmtypes "github.com/tendermint/tendermint/types"
 	dbm "github.com/tendermint/tm-db"
 
-	"github.com/CosmWasm/wasmd/x/wasm"
+	"github.com/andromedaprotocol/andromedad/x/wasm"
 )
 
 // DefaultConsensusParams defines the default Tendermint consensus params used in
@@ -183,7 +183,7 @@ func SetupWithGenesisValSet(t *testing.T, valSet *tmtypes.ValidatorSet, genAccs 
 	return app
 }
 
-// SetupWithEmptyStore setup a wasmd app instance with empty DB
+// SetupWithEmptyStore setup a andromedad app instance with empty DB
 func SetupWithEmptyStore(t testing.TB) *WasmApp {
 	app, _ := setup(t, false, 0)
 	return app

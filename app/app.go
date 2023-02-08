@@ -111,10 +111,10 @@ import (
 	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"
 	dbm "github.com/tendermint/tm-db"
 
-	wasmappparams "github.com/CosmWasm/wasmd/app/params"
-	"github.com/CosmWasm/wasmd/x/wasm"
-	wasmclient "github.com/CosmWasm/wasmd/x/wasm/client"
-	wasmkeeper "github.com/CosmWasm/wasmd/x/wasm/keeper"
+	wasmappparams "github.com/andromedaprotocol/andromedad/app/params"
+	"github.com/andromedaprotocol/andromedad/x/wasm"
+	wasmclient "github.com/andromedaprotocol/andromedad/x/wasm/client"
+	wasmkeeper "github.com/andromedaprotocol/andromedad/x/wasm/keeper"
 
 	// unnamed import of statik for swagger UI support
 	_ "github.com/cosmos/cosmos-sdk/client/docs/statik"
@@ -124,8 +124,8 @@ const appName = "WasmApp"
 
 // We pull these out so we can set them with LDFLAGS in the Makefile
 var (
-	NodeDir      = ".wasmd"
-	Bech32Prefix = "wasm"
+	NodeDir      = ".andromedad"
+	Bech32Prefix = "andr"
 
 	// If EnabledSpecificProposals is "", and this is "true", then enable all x/wasm proposals.
 	// If EnabledSpecificProposals is "", and this is not "true", then disable all x/wasm proposals.
@@ -137,7 +137,7 @@ var (
 )
 
 // GetEnabledProposals parses the ProposalsEnabled / EnableSpecificProposals values to
-// produce a list of enabled proposals to pass into wasmd app.
+// produce a list of enabled proposals to pass into andromedad app.
 func GetEnabledProposals() []wasm.ProposalType {
 	if EnableSpecificProposals == "" {
 		if ProposalsEnabled == "true" {
@@ -157,7 +157,7 @@ func GetEnabledProposals() []wasm.ProposalType {
 // These are the ones we will want to use in the code, based on
 // any overrides above
 var (
-	// DefaultNodeHome default home directories for wasmd
+	// DefaultNodeHome default home directories for andromedad
 	DefaultNodeHome = os.ExpandEnv("$HOME/") + NodeDir
 
 	// Bech32PrefixAccAddr defines the Bech32 prefix of an account's address
@@ -493,7 +493,7 @@ func NewWasmApp(
 		app.MsgServiceRouter(),
 	)
 
-	// For wasmd we use the demo controller from https://github.com/cosmos/interchain-accounts but see notes below
+	// For andromedad we use the demo controller from https://github.com/cosmos/interchain-accounts but see notes below
 	app.InterTxKeeper = intertxkeeper.NewKeeper(appCodec, keys[intertxtypes.StoreKey], app.ICAControllerKeeper, scopedInterTxKeeper)
 
 	// create evidence keeper with router
@@ -776,7 +776,7 @@ func NewWasmApp(
 
 	// must be before Loading version
 	// requires the snapshot store to be created and registered as a BaseAppOption
-	// see cmd/wasmd/root.go: 206 - 214 approx
+	// see cmd/andromedad/root.go: 206 - 214 approx
 	if manager := app.SnapshotManager(); manager != nil {
 		err := manager.RegisterExtensions(
 			wasmkeeper.NewWasmSnapshotter(app.CommitMultiStore(), &app.WasmKeeper),

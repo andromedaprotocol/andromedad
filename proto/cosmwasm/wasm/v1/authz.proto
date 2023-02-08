@@ -6,11 +6,11 @@ import "cosmos_proto/cosmos.proto";
 import "cosmos/base/v1beta1/coin.proto";
 import "google/protobuf/any.proto";
 
-option go_package = "github.com/CosmWasm/wasmd/x/wasm/types";
+option go_package = "github.com/andromedaprotocol/andromedad/x/wasm/types";
 option (gogoproto.goproto_getters_all) = false;
 
 // ContractExecutionAuthorization defines authorization for wasm execute.
-// Since: wasmd 0.30
+// Since: andromedad 0.30
 message ContractExecutionAuthorization {
   option (cosmos_proto.implements_interface) =
       "cosmos.authz.v1beta1.Authorization";
@@ -20,7 +20,7 @@ message ContractExecutionAuthorization {
 }
 
 // ContractMigrationAuthorization defines authorization for wasm contract
-// migration. Since: wasmd 0.30
+// migration. Since: andromedad 0.30
 message ContractMigrationAuthorization {
   option (cosmos_proto.implements_interface) =
       "cosmos.authz.v1beta1.Authorization";
@@ -30,7 +30,7 @@ message ContractMigrationAuthorization {
 }
 
 // ContractGrant a granted permission for a single contract
-// Since: wasmd 0.30
+// Since: andromedad 0.30
 message ContractGrant {
   // Contract is the bech32 address of the smart contract
   string contract = 1;
@@ -49,7 +49,7 @@ message ContractGrant {
 }
 
 // MaxCallsLimit limited number of calls to the contract. No funds transferable.
-// Since: wasmd 0.30
+// Since: andromedad 0.30
 message MaxCallsLimit {
   option (cosmos_proto.implements_interface) =
       "cosmwasm.wasm.v1.ContractAuthzLimitX";
@@ -59,7 +59,7 @@ message MaxCallsLimit {
 }
 
 // MaxFundsLimit defines the maximal amounts that can be sent to the contract.
-// Since: wasmd 0.30
+// Since: andromedad 0.30
 message MaxFundsLimit {
   option (cosmos_proto.implements_interface) =
       "cosmwasm.wasm.v1.ContractAuthzLimitX";
@@ -73,7 +73,7 @@ message MaxFundsLimit {
 
 // CombinedLimit defines the maximal amounts that can be sent to a contract and
 // the maximal number of calls executable. Both need to remain >0 to be valid.
-// Since: wasmd 0.30
+// Since: andromedad 0.30
 message CombinedLimit {
   option (cosmos_proto.implements_interface) =
       "cosmwasm.wasm.v1.ContractAuthzLimitX";
@@ -89,7 +89,7 @@ message CombinedLimit {
 
 // AllowAllMessagesFilter is a wildcard to allow any type of contract payload
 // message.
-// Since: wasmd 0.30
+// Since: andromedad 0.30
 message AllowAllMessagesFilter {
   option (cosmos_proto.implements_interface) =
       "cosmwasm.wasm.v1.ContractAuthzFilterX";
@@ -97,7 +97,7 @@ message AllowAllMessagesFilter {
 
 // AcceptedMessageKeysFilter accept only the specific contract message keys in
 // the json object to be executed.
-// Since: wasmd 0.30
+// Since: andromedad 0.30
 message AcceptedMessageKeysFilter {
   option (cosmos_proto.implements_interface) =
       "cosmwasm.wasm.v1.ContractAuthzFilterX";
@@ -108,7 +108,7 @@ message AcceptedMessageKeysFilter {
 
 // AcceptedMessagesFilter accept only the specific raw contract messages to be
 // executed.
-// Since: wasmd 0.30
+// Since: andromedad 0.30
 message AcceptedMessagesFilter {
   option (cosmos_proto.implements_interface) =
       "cosmwasm.wasm.v1.ContractAuthzFilterX";

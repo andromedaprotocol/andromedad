@@ -13,4 +13,4 @@ faucet:
   name: bob
   coins: ["5token", "100000stake"]
 build:
-  main: "cmd/wasmd"
+  main: "cmd/andromedad"

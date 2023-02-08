@@ -32,8 +32,8 @@ import (
 	"github.com/tendermint/tendermint/libs/rand"
 	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"
 
-	"github.com/CosmWasm/wasmd/x/wasm/keeper/wasmtesting"
-	"github.com/CosmWasm/wasmd/x/wasm/types"
+	"github.com/andromedaprotocol/andromedad/x/wasm/keeper/wasmtesting"
+	"github.com/andromedaprotocol/andromedad/x/wasm/types"
 )
 
 //go:embed testdata/hackatom.wasm

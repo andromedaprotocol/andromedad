@@ -5,7 +5,7 @@ import (
 	"compress/gzip"
 	"io"
 
-	"github.com/CosmWasm/wasmd/x/wasm/types"
+	"github.com/andromedaprotocol/andromedad/x/wasm/types"
 )
 
 // Uncompress expects a valid gzip source to unpack or fails. See IsGzip

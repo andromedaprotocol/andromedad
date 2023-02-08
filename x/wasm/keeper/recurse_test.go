@@ -6,7 +6,7 @@ import (
 
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 
-	"github.com/CosmWasm/wasmd/x/wasm/types"
+	"github.com/andromedaprotocol/andromedad/x/wasm/types"
 
 	wasmvmtypes "github.com/CosmWasm/wasmvm/types"
 	"github.com/stretchr/testify/assert"
@@ -260,7 +260,7 @@ func TestLimitRecursiveQueryGas(t *testing.T) {
 			},
 			expectQueriesFromContract: 10,
 			expectOutOfGas:            false,
-			expectError:               "query wasm contract failed", // Error we get from the contract instance doing the failing query, not wasmd
+			expectError:               "query wasm contract failed", // Error we get from the contract instance doing the failing query, not andromedad
 			expectedGas:               10*(GasWork2k+GasReturnHashed) - 247,
 		},
 	}

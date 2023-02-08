@@ -23,11 +23,11 @@ import (
 	"github.com/spf13/cobra"
 	abci "github.com/tendermint/tendermint/abci/types"
 
-	"github.com/CosmWasm/wasmd/x/wasm/client/cli"
-	"github.com/CosmWasm/wasmd/x/wasm/client/rest" //nolint:staticcheck
-	"github.com/CosmWasm/wasmd/x/wasm/keeper"
-	"github.com/CosmWasm/wasmd/x/wasm/simulation"
-	"github.com/CosmWasm/wasmd/x/wasm/types"
+	"github.com/andromedaprotocol/andromedad/x/wasm/client/cli"
+	"github.com/andromedaprotocol/andromedad/x/wasm/client/rest" //nolint:staticcheck
+	"github.com/andromedaprotocol/andromedad/x/wasm/keeper"
+	"github.com/andromedaprotocol/andromedad/x/wasm/simulation"
+	"github.com/andromedaprotocol/andromedad/x/wasm/types"
 )
 
 var (

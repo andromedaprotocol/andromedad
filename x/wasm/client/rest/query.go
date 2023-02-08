@@ -13,8 +13,8 @@ import (
 	"github.com/cosmos/cosmos-sdk/types/rest"
 	"github.com/gorilla/mux"
 
-	"github.com/CosmWasm/wasmd/x/wasm/keeper"
-	"github.com/CosmWasm/wasmd/x/wasm/types"
+	"github.com/andromedaprotocol/andromedad/x/wasm/keeper"
+	"github.com/andromedaprotocol/andromedad/x/wasm/types"
 )
 
 func registerQueryRoutes(cliCtx client.Context, r *mux.Router) {

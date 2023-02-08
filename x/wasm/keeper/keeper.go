@@ -24,8 +24,8 @@ import (
 	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
 	"github.com/tendermint/tendermint/libs/log"
 
-	"github.com/CosmWasm/wasmd/x/wasm/ioutils"
-	"github.com/CosmWasm/wasmd/x/wasm/types"
+	"github.com/andromedaprotocol/andromedad/x/wasm/ioutils"
+	"github.com/andromedaprotocol/andromedad/x/wasm/types"
 )
 
 // contractMemoryLimit is the memory limit of each contract execution (in MiB)
@@ -76,7 +76,7 @@ type WasmVMResponseHandler interface {
 	) ([]byte, error)
 }
 
-// list of account types that are accepted for wasm contracts. Chains importing wasmd
+// list of account types that are accepted for wasm contracts. Chains importing andromedad
 // can overwrite this list with the WithAcceptedAccountTypesOnContractInstantiation option.
 var defaultAcceptedAccountTypes = map[reflect.Type]struct{}{
 	reflect.TypeOf(&authtypes.BaseAccount{}): {},
@@ -258,7 +258,7 @@ func (k Keeper) instantiate(
 			// keep account and balance as it is
 			k.Logger(ctx).Info("instantiate contract with existing account", "address", contractAddress.String())
 		} else {
-			// consider an account in the wasmd namespace spam and overwrite it.
+			// consider an account in the andromedad namespace spam and overwrite it.
 			k.Logger(ctx).Info("pruning existing account for contract instantiation", "address", contractAddress.String())
 			contractAccount := k.accountKeeper.NewAccountWithAddress(ctx, contractAddress)
 			k.accountKeeper.SetAccount(ctx, contractAccount)

@@ -3,17 +3,17 @@ package wasm_test
 import (
 	"testing"
 
-	wasmvm "github.com/CosmWasm/wasmvm"
-	wasmvmtypes "github.com/CosmWasm/wasmvm/types"
+	wasmvm "github.com/Cosmwasm/wasmvm"
+	wasmvmtypes "github.com/Cosmwasm/wasmvm/types"
 	ibctransfertypes "github.com/cosmos/ibc-go/v4/modules/apps/transfer/types"
 	channeltypes "github.com/cosmos/ibc-go/v4/modules/core/04-channel/types"
 	ibctesting "github.com/cosmos/ibc-go/v4/testing"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	wasmibctesting "github.com/CosmWasm/wasmd/x/wasm/ibctesting"
-	wasmkeeper "github.com/CosmWasm/wasmd/x/wasm/keeper"
-	"github.com/CosmWasm/wasmd/x/wasm/keeper/wasmtesting"
+	wasmibctesting "github.com/andromedaprotocol/andromedad/x/wasm/ibctesting"
+	wasmkeeper "github.com/andromedaprotocol/andromedad/x/wasm/keeper"
+	"github.com/andromedaprotocol/andromedad/x/wasm/keeper/wasmtesting"
 )
 
 func TestOnChanOpenInitVersion(t *testing.T) {

@@ -15,7 +15,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	wasmibctesting "github.com/CosmWasm/wasmd/x/wasm/ibctesting"
+	wasmibctesting "github.com/andromedaprotocol/andromedad/x/wasm/ibctesting"
 )
 
 func TestICA(t *testing.T) {

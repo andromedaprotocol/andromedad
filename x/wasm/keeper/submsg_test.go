@@ -12,8 +12,8 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/CosmWasm/wasmd/x/wasm/keeper/testdata"
-	"github.com/CosmWasm/wasmd/x/wasm/types"
+	"github.com/andromedaprotocol/andromedad/x/wasm/keeper/testdata"
+	"github.com/andromedaprotocol/andromedad/x/wasm/types"
 )
 
 // test handing of submessages, very closely related to the reflect_test

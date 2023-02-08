@@ -11,7 +11,7 @@ import (
 
 	channeltypes "github.com/cosmos/ibc-go/v4/modules/core/04-channel/types"
 
-	"github.com/CosmWasm/wasmd/x/wasm/types"
+	"github.com/andromedaprotocol/andromedad/x/wasm/types"
 
 	wasmvmtypes "github.com/CosmWasm/wasmvm/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
