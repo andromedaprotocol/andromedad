@@ -56,16 +56,41 @@ var DefaultConsensusParams = &abci.ConsensusParams{
 
 func setup(t testing.TB, withGenesis bool, invCheckPeriod uint, opts ...wasm.Option) (*WasmApp, GenesisState) {
 	nodeHome := t.TempDir()
+
+	// Set up snapshot store
 	snapshotDir := filepath.Join(nodeHome, "data", "snapshots")
 	snapshotDB, err := sdk.NewLevelDB("metadata", snapshotDir)
 	require.NoError(t, err)
 	t.Cleanup(func() { snapshotDB.Close() })
 	snapshotStore, err := snapshots.NewStore(snapshotDB, snapshotDir)
 	require.NoError(t, err)
-	baseAppOpts := []func(*bam.BaseApp){bam.SetSnapshotStore(snapshotStore), bam.SetSnapshotKeepRecent(2)}
+
+	// Set up base app options
+	baseAppOpts := []func(*bam.BaseApp){
+		bam.SetSnapshotStore(snapshotStore),
+		bam.SetSnapshotKeepRecent(2),
+	}
+
+	// Set up memDB
 	db := dbm.NewMemDB()
 	t.Cleanup(func() { db.Close() })
-	app := NewWasmApp(log.NewNopLogger(), db, nil, true, map[int64]bool{}, nodeHome, invCheckPeriod, MakeEncodingConfig(), wasm.EnableAllProposals, EmptyBaseAppOptions{}, opts, baseAppOpts...)
+
+	// Create WasmApp instance
+	app := NewWasmApp(
+		log.NewNopLogger(),
+		db,
+		nil,
+		true,
+		map[int64]bool{},
+		nodeHome,
+		invCheckPeriod,
+		MakeEncodingConfig(),
+		wasm.EnableAllProposals,
+		EmptyBaseAppOptions{},
+		opts,
+		baseAppOpts...,
+	)
+
 	if withGenesis {
 		return app, NewDefaultGenesisState()
 	}
