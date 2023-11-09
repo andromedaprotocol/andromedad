@@ -1,0 +1,10 @@
+syntax = "proto3";
+package andromeda.feeburn;
+
+import "gogoproto/gogo.proto";
+import "andromeda/feeburn/params.proto";
+
+option go_package = "github.com/andromeda/andromedad/x/feeburn/types";
+
+// GenesisState defines the feeburn module's genesis state.
+message GenesisState { Params params = 1 [ (gogoproto.nullable) = false ]; }
