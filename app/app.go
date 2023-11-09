@@ -130,9 +130,9 @@ import (
 	wasmkeeper "github.com/CosmWasm/wasmd/x/wasm/keeper"
 	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
 
-	feeburnmoduletypes "github.com/Candromeda/andromedad/x/feeburn/types"
 	feeburnmodule "github.com/andromeda/andromedad/x/feeburn"
 	feeburnmodulekeeper "github.com/andromeda/andromedad/x/feeburn/keeper"
+	feeburnmoduletypes "github.com/andromeda/andromedad/x/feeburn/types"
 
 	alliancemodule "github.com/terra-money/alliance/x/alliance"
 	alliancemoduleclient "github.com/terra-money/alliance/x/alliance/client"

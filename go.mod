@@ -1,6 +1,6 @@
 module github.com/andromeda/andromedad
 
-go 1.20
+go 1.21
 
 require (
 	github.com/CosmWasm/wasmd v0.41.0
