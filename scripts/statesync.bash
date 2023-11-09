@@ -34,7 +34,7 @@ go install -ldflags '-w -s -X github.com/cosmos/cosmos-sdk/types.DBBackend=pebbl
 andromedad init test
 
 # Get Genesis
-wget -O ~/.andromedad/config/genesis.json https://raw.githubusercontent.com/andromeda/andromedad/main/mainnet/genesis.json
+wget -O ~/.andromedad/config/genesis.json https://raw.githubusercontent.com/andromedaprotocol/andromedad/main/mainnet/genesis.json
 
 
 

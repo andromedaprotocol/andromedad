@@ -18,5 +18,5 @@ cd ..
 # move proto files to the right places
 #
 # Note: Proto files are suffixed with the current binary version.
-cp -r github.com/andromeda/andromedad/* ./
+cp -r github.com/andromedaprotocol/andromedad/* ./
 rm -rf github.com

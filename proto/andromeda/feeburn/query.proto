@@ -5,7 +5,7 @@ import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 import "andromeda/feeburn/params.proto";
 
-option go_package = "github.com/andromeda/andromedad/x/feeburn/types";
+option go_package = "github.com/andromedaprotocol/andromedad/x/feeburn/types";
 
 // Query defines the gRPC querier service.
 service Query {

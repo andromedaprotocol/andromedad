@@ -1,11 +1,11 @@
 package feeburn
 
 import (
-	"github.com/andromeda/andromedad/testutil/sample"
+	"github.com/andromedaprotocol/andromedad/testutil/sample"
 
 	// simappparams "cosmossdk.io/simapp/params"
-	feeburnsimulation "github.com/andromeda/andromedad/x/feeburn/simulation"
-	"github.com/andromeda/andromedad/x/feeburn/types"
+	feeburnsimulation "github.com/andromedaprotocol/andromedad/x/feeburn/simulation"
+	"github.com/andromedaprotocol/andromedad/x/feeburn/types"
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"

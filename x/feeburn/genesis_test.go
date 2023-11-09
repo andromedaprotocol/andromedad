@@ -3,11 +3,11 @@ package feeburn_test
 import (
 	"testing"
 
-	keepertest "github.com/andromeda/andromedad/testutil/keeper"
-	"github.com/andromeda/andromedad/testutil/nullify"
+	keepertest "github.com/andromedaprotocol/andromedad/testutil/keeper"
+	"github.com/andromedaprotocol/andromedad/testutil/nullify"
 
-	"github.com/andromeda/andromedad/x/feeburn"
-	"github.com/andromeda/andromedad/x/feeburn/types"
+	"github.com/andromedaprotocol/andromedad/x/feeburn"
+	"github.com/andromedaprotocol/andromedad/x/feeburn/types"
 	"github.com/stretchr/testify/require"
 )
 

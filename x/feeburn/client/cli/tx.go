@@ -7,7 +7,7 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/client"
 	// "github.com/cosmos/cosmos-sdk/client/flags"
-	"github.com/andromeda/andromedad/x/feeburn/types"
+	"github.com/andromedaprotocol/andromedad/x/feeburn/types"
 )
 
 // GetTxCmd returns the transaction commands for this module

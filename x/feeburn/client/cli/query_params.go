@@ -3,7 +3,7 @@ package cli
 import (
 	"context"
 
-	"github.com/andromeda/andromedad/x/feeburn/types"
+	"github.com/andromedaprotocol/andromedad/x/feeburn/types"
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/spf13/cobra"

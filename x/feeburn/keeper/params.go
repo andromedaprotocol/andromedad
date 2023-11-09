@@ -1,7 +1,7 @@
 package keeper
 
 import (
-	"github.com/andromeda/andromedad/x/feeburn/types"
+	"github.com/andromedaprotocol/andromedad/x/feeburn/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 

@@ -3,7 +3,7 @@ package andromeda.feeburn;
 
 import "gogoproto/gogo.proto";
 
-option go_package = "github.com/andromeda/andromedad/x/feeburn/types";
+option go_package = "github.com/andromedaprotocol/andromedad/x/feeburn/types";
 
 // Params defines the parameters for the module.
 message Params {

@@ -7,7 +7,7 @@ import (
 	svrcmd "github.com/cosmos/cosmos-sdk/server/cmd"
 	"github.com/stretchr/testify/require"
 
-	"github.com/andromeda/andromedad/app"
+	"github.com/andromedaprotocol/andromedad/app"
 	"github.com/cosmos/cosmos-sdk/x/genutil/client/cli"
 )
 

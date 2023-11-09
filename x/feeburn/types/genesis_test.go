@@ -3,7 +3,7 @@ package types_test
 import (
 	"testing"
 
-	"github.com/andromeda/andromedad/x/feeburn/types"
+	"github.com/andromedaprotocol/andromedad/x/feeburn/types"
 	"github.com/stretchr/testify/require"
 )
 

@@ -1,4 +1,4 @@
-module github.com/andromeda/andromedad
+module github.com/andromedaprotocol/andromedad
 
 go 1.20
 

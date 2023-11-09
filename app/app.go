@@ -130,16 +130,16 @@ import (
 	wasmkeeper "github.com/CosmWasm/wasmd/x/wasm/keeper"
 	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
 
-	feeburnmodule "github.com/andromeda/andromedad/x/feeburn"
-	feeburnmodulekeeper "github.com/andromeda/andromedad/x/feeburn/keeper"
-	feeburnmoduletypes "github.com/andromeda/andromedad/x/feeburn/types"
+	feeburnmodule "github.com/andromedaprotocol/andromedad/x/feeburn"
+	feeburnmodulekeeper "github.com/andromedaprotocol/andromedad/x/feeburn/keeper"
+	feeburnmoduletypes "github.com/andromedaprotocol/andromedad/x/feeburn/types"
 
 	alliancemodule "github.com/terra-money/alliance/x/alliance"
 	alliancemoduleclient "github.com/terra-money/alliance/x/alliance/client"
 	alliancemodulekeeper "github.com/terra-money/alliance/x/alliance/keeper"
 	alliancemoduletypes "github.com/terra-money/alliance/x/alliance/types"
 
-	_ "github.com/andromeda/andromedad/client/docs/statik"
+	_ "github.com/andromedaprotocol/andromedad/client/docs/statik"
 	ibchooks "github.com/cosmos/ibc-apps/modules/ibc-hooks/v7"
 	ibchookskeeper "github.com/cosmos/ibc-apps/modules/ibc-hooks/v7/keeper"
 	ibchookstypes "github.com/cosmos/ibc-apps/modules/ibc-hooks/v7/types"

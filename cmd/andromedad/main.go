@@ -3,8 +3,8 @@ package main
 import (
 	"os"
 
-	"github.com/andromeda/andromedad/app"
-	"github.com/andromeda/andromedad/cmd/andromedad/cmd"
+	"github.com/andromedaprotocol/andromedad/app"
+	"github.com/andromedaprotocol/andromedad/cmd/andromedad/cmd"
 	"github.com/cosmos/cosmos-sdk/server"
 	svrcmd "github.com/cosmos/cosmos-sdk/server/cmd"
 )

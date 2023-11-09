@@ -5,7 +5,7 @@ import "cosmos_proto/cosmos.proto";
 import "andromeda/feeburn/params.proto";
 import "gogoproto/gogo.proto";
 import "amino/amino.proto";
-option go_package = "github.com/andromeda/andromedad/x/feeburn/types";
+option go_package = "github.com/andromedaprotocol/andromedad/x/feeburn/types";
 
 // Msg defines the Msg service.
 service Msg {

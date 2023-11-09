@@ -10,9 +10,9 @@ import (
 
 	abci "github.com/cometbft/cometbft/abci/types"
 
-	"github.com/andromeda/andromedad/x/feeburn/client/cli"
-	"github.com/andromeda/andromedad/x/feeburn/keeper"
-	"github.com/andromeda/andromedad/x/feeburn/types"
+	"github.com/andromedaprotocol/andromedad/x/feeburn/client/cli"
+	"github.com/andromedaprotocol/andromedad/x/feeburn/keeper"
+	"github.com/andromedaprotocol/andromedad/x/feeburn/types"
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/codec"
 	cdctypes "github.com/cosmos/cosmos-sdk/codec/types"

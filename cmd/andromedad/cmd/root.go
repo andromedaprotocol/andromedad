@@ -33,8 +33,8 @@ import (
 	"github.com/CosmWasm/wasmd/x/wasm"
 	wasmkeeper "github.com/CosmWasm/wasmd/x/wasm/keeper"
 	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
-	"github.com/andromeda/andromedad/app"
-	"github.com/andromeda/andromedad/app/params"
+	"github.com/andromedaprotocol/andromedad/app"
+	"github.com/andromedaprotocol/andromedad/app/params"
 )
 
 // NewRootCmd creates a new root command for andromedad. It is called once in the

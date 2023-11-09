@@ -1,7 +1,7 @@
 package app
 
 import (
-	"github.com/andromeda/andromedad/app/params"
+	"github.com/andromedaprotocol/andromedad/app/params"
 
 	"github.com/cosmos/cosmos-sdk/std"
 )

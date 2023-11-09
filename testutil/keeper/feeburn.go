@@ -3,8 +3,8 @@ package keeper
 import (
 	"testing"
 
-	"github.com/andromeda/andromedad/x/feeburn/keeper"
-	"github.com/andromeda/andromedad/x/feeburn/types"
+	"github.com/andromedaprotocol/andromedad/x/feeburn/keeper"
+	"github.com/andromedaprotocol/andromedad/x/feeburn/types"
 	tmdb "github.com/cometbft/cometbft-db"
 	"github.com/cometbft/cometbft/libs/log"
 	tmproto "github.com/cometbft/cometbft/proto/tendermint/types"
