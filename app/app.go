@@ -146,10 +146,10 @@ import (
 )
 
 const (
-	Bech32Prefix = "andromeda"
+	Bech32Prefix = "andr"
 	Name         = "andromeda"
 	UpgradeName  = "v503"
-	NodeDir      = ".andromedad"
+	NodeDir      = ".andromeda"
 )
 
 var (

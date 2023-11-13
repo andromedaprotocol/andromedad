@@ -5,6 +5,7 @@ build:
     third_party_paths:
     - third_party/proto
     - proto_vendor
+    binary: andromedad
 accounts:
 - name: alice
   coins:
