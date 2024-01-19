@@ -1,0 +1,13 @@
+syntax = "proto3";
+package andromedaprotocol.andromedad.andromedad;
+
+// this line is used by starport scaffolding # proto/tx/import
+
+option go_package = "github.com/andromedaprotocol/andromedad/x/andromedad/types";
+
+// Msg defines the Msg service.
+service Msg {
+    // this line is used by starport scaffolding # proto/tx/rpc
+}
+
+// this line is used by starport scaffolding # proto/tx/message

@@ -1,0 +1,14 @@
+syntax = "proto3";
+package andromedaprotocol.andromedad.andromedad;
+
+import "gogoproto/gogo.proto";
+import "andromedad/params.proto";
+// this line is used by starport scaffolding # genesis/proto/import
+
+option go_package = "github.com/andromedaprotocol/andromedad/x/andromedad/types";
+
+// GenesisState defines the andromedad module's genesis state.
+message GenesisState {
+  Params params = 1 [(gogoproto.nullable) = false];
+  // this line is used by starport scaffolding # genesis/proto/state
+}
