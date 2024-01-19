@@ -1,8 +1,0 @@
-.vscode/*
-/.idea/inspectionProfiles/Project_Default.xml
-/.idea/workspace.xml
-tmp
-logs
-keys
-.DS_Store
-node_modules
