@@ -103,7 +103,13 @@ import (
 	andromedadmodule "github.com/andromedaprotocol/andromedad/x/andromedad"
 	andromedadmodulekeeper "github.com/andromedaprotocol/andromedad/x/andromedad/keeper"
 	andromedadmoduletypes "github.com/andromedaprotocol/andromedad/x/andromedad/types"
-	// this line is used by starport scaffolding # stargate/app/moduleImport
+	distributormodule "github.com/andromedaprotocol/andromedad/x/distributor"
+	distributormodulekeeper "github.com/andromedaprotocol/andromedad/x/distributor/keeper"
+	distributormoduletypes "github.com/andromedaprotocol/andromedad/x/distributor/types"
+	nibftdfvasmodule "github.com/andromedaprotocol/andromedad/x/nibftdfvas"
+		nibftdfvasmodulekeeper "github.com/andromedaprotocol/andromedad/x/nibftdfvas/keeper"
+		nibftdfvasmoduletypes "github.com/andromedaprotocol/andromedad/x/nibftdfvas/types"
+// this line is used by starport scaffolding # stargate/app/moduleImport
 )
 
 const (
@@ -158,19 +164,23 @@ var (
 		vesting.AppModuleBasic{},
 		monitoringp.AppModuleBasic{},
 		andromedadmodule.AppModuleBasic{},
-		// this line is used by starport scaffolding # stargate/app/moduleBasic
+		distributormodule.AppModuleBasic{},
+		nibftdfvasmodule.AppModuleBasic{},
+// this line is used by starport scaffolding # stargate/app/moduleBasic
 	)
 
 	// module account permissions
 	maccPerms = map[string][]string{
-		authtypes.FeeCollectorName:     nil,
-		distrtypes.ModuleName:          nil,
-		minttypes.ModuleName:           {authtypes.Minter},
-		stakingtypes.BondedPoolName:    {authtypes.Burner, authtypes.Staking},
-		stakingtypes.NotBondedPoolName: {authtypes.Burner, authtypes.Staking},
-		govtypes.ModuleName:            {authtypes.Burner},
-		ibctransfertypes.ModuleName:    {authtypes.Minter, authtypes.Burner},
-		// this line is used by starport scaffolding # stargate/app/maccPerms
+		authtypes.FeeCollectorName:        nil,
+		distrtypes.ModuleName:             nil,
+		minttypes.ModuleName:              {authtypes.Minter},
+		stakingtypes.BondedPoolName:       {authtypes.Burner, authtypes.Staking},
+		stakingtypes.NotBondedPoolName:    {authtypes.Burner, authtypes.Staking},
+		govtypes.ModuleName:               {authtypes.Burner},
+		ibctransfertypes.ModuleName:       {authtypes.Minter, authtypes.Burner},
+		distributormoduletypes.ModuleName: {authtypes.Minter, authtypes.Burner, authtypes.Staking},
+		nibftdfvasmoduletypes.ModuleName: {authtypes.Minter, authtypes.Burner, authtypes.Staking},
+// this line is used by starport scaffolding # stargate/app/maccPerms
 	}
 )
 
@@ -231,7 +241,11 @@ type App struct {
 	ScopedMonitoringKeeper capabilitykeeper.ScopedKeeper
 
 	AndromedadKeeper andromedadmodulekeeper.Keeper
-	// this line is used by starport scaffolding # stargate/app/keeperDeclaration
+
+	DistributorKeeper distributormodulekeeper.Keeper
+	
+		NibftdfvasKeeper nibftdfvasmodulekeeper.Keeper
+// this line is used by starport scaffolding # stargate/app/keeperDeclaration
 
 	// mm is the module manager
 	mm *module.Manager
@@ -268,7 +282,9 @@ func New(
 		govtypes.StoreKey, paramstypes.StoreKey, ibchost.StoreKey, upgradetypes.StoreKey, feegrant.StoreKey,
 		evidencetypes.StoreKey, ibctransfertypes.StoreKey, capabilitytypes.StoreKey, monitoringptypes.StoreKey,
 		andromedadmoduletypes.StoreKey,
-		// this line is used by starport scaffolding # stargate/app/storeKey
+		distributormoduletypes.StoreKey,
+		nibftdfvasmoduletypes.StoreKey,
+// this line is used by starport scaffolding # stargate/app/storeKey
 	)
 	tkeys := sdk.NewTransientStoreKeys(paramstypes.TStoreKey)
 	memKeys := sdk.NewMemoryStoreKeys(capabilitytypes.MemStoreKey)
@@ -397,7 +413,30 @@ func New(
 	)
 	andromedadModule := andromedadmodule.NewAppModule(appCodec, app.AndromedadKeeper, app.AccountKeeper, app.BankKeeper)
 
-	// this line is used by starport scaffolding # stargate/app/keeperDefinition
+	app.DistributorKeeper = *distributormodulekeeper.NewKeeper(
+		appCodec,
+		keys[distributormoduletypes.StoreKey],
+		keys[distributormoduletypes.MemStoreKey],
+		app.GetSubspace(distributormoduletypes.ModuleName),
+
+		app.BankKeeper,
+	)
+	distributorModule := distributormodule.NewAppModule(appCodec, app.DistributorKeeper, app.AccountKeeper, app.BankKeeper)
+
+	
+		app.NibftdfvasKeeper = *nibftdfvasmodulekeeper.NewKeeper(
+			appCodec,
+			keys[nibftdfvasmoduletypes.StoreKey],
+			keys[nibftdfvasmoduletypes.MemStoreKey],
+			app.GetSubspace(nibftdfvasmoduletypes.ModuleName),
+			
+			app.BankKeeper,
+app.AccountKeeper,
+app.ParamsKeeper,
+)
+		nibftdfvasModule := nibftdfvasmodule.NewAppModule(appCodec, app.NibftdfvasKeeper, app.AccountKeeper, app.BankKeeper)
+
+		// this line is used by starport scaffolding # stargate/app/keeperDefinition
 
 	// Create static IBC router, add transfer route, then set and seal it
 	ibcRouter := ibcporttypes.NewRouter()
@@ -439,7 +478,9 @@ func New(
 		transferModule,
 		monitoringModule,
 		andromedadModule,
-		// this line is used by starport scaffolding # stargate/app/appModule
+		distributorModule,
+		nibftdfvasModule,
+// this line is used by starport scaffolding # stargate/app/appModule
 	)
 
 	// During begin block slashing happens after distr.BeginBlocker so that
@@ -467,7 +508,9 @@ func New(
 		paramstypes.ModuleName,
 		monitoringptypes.ModuleName,
 		andromedadmoduletypes.ModuleName,
-		// this line is used by starport scaffolding # stargate/app/beginBlockers
+		distributormoduletypes.ModuleName,
+		nibftdfvasmoduletypes.ModuleName,
+// this line is used by starport scaffolding # stargate/app/beginBlockers
 	)
 
 	app.mm.SetOrderEndBlockers(
@@ -491,7 +534,9 @@ func New(
 		ibctransfertypes.ModuleName,
 		monitoringptypes.ModuleName,
 		andromedadmoduletypes.ModuleName,
-		// this line is used by starport scaffolding # stargate/app/endBlockers
+		distributormoduletypes.ModuleName,
+		nibftdfvasmoduletypes.ModuleName,
+// this line is used by starport scaffolding # stargate/app/endBlockers
 	)
 
 	// NOTE: The genutils module must occur after staking so that pools are
@@ -520,7 +565,9 @@ func New(
 		feegrant.ModuleName,
 		monitoringptypes.ModuleName,
 		andromedadmoduletypes.ModuleName,
-		// this line is used by starport scaffolding # stargate/app/initGenesis
+		distributormoduletypes.ModuleName,
+		nibftdfvasmoduletypes.ModuleName,
+// this line is used by starport scaffolding # stargate/app/initGenesis
 	)
 
 	app.mm.RegisterInvariants(&app.CrisisKeeper)
@@ -545,7 +592,9 @@ func New(
 		transferModule,
 		monitoringModule,
 		andromedadModule,
-		// this line is used by starport scaffolding # stargate/app/appModule
+		distributorModule,
+		nibftdfvasModule,
+// this line is used by starport scaffolding # stargate/app/appModule
 	)
 	app.sm.RegisterStoreDecoders()
 
@@ -735,7 +784,9 @@ func initParamsKeeper(appCodec codec.BinaryCodec, legacyAmino *codec.LegacyAmino
 	paramsKeeper.Subspace(ibchost.ModuleName)
 	paramsKeeper.Subspace(monitoringptypes.ModuleName)
 	paramsKeeper.Subspace(andromedadmoduletypes.ModuleName)
-	// this line is used by starport scaffolding # stargate/app/paramSubspace
+	paramsKeeper.Subspace(distributormoduletypes.ModuleName)
+	paramsKeeper.Subspace(nibftdfvasmoduletypes.ModuleName)
+// this line is used by starport scaffolding # stargate/app/paramSubspace
 
 	return paramsKeeper
 }

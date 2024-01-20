@@ -1,10 +1,12 @@
 // THIS FILE IS GENERATED AUTOMATICALLY. DO NOT MODIFY.
 
 import AndromedaprotocolAndromedadAndromedaprotocolAndromedadAndromedad from './andromedaprotocol/andromedad/andromedaprotocol.andromedad.andromedad'
+import AndromedaprotocolAndromedadAndromedaprotocolAndromedadDistributor from './andromedaprotocol/andromedad/andromedaprotocol.andromedad.distributor'
 
 
 export default { 
   AndromedaprotocolAndromedadAndromedaprotocolAndromedadAndromedad: load(AndromedaprotocolAndromedadAndromedaprotocolAndromedadAndromedad, 'andromedaprotocol.andromedad.andromedad'),
+  AndromedaprotocolAndromedadAndromedaprotocolAndromedadDistributor: load(AndromedaprotocolAndromedadAndromedaprotocolAndromedadDistributor, 'andromedaprotocol.andromedad.distributor'),
   
 }
 
