@@ -39,9 +39,9 @@ After a draft release is created, make your final changes from the release page 
 To install the latest version of your blockchain node's binary, execute the following command on your machine:
 
 ```
-curl https://get.ignite.com/andromedaprotocol/andromedad@latest! | sudo bash
+curl https://get.ignite.com/username/andromedad@latest! | sudo bash
 ```
-`andromedaprotocol/andromedad` should match the `username` and `repo_name` of the Github repository to which the source code was pushed. Learn more about [the install process](https://github.com/allinbits/starport-installer).
+`username/andromedad` should match the `username` and `repo_name` of the Github repository to which the source code was pushed. Learn more about [the install process](https://github.com/allinbits/starport-installer).
 
 ## Learn more
 
