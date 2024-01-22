@@ -82,7 +82,6 @@ func (k Keeper) DistributeTokens(ctx sdk.Context, params types.MyModuleParams) {
 
 func (k Keeper) DistributeTokensToValidators(ctx sdk.Context, amount int) {
 	// Implement logic to distribute tokens to validators
-	// You may need to iterate over validators and send tokens to their addresses
 	params := k.GetParams(ctx)
 
 	// Iterate over validators and distribute tokens
@@ -91,7 +90,6 @@ func (k Keeper) DistributeTokensToValidators(ctx sdk.Context, amount int) {
 		validatorAddr := validatorIterator.Key()
 
 		// Implement your logic to calculate the amount for each validator
-		// For simplicity, I'll distribute the same amount to each validator
 		validatorAmount := amount / validatorIterator.Count()
 
 		// Send tokens to the validator
@@ -101,7 +99,6 @@ func (k Keeper) DistributeTokensToValidators(ctx sdk.Context, amount int) {
 
 func (k Keeper) DistributeTokensToStakers(ctx sdk.Context, amount int) {
 	// Implement logic to distribute tokens to stakers
-	// You may need to iterate over stakers and send tokens to their addresses
 	params := k.GetParams(ctx)
 
 	// Iterate over stakers and distribute tokens
@@ -110,7 +107,6 @@ func (k Keeper) DistributeTokensToStakers(ctx sdk.Context, amount int) {
 		stakerAddr := stakerIterator.Key()
 
 		// Implement your logic to calculate the amount for each staker
-		// For simplicity, I'll distribute the same amount to each staker
 		stakerAmount := amount / stakerIterator.Count()
 
 		// Send tokens to the staker
@@ -121,20 +117,17 @@ func (k Keeper) DistributeTokensToStakers(ctx sdk.Context, amount int) {
 // GetValidators returns the list of validators
 func (k Keeper) GetValidators(ctx sdk.Context) []sdk.ValAddress {
 	// Implement logic to get validators from the state
-	// Example: You may fetch the validators from the staking module
 	return k.bankKeeper.GetStakingKeeper().GetValidators(ctx)
 }
 
 // GetStakers returns the list of stakers
 func (k Keeper) GetStakers(ctx sdk.Context) []sdk.AccAddress {
 	// Implement logic to get stakers from the state
-	// Example: You may fetch the stakers from the staking module
 	return k.bankKeeper.GetStakingKeeper().GetAllSDKAddresses(ctx)
 }
 
 // GetDistributionAuthority returns the authority address for initiating token distribution
 func (k Keeper) GetDistributionAuthority(ctx sdk.Context) sdk.AccAddress {
 	// Implement logic to get the distribution authority address from the state
-	// Example: You may have a parameter for the authority address in the params store
 	return k.paramsKeeper.GetDistributionAuthority(ctx)
 }
