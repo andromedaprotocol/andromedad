@@ -54,19 +54,19 @@ func (k Keeper) Logger(ctx sdk.Context) log.Logger {
 	return ctx.Logger().With("module", fmt.Sprintf("x/%s", types.ModuleName))
 }
 
-func (k Keeper) DistributeTokens(ctx sdk.Context, params types.MyModuleParams) {
+func (k Keeper) DistributeTokens(ctx sdk.Context, daoParams types.DAOParams) {
 	// Get the DAO parameters from the store or use default values
-	currentParams := k.GetParams(ctx)
+	currentParams := k.GetDAOParams(ctx)
 
-	if currentParams.TokenOutflowPerBlock != params.TokenOutflowPerBlock{
-		currentParams.TokenOutflowPerBlock = params.TokenOutflowPerBlock
+	if currentParams.TokenOutflowPerBlock != daoParams.TokenOutflowPerBlock{
+		currentParams.TokenOutflowPerBlock = daoParams.TokenOutflowPerBlock
 	}
 
-	if currentParams.DirectToValidatorPercent != params.DirectToValidatorPercent{
-		currentParams.DirectToValidatorPercent = params.DirectToValidatorPercent
+	if currentParams.DirectToValidatorPercent != daoParams.DirectToValidatorPercent{
+		currentParams.DirectToValidatorPercent = daoParams.DirectToValidatorPercent
 	}
 
-	k.SetParams(ctx, currentParams)
+	k.SetDAOParams(ctx, currentParams)
 
 	// Distribute tokens per block
 	blockReward := currentParams.TokenOutflowPerBlock
@@ -82,7 +82,7 @@ func (k Keeper) DistributeTokens(ctx sdk.Context, params types.MyModuleParams) {
 
 func (k Keeper) DistributeTokensToValidators(ctx sdk.Context, amount int) {
 	// Implement logic to distribute tokens to validators
-	params := k.GetParams(ctx)
+	daoParams := k.GetDAOParams(ctx)
 
 	// Iterate over validators and distribute tokens
 	validatorIterator := k.bankKeeper.GetStakingKeeper().validatorIterator(ctx)
@@ -99,7 +99,7 @@ func (k Keeper) DistributeTokensToValidators(ctx sdk.Context, amount int) {
 
 func (k Keeper) DistributeTokensToStakers(ctx sdk.Context, amount int) {
 	// Implement logic to distribute tokens to stakers
-	params := k.GetParams(ctx)
+	daoParams := k.GetDAOParams(ctx)
 
 	// Iterate over stakers and distribute tokens
 	stakerIterator := k.bankKeeper.GetStakingKeeper().StakeIterator(ctx)
