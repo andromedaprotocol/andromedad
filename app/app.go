@@ -98,10 +98,10 @@ import (
 	monitoringpkeeper "github.com/tendermint/spn/x/monitoringp/keeper"
 	monitoringptypes "github.com/tendermint/spn/x/monitoringp/types"
 
-	"test/docs"
-	nibtdfvasmodule "test/x/nibtdfvas"
-	nibtdfvasmodulekeeper "test/x/nibtdfvas/keeper"
-	nibtdfvasmoduletypes "test/x/nibtdfvas/types"
+	"andromedad/docs"
+	nibtdfvasmodule "andromedad/x/nibtdfvas"
+	nibtdfvasmodulekeeper "andromedad/x/nibtdfvas/keeper"
+	nibtdfvasmoduletypes "andromedad/x/nibtdfvas/types"
 	// this line is used by starport scaffolding # stargate/app/moduleImport
 )
 
