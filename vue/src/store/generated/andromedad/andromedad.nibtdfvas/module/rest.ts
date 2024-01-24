@@ -12,7 +12,13 @@
 /**
  * Params defines the parameters for the module.
  */
-export type AndromedadnibtdfvasParams = object;
+export interface AndromedadnibtdfvasParams {
+  /** @format int64 */
+  TokenOutflowPerBlock?: string;
+
+  /** @format int64 */
+  DirectToValidatorPercent?: string;
+}
 
 /**
  * QueryParamsResponse is response type for the Query/Params RPC method.
