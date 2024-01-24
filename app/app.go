@@ -98,8 +98,10 @@ import (
 	monitoringpkeeper "github.com/tendermint/spn/x/monitoringp/keeper"
 	monitoringptypes "github.com/tendermint/spn/x/monitoringp/types"
 
-	"andromedad/docs"
-
+	"test/docs"
+	nibtdfvasmodule "test/x/nibtdfvas"
+	nibtdfvasmodulekeeper "test/x/nibtdfvas/keeper"
+	nibtdfvasmoduletypes "test/x/nibtdfvas/types"
 	// this line is used by starport scaffolding # stargate/app/moduleImport
 )
 
@@ -154,6 +156,8 @@ var (
 		transfer.AppModuleBasic{},
 		vesting.AppModuleBasic{},
 		monitoringp.AppModuleBasic{},
+		nibtdfvasmodule.AppModuleBasic{},
+		// twomodule.AppModuleBasic{},
 		// this line is used by starport scaffolding # stargate/app/moduleBasic
 	)
 
@@ -226,6 +230,9 @@ type App struct {
 	ScopedTransferKeeper   capabilitykeeper.ScopedKeeper
 	ScopedMonitoringKeeper capabilitykeeper.ScopedKeeper
 
+	NibtdfvasKeeper nibtdfvasmodulekeeper.Keeper
+
+	// TwoKeeper twomodulekeeper.Keeper
 	// this line is used by starport scaffolding # stargate/app/keeperDeclaration
 
 	// mm is the module manager
@@ -262,6 +269,8 @@ func New(
 		minttypes.StoreKey, distrtypes.StoreKey, slashingtypes.StoreKey,
 		govtypes.StoreKey, paramstypes.StoreKey, ibchost.StoreKey, upgradetypes.StoreKey, feegrant.StoreKey,
 		evidencetypes.StoreKey, ibctransfertypes.StoreKey, capabilitytypes.StoreKey, monitoringptypes.StoreKey,
+		nibtdfvasmoduletypes.StoreKey,
+		// twomoduletypes.StoreKey,
 		// this line is used by starport scaffolding # stargate/app/storeKey
 	)
 	tkeys := sdk.NewTransientStoreKeys(paramstypes.TStoreKey)
@@ -351,10 +360,10 @@ func New(
 		app.IBCKeeper.ChannelKeeper, app.IBCKeeper.ChannelKeeper, &app.IBCKeeper.PortKeeper,
 		app.AccountKeeper, app.BankKeeper, scopedTransferKeeper,
 	)
-    var (
-        transferModule    = transfer.NewAppModule(app.TransferKeeper)
-        transferIBCModule = transfer.NewIBCModule(app.TransferKeeper)
-    )
+	var (
+		transferModule    = transfer.NewAppModule(app.TransferKeeper)
+		transferIBCModule = transfer.NewIBCModule(app.TransferKeeper)
+	)
 
 	// Create evidence Keeper for to register the IBC light client misbehaviour evidence route
 	evidenceKeeper := evidencekeeper.NewKeeper(
@@ -382,6 +391,26 @@ func New(
 		scopedMonitoringKeeper,
 	)
 	monitoringModule := monitoringp.NewAppModule(appCodec, app.MonitoringKeeper)
+
+	app.NibtdfvasKeeper = *nibtdfvasmodulekeeper.NewKeeper(
+		appCodec,
+		keys[nibtdfvasmoduletypes.StoreKey],
+		keys[nibtdfvasmoduletypes.MemStoreKey],
+		app.GetSubspace(nibtdfvasmoduletypes.ModuleName),
+
+		app.StakingKeeper,
+	)
+	nibtdfvasModule := nibtdfvasmodule.NewAppModule(appCodec, app.NibtdfvasKeeper, app.AccountKeeper, app.BankKeeper)
+
+	// app.TwoKeeper = *twomodulekeeper.NewKeeper(
+	// 	appCodec,
+	// 	keys[twomoduletypes.StoreKey],
+	// 	keys[twomoduletypes.MemStoreKey],
+	// 	app.GetSubspace(twomoduletypes.ModuleName),
+
+	// 	app.StakingKeeper,
+	// )
+	// twoModule := twomodule.NewAppModule(appCodec, app.TwoKeeper, app.AccountKeeper, app.BankKeeper)
 
 	// this line is used by starport scaffolding # stargate/app/keeperDefinition
 
@@ -424,6 +453,8 @@ func New(
 		params.NewAppModule(app.ParamsKeeper),
 		transferModule,
 		monitoringModule,
+		nibtdfvasModule,
+		// twoModule,
 		// this line is used by starport scaffolding # stargate/app/appModule
 	)
 
@@ -451,6 +482,8 @@ func New(
 		feegrant.ModuleName,
 		paramstypes.ModuleName,
 		monitoringptypes.ModuleName,
+		nibtdfvasmoduletypes.ModuleName,
+		// twomoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/beginBlockers
 	)
 
@@ -474,6 +507,8 @@ func New(
 		ibchost.ModuleName,
 		ibctransfertypes.ModuleName,
 		monitoringptypes.ModuleName,
+		nibtdfvasmoduletypes.ModuleName,
+		// twomoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/endBlockers
 	)
 
@@ -502,6 +537,8 @@ func New(
 		ibctransfertypes.ModuleName,
 		feegrant.ModuleName,
 		monitoringptypes.ModuleName,
+		nibtdfvasmoduletypes.ModuleName,
+		// twomoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/initGenesis
 	)
 
@@ -526,6 +563,8 @@ func New(
 		ibc.NewAppModule(app.IBCKeeper),
 		transferModule,
 		monitoringModule,
+		nibtdfvasModule,
+		// twoModule,
 		// this line is used by starport scaffolding # stargate/app/appModule
 	)
 	app.sm.RegisterStoreDecoders()
@@ -715,6 +754,8 @@ func initParamsKeeper(appCodec codec.BinaryCodec, legacyAmino *codec.LegacyAmino
 	paramsKeeper.Subspace(ibctransfertypes.ModuleName)
 	paramsKeeper.Subspace(ibchost.ModuleName)
 	paramsKeeper.Subspace(monitoringptypes.ModuleName)
+	paramsKeeper.Subspace(nibtdfvasmoduletypes.ModuleName)
+	// paramsKeeper.Subspace(twomoduletypes.ModuleName)
 	// this line is used by starport scaffolding # stargate/app/paramSubspace
 
 	return paramsKeeper
