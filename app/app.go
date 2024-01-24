@@ -397,7 +397,7 @@ func New(
 		keys[nibtdfvasmoduletypes.MemStoreKey],
 		app.GetSubspace(nibtdfvasmoduletypes.ModuleName),
 
-		app.StakingKeeper,
+		// app.StakingKeeper,
 	)
 	nibtdfvasModule := nibtdfvasmodule.NewAppModule(appCodec, app.NibtdfvasKeeper, app.AccountKeeper, app.BankKeeper)
 

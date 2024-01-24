@@ -29,7 +29,7 @@ func NewKeeper(
 	memKey sdk.StoreKey,
 	ps paramtypes.Subspace,
 
-	stakingKeeper types.StakingKeeper,
+	// stakingKeeper types.StakingKeeper,
 ) *Keeper {
 	// set KeyTable if it has not already been set
 	if !ps.HasKeyTable() {
@@ -42,7 +42,7 @@ func NewKeeper(
 		storeKey:      storeKey,
 		memKey:        memKey,
 		paramstore:    ps,
-		stakingKeeper: stakingKeeper,
+		// stakingKeeper: stakingKeeper,
 	}
 }
 
@@ -88,11 +88,11 @@ func (k Keeper) DistributeTokensToValidators(ctx sdk.Context, amount int64) {
 
 		// Calculate the amount based on the staking ratio
 		validatorStake := validator.BondedTokens()
-		validatorAmount := validatorStake.Quo(totalStakingTokens)
+		validatorAmount := validatorStake.QuoRaw(totalStakingTokens.Int64())
 		// validatorAmount := amount.Int64()
 
 		// Send tokens to the validator
-		k.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(validatorAddr), sdk.NewCoins(sdk.NewCoin("ANDR", sdk.NewInt(validatorAmount))))
+		k.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(validatorAddr), sdk.NewCoins(sdk.NewCoin("ANDR", sdk.NewInt(validatorAmount.Int64()))))
 	}
 }
 
