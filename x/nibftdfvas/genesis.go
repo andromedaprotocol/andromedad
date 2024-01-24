@@ -2,8 +2,8 @@ package nibtdfvas
 
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/andromedaprotocol/andromedad//x/nibtdfvas/keeper"
-	"github.com/andromedaprotocol/andromedad//x/nibtdfvas/types"
+	"github.com/andromedaprotocol/andromedad/x/nibtdfvas/keeper"
+	"github.com/andromedaprotocol/andromedad/x/nibtdfvas/types"
 )
 
 // InitGenesis initializes the capability module's state from a provided genesis
