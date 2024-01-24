@@ -2,7 +2,7 @@ package types
 
 import (
 	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
-	"gopkg.in/yaml.v2"
+	// "gopkg.in/yaml.v2"
 )
 
 var _ paramtypes.ParamSet = (*Params)(nil)
@@ -32,8 +32,8 @@ func (p Params) Validate() error {
 	return nil
 }
 
-// String implements the Stringer interface.
-func (p Params) String() string {
-	out, _ := yaml.Marshal(p)
-	return string(out)
-}
+// // String implements the Stringer interface.
+// func (p Params) String() string {
+// 	out, _ := yaml.Marshal(p)
+// 	return string(out)
+// }
