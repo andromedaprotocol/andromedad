@@ -19,5 +19,5 @@ app_state:
   nibtdfvas:
     params:
       TokenOutflowPerBlock: 3
-      DirectToValidatorPercent: 30
+      DirectToValidatorPercent: 20
 
