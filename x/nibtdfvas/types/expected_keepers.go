@@ -1,7 +1,7 @@
 package types
 
 import (
-	math "cosmossdk.io/math"
+	"cosmossdk.io/math"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
@@ -11,6 +11,8 @@ type StakingKeeper interface {
 	// Methods imported from staking should be defined here
 	GetBondedValidatorsByPower(ctx sdk.Context) []stakingtypes.Validator
 	StakingTokenSupply(ctx sdk.Context) math.Int
+	GetValidatorDelegations(ctx sdk.Context, valAddr sdk.ValAddress) []stakingtypes.Delegation
+	TotalBondedTokens(ctx sdk.Context) sdk.Int
 }
 
 // AccountKeeper defines the expected account keeper used for simulations (noalias)

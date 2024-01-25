@@ -107,6 +107,7 @@ import (
 const (
 	AccountAddressPrefix = "cosmos"
 	Name                 = "andromedad"
+	DefaultBondDenom		 = "ANDR"
 )
 
 // this line is used by starport scaffolding # stargate/wasm/app/enabledProposals
@@ -396,10 +397,10 @@ func New(
 		keys[nibtdfvasmoduletypes.StoreKey],
 		keys[nibtdfvasmoduletypes.MemStoreKey],
 		app.GetSubspace(nibtdfvasmoduletypes.ModuleName),
-
+		// app.BankKeeper,
 		// app.StakingKeeper,
 	)
-	nibtdfvasModule := nibtdfvasmodule.NewAppModule(appCodec, app.NibtdfvasKeeper, app.AccountKeeper, app.BankKeeper)
+	nibtdfvasModule := nibtdfvasmodule.NewAppModule(appCodec, app.NibtdfvasKeeper, app.AccountKeeper)
 
 	// app.TwoKeeper = *twomodulekeeper.NewKeeper(
 	// 	appCodec,

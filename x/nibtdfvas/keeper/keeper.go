@@ -4,10 +4,11 @@ import (
 	"fmt"
 
 	"github.com/tendermint/tendermint/libs/log"
-
+	// "cosmossdk.io/math"
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
+	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 	"andromedad/x/nibtdfvas/types"
 )
 
@@ -43,6 +44,7 @@ func NewKeeper(
 		memKey:        memKey,
 		paramstore:    ps,
 		// stakingKeeper: stakingKeeper,
+		// bankKeeper:		 bankKeeper,
 	}
 }
 
@@ -66,8 +68,8 @@ func (k Keeper) DistributeTokens(ctx sdk.Context, params types.Params) {
 
 	// Distribute tokens per block
 	blockReward := currentParams.TokenOutflowPerBlock
-	directToValidator := (currentParams.DirectToValidatorPercent * blockReward) / 100
-	toStakers := int(blockReward - directToValidator)
+	directToValidator := ((currentParams.DirectToValidatorPercent) * (blockReward)) / 100
+	toStakers := blockReward - directToValidator
 
 	// Distribute tokens to validators
 	k.DistributeTokensToValidators(ctx, directToValidator)
@@ -79,36 +81,54 @@ func (k Keeper) DistributeTokens(ctx sdk.Context, params types.Params) {
 func (k Keeper) DistributeTokensToValidators(ctx sdk.Context, amount int64) {
 	// Implement logic to distribute tokens to validators
 	// daoParams := k.GetDAOParams(ctx)
-	totalStakingTokens := k.stakingKeeper.StakingTokenSupply(ctx)
+	totalStakingTokens := k.stakingKeeper.TotalBondedTokens(ctx)
 
-	// Iterate over validators and distribute tokens
+	// // Iterate over validators and distribute tokens
 	validatorIterator := k.stakingKeeper.GetBondedValidatorsByPower(ctx)
 	for _, validator := range validatorIterator {
 		validatorAddr := validator.OperatorAddress
 
 		// Calculate the amount based on the staking ratio
 		validatorStake := validator.BondedTokens()
-		validatorAmount := validatorStake.QuoRaw(totalStakingTokens.Int64())
+		validatorAmount := amount * (validatorStake.Int64()) / (totalStakingTokens.Int64())
+
+		// x := validatorAmount.Int64() / amount
 		// validatorAmount := amount.Int64()
 
 		// Send tokens to the validator
-		k.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(validatorAddr), sdk.NewCoins(sdk.NewCoin("ANDR", sdk.NewInt(validatorAmount.Int64()))))
+		k.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(validatorAddr), sdk.NewCoins(sdk.NewCoin("ANDR", sdk.NewInt(validatorAmount))))
 	}
 }
 
-func (k Keeper) DistributeTokensToStakers(ctx sdk.Context, amount int) {
+func (k Keeper) DistributeTokensToStakers(ctx sdk.Context, amount int64) {
 	// Implement logic to distribute tokens to stakers
 	// daoParams := k.GetDAOParams(ctx)
 
-	// Iterate over stakers and distribute tokens
-	// stakerIterator := k.bankKeeper.GetStakingKeeper().StakeIterator(ctx)
-	// for ; stakerIterator.Valid(); stakerIterator.Next() {
-	// 	stakerAddr := stakerIterator.Key()
+	// // Iterate over validators and distribute tokens
+	validatorIterator := k.stakingKeeper.GetBondedValidatorsByPower(ctx)
+	for _, validator := range validatorIterator {
 
-	// 	// Implement your logic to calculate the amount for each staker
-	// 	stakerAmount := amount / stakerIterator.Count()
+		delegations := k.stakingKeeper.GetValidatorDelegations(ctx, validator.GetOperator())
+		totalDelegated := k.sumDelegations(delegations)
 
-	// 	// Send tokens to the staker
-	// 	k.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(stakerAddr), sdk.NewCoins(sdk.NewCoin("ANDR", sdk.NewInt(int64(stakerAmount)))))
-	// }
+		for _, delegation := range delegations {
+			delegatorReward := ((delegation.GetShares().MulInt64(amount)).Quo(totalDelegated))
+			k.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(delegation.GetDelegatorAddr()), sdk.NewCoins(sdk.NewCoin("ANDR", sdk.NewInt(delegatorReward.RoundInt64()))))
+		}
+
+		// Calculate the amount based on the staking ratio
+		// validatorStake := validator.BondedTokens()
+		// validatorAmount := validatorStake.QuoRaw(totalStakingTokens.Int64())
+		// // validatorAmount := amount.Int64()
+
+		// // Send tokens to the validator
+		// k.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(validatorAddr), sdk.NewCoins(sdk.NewCoin("ANDR", sdk.NewInt(validatorAmount.Int64()))))
+	}
+}
+
+func (k Keeper) sumDelegations (delegations []stakingtypes.Delegation) (sum sdk.Dec) {
+	for _, delegation := range delegations {
+		sum = sum.Add(delegation.GetShares())
+	}
+	return sum
 }
