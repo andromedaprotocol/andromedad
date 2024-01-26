@@ -2,6 +2,8 @@ package nibtdfvas
 
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	// "cosmossdk.io/math"
+	// bk "github.com/cosmos/cosmos-sdk/x/bank/keeper"
 
 	"andromedad/x/nibtdfvas/keeper"
 	"andromedad/x/nibtdfvas/types"
@@ -11,6 +13,7 @@ import (
 func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) {
 	// this line is used by starport scaffolding # genesis/module/init
 	k.SetParams(ctx, genState.Params)
+	// k.Send(ctx)
 }
 
 // ExportGenesis returns the module's exported genesis.

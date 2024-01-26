@@ -2,15 +2,15 @@ version: 1
 accounts:
 - name: treasury
   coins:
-  - 1000000token
+  - 1000000ANDR
   - 10stake
 - name: alice
   coins:
-  - 20000token
+  - 20000ANDR
   - 200000000stake
 - name: bob
   coins:
-  - 10000token
+  - 10000ANDR
   - 100000000stake
 client:
   openapi:
@@ -18,7 +18,7 @@ client:
 faucet:
   name: bob
   coins:
-  - 5token
+  - 5ANDR
   - 100000stake
 validators:
 - name: alice
@@ -27,6 +27,9 @@ validators:
   bonded: 50000000stake
 genesis:
   app_state:
+    staking:
+      params:
+        bond_denom: "stake"
     nibtdfvas:
       params:
         TokenOutflowPerBlock: 3

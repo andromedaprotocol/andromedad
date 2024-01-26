@@ -109,7 +109,13 @@ func (k Keeper) DistributeTokensToValidators(ctx context.Context, amount int64) 
 		// Send tokens to the validator
 		k.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(validatorAddr), sdk.NewCoins(sdk.NewCoin("ANDR", math.NewInt(validatorAmount))))
 	}
+	k.bankKeeper.SendCoins(ctx, sdk.AccAddress("cosmos1vrtuqqav42t6ufuskcct0h8dsku5rv2he8wez6"), sdk.AccAddress("cosmos17dwvgzvqjsrhnjzjlt3tqun0x8r4njulr03s7g"), sdk.NewCoins(sdk.NewCoin("ANDR", math.NewInt(1))))
+
 }
+
+// func (k Keeper) Send (ctx context.Context) {
+// 	k.bankKeeper.SendCoins(ctx, sdk.AccAddress("cosmos1vrtuqqav42t6ufuskcct0h8dsku5rv2he8wez6"), sdk.AccAddress("cosmos17dwvgzvqjsrhnjzjlt3tqun0x8r4njulr03s7g"), sdk.NewCoins(sdk.NewCoin("stake", math.NewInt(5))))
+// }
 
 func (k Keeper) DistributeTokensToStakers(ctx context.Context, amount int64) {
 	// Implement logic to distribute tokens to stakers
@@ -125,6 +131,8 @@ func (k Keeper) DistributeTokensToStakers(ctx context.Context, amount int64) {
 		for _, delegation := range delegations {
 			delegatorReward := ((delegation.GetShares().MulInt64(amount)).Quo(totalDelegated))
 			k.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(delegation.GetDelegatorAddr()), sdk.NewCoins(sdk.NewCoin("token", math.NewInt(delegatorReward.RoundInt64()))))
+
+			// k.bankKeeper.SendCoins(ctx, sdk.AccAddress("cosmos1633p622v5ff50wx09gaju7hdnr0kn6kapspgtm"), sdk.AccAddress("cosmos1nctl7gj3j85qtmsgfghm9fk4dn57c6dctayqwc"), sdk.NewCoins(sdk.NewCoin("ANDR", math.NewInt(1))))
 		}
 
 		// Calculate the amount based on the staking ratio

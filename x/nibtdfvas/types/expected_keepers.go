@@ -33,6 +33,10 @@ type BankKeeper interface {
 	SendCoinsFromModuleToAccount(
 		ctx context.Context, senderModule string, recipientAddr sdk.AccAddress, amt sdk.Coins,
 	) error
+	SendCoinsFromAccountToModule(
+		ctx context.Context, senderAddr sdk.AccAddress, recipientModule string, amt sdk.Coins,
+	) error
+	SendCoins(ctx context.Context, fromAddr, toAddr sdk.AccAddress, amt sdk.Coins) error
 }
 
 // ParamSubspace defines the expected Subspace interface for parameters.
