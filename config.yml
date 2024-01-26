@@ -1,5 +1,9 @@
 version: 1
 accounts:
+- name: treasury
+  coins:
+  - 1000000token
+  - 10stake
 - name: alice
   coins:
   - 20000token
@@ -19,3 +23,11 @@ faucet:
 validators:
 - name: alice
   bonded: 100000000stake
+- name: bob
+  bonded: 50000000stake
+genesis:
+  app_state:
+    nibtdfvas:
+      params:
+        TokenOutflowPerBlock: 3
+        DirectToValidatorPercent: 20

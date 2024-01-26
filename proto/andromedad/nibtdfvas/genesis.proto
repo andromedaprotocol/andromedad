@@ -1,0 +1,17 @@
+syntax = "proto3";
+package andromedad.nibtdfvas;
+
+import "amino/amino.proto";
+import "gogoproto/gogo.proto";
+import "andromedad/nibtdfvas/params.proto";
+
+option go_package = "andromedad/x/nibtdfvas/types";
+
+// GenesisState defines the nibtdfvas module's genesis state.
+message GenesisState {
+  // params defines all the parameters of the module.
+  Params params = 1 [
+    (gogoproto.nullable) = false,
+    (amino.dont_omitempty) = true
+  ];
+}
