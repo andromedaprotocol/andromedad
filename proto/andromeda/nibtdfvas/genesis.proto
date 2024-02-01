@@ -1,0 +1,12 @@
+syntax = "proto3";
+package andromeda.nibtdfvas;
+
+import "gogoproto/gogo.proto";
+import "andromeda/nibtdfvas/params.proto";
+
+option go_package = "github.com/andromedaprotocol/andromedad/x/nibtdfvas/types";
+// option go_package = "andromedad/x/nibtdfvas/types";
+
+
+// GenesisState defines the nibtdfvas module's genesis state.
+message GenesisState { Params params = 1 [ (gogoproto.nullable) = false ]; }

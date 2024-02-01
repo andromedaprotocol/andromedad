@@ -1,0 +1,27 @@
+syntax = "proto3";
+package andromeda.nibtdfvas;
+
+import "gogoproto/gogo.proto";
+
+option go_package = "github.com/andromedaprotocol/andromedad/x/nibtdfvas/types";
+// option go_package = "andromedad/x/nibtdfvas/types";
+
+
+// // Params defines the parameters for the module.
+// message Params {
+//   option (gogoproto.goproto_stringer) = false;
+
+//   int64 TokenOutflowPerBlock = 1
+//       [ (gogoproto.moretags) = "yaml:\"token_outflow_per_block\"" ];
+//   int64 DirectToValidatorPercent = 2
+//       [ (gogoproto.moretags) = "yaml:\"dircet_to_validator_percent\"" ];
+// }
+
+// Params defines the parameters for the module.
+message Params {
+//   option (amino.name) = "andromedad/x/nibtdfvas/Params";
+  option (gogoproto.equal) = true;
+  int64 TokenOutflowPerBlock = 1;
+  int64 DirectToValidatorPercent = 2;
+  
+}
