@@ -14,8 +14,21 @@ import (
 
 
 // Called every block, update validator set
+// func EndBlocker(ctx sdk.Context, k types.StakingKeeper) []abci.ValidatorUpdate {
+// 	defer telemetry.ModuleMeasureSince(types.ModuleName, time.Now(), telemetry.MetricKeyEndBlocker)
+// 	res := k.BlockValidatorUpdates(ctx)
+// 	return res
+// }
+func BeginBlocker(ctx sdk.Context, k keeper.Keeper) {
+	defer telemetry.ModuleMeasureSince(types.ModuleName, time.Now(), telemetry.MetricKeyBeginBlocker)
+	// TokenOutflowPerBlock := k.GetTokenOutflowPerBlock(ctx)
+	// DirectToValidatorPercent := k.GetDirectToValidator(ctx)
+	k.DistributeTokens(ctx)
+
+}
+
+
 func EndBlocker(ctx sdk.Context, k keeper.Keeper) []abci.ValidatorUpdate {
 	defer telemetry.ModuleMeasureSince(types.ModuleName, time.Now(), telemetry.MetricKeyEndBlocker)
-
-	return k.bankKeeper.BlockValidatorUpdates(types.StakingKeeper, ctx)
+	return k.ValidatorUpdate(ctx)
 }

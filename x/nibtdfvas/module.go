@@ -149,11 +149,14 @@ func (AppModule) ConsensusVersion() uint64 { return 1 }
 
 // BeginBlock contains the logic that is automatically triggered at the beginning of each block
 func (am AppModule) BeginBlock(ctx sdk.Context, _ abci.RequestBeginBlock) {
-	// BeginBlocker(ctx, am.keeper)
+	BeginBlocker(ctx, am.keeper)
 }
 
 // EndBlock contains the logic that is automatically triggered at the end of each block
 func (am AppModule) EndBlock(ctx sdk.Context, _ abci.RequestEndBlock) []abci.ValidatorUpdate {
+	// return EndBlocker(ctx, am.stakingKeeper)
 	return EndBlocker(ctx, am.keeper)
+
+	// am.bankKeeper.storeKey
 	// return []abci.ValidatorUpdate{}
 }

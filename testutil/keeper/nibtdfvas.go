@@ -39,6 +39,7 @@ func NibtdfvasKeeper(t testing.TB) (*keeper.Keeper, sdk.Context) {
 		storeKey,
 		memStoreKey,
 		authtypes.NewModuleAddress(govtypes.ModuleName),
+		
 	)
 
 	ctx := sdk.NewContext(stateStore, tmproto.Header{}, false, log.NewNopLogger())

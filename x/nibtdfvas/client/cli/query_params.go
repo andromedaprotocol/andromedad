@@ -1,7 +1,7 @@
 package cli
 
 import (
-	"context"
+	// "context"
 
 	"github.com/andromedaprotocol/andromedad/x/nibtdfvas/types"
 	// "andromedad/x/nibtdfvas/types"
@@ -21,7 +21,7 @@ func CmdQueryParams() *cobra.Command {
 
 			queryClient := types.NewQueryClient(clientCtx)
 
-			res, err := queryClient.Params(context.Background(), &types.QueryParamsRequest{})
+			res, err := queryClient.Params(cmd.Context(), &types.QueryParamsRequest{})
 			if err != nil {
 				return err
 			}

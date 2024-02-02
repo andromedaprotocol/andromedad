@@ -289,6 +289,7 @@ var (
 		wasmtypes.ModuleName:                {authtypes.Burner},
 		alliancemoduletypes.ModuleName:      {authtypes.Minter, authtypes.Burner},
 		alliancemoduletypes.RewardsPoolName: nil,
+		nibtdfvasmoduletypes.ModuleName:		 {authtypes.Minter, authtypes.Burner, authtypes.Staking},
 	}
 )
 
