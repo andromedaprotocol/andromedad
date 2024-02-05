@@ -19,11 +19,11 @@ import (
 // 	res := k.BlockValidatorUpdates(ctx)
 // 	return res
 // }
-func BeginBlocker(ctx sdk.Context, k keeper.Keeper) {
+func BeginBlocker(ctx sdk.Context, req abci.RequestBeginBlock, k keeper.Keeper) {
 	defer telemetry.ModuleMeasureSince(types.ModuleName, time.Now(), telemetry.MetricKeyBeginBlocker)
 	// TokenOutflowPerBlock := k.GetTokenOutflowPerBlock(ctx)
 	// DirectToValidatorPercent := k.GetDirectToValidator(ctx)
-	k.DistributeTokens(ctx)
+	k.DistributeTokens(ctx, req)
 
 }
 

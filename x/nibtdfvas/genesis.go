@@ -28,7 +28,7 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 	// Mint 10,000 stake coins
 	mintCoins := sdk.NewCoins(sdk.NewCoin("token", sdk.NewInt(1000000)))
 
-	if err := k.Mint(ctx, mintCoins); err != nil {
+	if err := k.Mint(ctx, types.ModuleName, mintCoins); err != nil {
 		panic(err)
 	}
 

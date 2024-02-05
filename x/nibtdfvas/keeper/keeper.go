@@ -18,7 +18,6 @@ import (
 	// "andromedad/x/nibtdfvas/types"
 	"github.com/andromedaprotocol/andromedad/x/nibtdfvas/types"
 	"cosmossdk.io/math"
-
 )
 
 type (
@@ -67,11 +66,11 @@ func (k Keeper) GetNibtdfvasAccount(ctx sdk.Context) authtypes.ModuleAccountI {
 	return k.accountKeeper.GetModuleAccount(ctx, types.ModuleName)
 }
 
-func (k Keeper) Mint(ctx sdk.Context, mintCoins sdk.Coins) error {
+func (k Keeper) Mint(ctx sdk.Context, moduleName string, mintCoins sdk.Coins) error {
 	if !mintCoins.IsValid() {
 		return fmt.Errorf("invalid mint coins: %s", mintCoins.String())
 	}
-	return k.bankKeeper.MintCoins(ctx, types.ModuleName, mintCoins)
+	return k.bankKeeper.MintCoins(ctx, moduleName, mintCoins)
 }
 
 func (k Keeper) SendCoinsFromModuleToModule(ctx sdk.Context, mintCoins sdk.Coins) error {
@@ -82,22 +81,22 @@ func (k Keeper) ValidatorUpdate(ctx sdk.Context) []abci.ValidatorUpdate {
 	return k.stakingKeeper.BlockValidatorUpdates(ctx)
 }
 
-func (k Keeper) DistributeTokens(ctx sdk.Context) {
-	denom := k.stakingKeeper.BondDenom(ctx)
-	// // _ = denom
-	// TokenOutflowPerBlock := k.GetTokenOutflowPerBlock(ctx)
-	// DirectToValidatorPercent := k.GetDirectToValidator(ctx)
+func (k Keeper) DistributeTokens(ctx sdk.Context, req abci.RequestBeginBlock) {
 
-	// validators := k.stakingKeeper.GetBondedValidatorsByPower(ctx)
 
-	// for _, validator := range validators {
-	// 	TotalTokensFromValidators = 
+	// // determine the total power signing the block
+	// var previousTotalPower int64
+
+	// for _, voteInfo := range req.LastCommitInfo.GetVotes() {
+	// 	previousTotalPower += voteInfo.Validator.Power
 	// }
+
+	denom := k.stakingKeeper.BondDenom(ctx)
 
 	currentParams := k.GetParams(ctx)
 
 
-	blockReward := math.LegacyNewDec(currentParams.TokenOutflowPerBlock * 1000000)
+	blockReward := math.LegacyNewDec(currentParams.TokenOutflowPerBlock)
 	// directToValidator := ((currentParams.DirectToValidatorPercent) * (blockReward)) / 100
 	directToValidator := (math.LegacyNewDec(currentParams.DirectToValidatorPercent).Quo(blockReward)).Quo(math.LegacyNewDec(100))
 	toStakers := blockReward.Sub(directToValidator)
@@ -108,16 +107,16 @@ func (k Keeper) DistributeTokens(ctx sdk.Context) {
 
 	if !(blockReward.GT(math.LegacyNewDecFromInt(balanceOfModule.Amount))) {
 
-		k.DistributeTokensToValidators(ctx, directToValidator)
+		k.DistributeTokensToValidators(ctx, req, directToValidator)
 
-		k.DistributeTokensToStakers(ctx, toStakers)
+		k.DistributeTokensToStakers(ctx, req, toStakers)
 	} else {
 		k.Logger(ctx).Error("Insufficient balance for token distribution")
 	}
 }
 
 
-func (k Keeper) DistributeTokensToValidators(ctx sdk.Context, amount math.LegacyDec) {
+func (k Keeper) DistributeTokensToValidators(ctx sdk.Context, req abci.RequestBeginBlock, amount math.LegacyDec) {
 
 	denom := k.stakingKeeper.BondDenom(ctx)
 
@@ -146,7 +145,7 @@ func (k Keeper) DistributeTokensToValidators(ctx sdk.Context, amount math.Legacy
 }
 
 
-func (k Keeper) DistributeTokensToStakers(ctx sdk.Context, amount math.LegacyDec) {
+func (k Keeper) DistributeTokensToStakers(ctx sdk.Context, req.RequestBeginBlock, amount math.LegacyDec) {
 
 	denom := k.stakingKeeper.BondDenom(ctx)
 
@@ -163,4 +162,3 @@ func (k Keeper) DistributeTokensToStakers(ctx sdk.Context, amount math.LegacyDec
 		}
 	}
 }
-

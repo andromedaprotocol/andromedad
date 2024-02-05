@@ -1,20 +1,34 @@
 package keeper_test
 // import (
 // 	"testing"
+// 	// "fmt"
 
-// 	"github.com/cosmos/cosmos-sdk/crypto/keys/secp256k1"
-// 	"github.com/cosmos/cosmos-sdk/store/types"
+// 	// "github.com/cosmos/cosmos-sdk/crypto/keys/secp256k1"
+// 	// "github.com/cosmos/cosmos-sdk/store/types"
 // 	sdk "github.com/cosmos/cosmos-sdk/types"
 // 	"github.com/stretchr/testify/require"
+// 	// "github.com/andromedaprotocol/andromedad/testutil/keeper"
+// 	keepertest "github.com/andromedaprotocol/andromedad/testutil/keeper"
+// 	"github.com/andromedaprotocol/andromedad/x/nibtdfvas/types"
 // )
 
 // func TestMint(t *testing.T) {
 // 	// Create a mock context and a Keeper instance
-// 	ctx, keeper := createMockContextAndKeeper()
+// 	// ctx, keeper := createMockContextAndKeeper()
+// 	keeper, ctx := keepertest.NibtdfvasKeeper(t)
 
 // 	// Mint some coins
 // 	mintCoins := sdk.NewCoins(sdk.NewCoin("token", sdk.NewInt(100)))
-// 	err := keeper.Mint(ctx, mintCoins)
+
+
+// 	// moduleAcc := keeper.GetNibtdfvasAccount(ctx)
+// 	// if moduleAcc == nil {
+// 	// 	panic(fmt.Sprintf("%s module account has not been set", types.ModuleName))
+// 	// }
+
+
+// 	err := keeper.Mint(ctx, types.ModuleName, mintCoins)
+
 
 // 	// Verify that the minting was successful
 // 	require.NoError(t, err)
