@@ -66,14 +66,14 @@ func TestNibtdfvasKeeper(t *testing.T) {
 
 	preModuleBalance := bankKeeper.GetBalance(ctx, moduleAddress, "andr").Amount
 	// fmt.Println("preModuleBalance value:", preModuleBalance)
-	require.Equal(t, preModuleBalance, sdk.NewInt(1000000))
+	require.Equal(t, preModuleBalance, sdk.NewInt(0))
 
 	err = nibtdfvasKeeper.MintCoins(ctx, types.ModuleName, tokens)
 	require.NoError(t, err)
 
 	afterModuleBalance := bankKeeper.GetBalance(ctx, moduleAddress, "andr").Amount
 	// fmt.Println("afterModuleBalance value:", afterModuleBalance)
-	require.Equal(t, afterModuleBalance, sdk.NewInt(1010000))
+	require.Equal(t, afterModuleBalance, sdk.NewInt(10000))
 
 	acc := nibtdfvasKeeper.GetNibtdfvasAccount(ctx)
 	// fmt.Println("acc value:", acc)
