@@ -34,7 +34,7 @@ func TestGenesisState_Validate(t *testing.T) {
 			desc: "valid genesis state",
 			genState: &types.GenesisState{
 				Params: types.Params{
-					TokenOutflowPerBlock: 3,
+					TokenOutflowPerBlock: 30,
 					DirectToValidatorPercent: 20,
 				},
 			},

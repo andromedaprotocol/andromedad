@@ -9,6 +9,7 @@ import (
 	simtestutil "github.com/cosmos/cosmos-sdk/testutil/sims"
 	authkeeper "github.com/cosmos/cosmos-sdk/x/auth/keeper"
 	bankkeeper "github.com/cosmos/cosmos-sdk/x/bank/keeper"
+	stakingkeeper "github.com/cosmos/cosmos-sdk/x/staking/keeper"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 
 	"github.com/andromedaprotocol/andromedad/x/nibtdfvas/testutil"
@@ -22,7 +23,7 @@ func TestItCreatesModuleAccountOnInitBlock(t *testing.T) {
 	var stakingKeeper *stakingkeeper.Keeper
 	var nibtdfvasKeeper nibtdfvaskeeper.Keeper
 
-	app, err := simtestutil.Setup(testutil.AppConfig, &accountKeeper, &bankKeeper, stakingKeeper, &nibtdfvasKeeper)
+	app, err := simtestutil.Setup(testutil.AppConfig, &accountKeeper, &bankKeeper, &stakingKeeper, &nibtdfvasKeeper)
 	require.NoError(t, err)
 
 	ctx := app.BaseApp.NewContext(false, tmproto.Header{})

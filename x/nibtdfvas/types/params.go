@@ -96,8 +96,8 @@ func (p *Params) Validate() error {
 
 func validateGenesisParams(p1 interface{}, p2 interface{}) error {
 
-	_, ok1 := p1.(int64)
-	_, ok2 := p2.(int64)
+	TokenOutflowPerBlock, ok1 := p1.(int64)
+	DirectToValidatorPercent, ok2 := p2.(int64)
 	
 	if !ok1 {
 		return fmt.Errorf("TokenOutflowPerBlock must be int64")
@@ -107,13 +107,13 @@ func validateGenesisParams(p1 interface{}, p2 interface{}) error {
 		return fmt.Errorf("DirectToValidatorPercent must be int64")
 	}
 
-	// if TokenOutflowPerBlock != 30 && TokenOutflowPerBlock != 0 {
-	// 	return fmt.Errorf("TokenOutflowPerBlock must be 3")
-	// }
+	if TokenOutflowPerBlock != 30 && TokenOutflowPerBlock != 0 {
+		return fmt.Errorf("TokenOutflowPerBlock must be 3")
+	}
 
-	// if DirectToValidatorPercent != 20 && DirectToValidatorPercent != 0 {
-	// 	return fmt.Errorf("DirectToValidatorPercent must be 20")
-	// }
+	if DirectToValidatorPercent != 20 && DirectToValidatorPercent != 0 {
+		return fmt.Errorf("DirectToValidatorPercent must be 20")
+	}
 
 	return nil
 }
