@@ -79,7 +79,7 @@ func TestNibtdfvasKeeper(t *testing.T) {
 	// fmt.Println("acc value:", acc)
 	require.NotNil(t, acc)
 
-	err = nibtdfvasKeeper.SendCoinsFromModuleToModule(ctx, tokens)
+	err = nibtdfvasKeeper.SendCoinsFromModuleToModule(ctx, types.ModuleName, types.ModuleName, tokens)
 	require.NoError(t, err)
 
 	updatedVal := nibtdfvasKeeper.ValidatorUpdate(ctx)
