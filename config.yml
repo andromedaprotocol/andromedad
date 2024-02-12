@@ -39,3 +39,19 @@ genesis:
     staking:
       params:
         bond_denom: uandr
+    # distribution:
+    #   fee_pool:
+    #     community_pool:
+    #       - denom: uandr
+    #         amount: "1000000"
+    crisis:
+      constant_fee:
+        denom: uandr
+    gov:
+      params:
+        min_deposit:
+          - denom: uandr
+            amount: "10000000"
+    mint:
+      params:
+        mint_denom: uandr

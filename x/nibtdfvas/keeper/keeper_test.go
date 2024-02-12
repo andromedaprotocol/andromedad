@@ -118,7 +118,7 @@ func TestKeeperFunctions(t * testing.T) {
 	fmt.Println("Parameter value:", moduleBalance)
 	// require.Equal(t, moduleBalance, sdk.NewInt(0))
 
-	nibtdfvasKeeper.SendCoinsFromModuleToModule(ctx, sdk.NewCoins(sdk.NewCoin("andr", sdk.NewInt(100))))
+	nibtdfvasKeeper.SendCoinsFromModuleToModule(ctx, nibtdfvastypes.ModuleName, nibtdfvastypes.ModuleName, sdk.NewCoins(sdk.NewCoin("andr", sdk.NewInt(100))))
 
 	abciValA := abci.Validator{
 		Address: valConsPk0.Address(),

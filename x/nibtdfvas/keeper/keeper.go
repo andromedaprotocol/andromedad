@@ -73,8 +73,8 @@ func (k Keeper) MintCoins(ctx sdk.Context, moduleName string, mintCoins sdk.Coin
 	return k.bankKeeper.MintCoins(ctx, moduleName, mintCoins)
 }
 
-func (k Keeper) SendCoinsFromModuleToModule(ctx sdk.Context, mintCoins sdk.Coins) error {
-	return k.bankKeeper.SendCoinsFromModuleToModule(ctx, types.ModuleName, types.ModuleName, mintCoins)
+func (k Keeper) SendCoinsFromModuleToModule(ctx sdk.Context, senderModule, recipientModule string, mintCoins sdk.Coins) error {
+	return k.bankKeeper.SendCoinsFromModuleToModule(ctx, senderModule, recipientModule, mintCoins)
 }
 
 func (k Keeper) ValidatorUpdate(ctx sdk.Context) []abci.ValidatorUpdate {
