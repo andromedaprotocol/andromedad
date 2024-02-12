@@ -10,17 +10,17 @@ build:
 accounts:
 - name: alice
   coins:
-  - 20000token
-  - 200000000stake
+  - 20000andr
+  - 200000000uandr
 - name: bob
   coins:
-  - 10000token
-  - 100000000stake
+  - 10000andr
+  - 100000000uandr
 faucet:
   name: bob
   coins:
-  - 5token
-  - 100000stake
+  - 5andr
+  - 100000uandr
   host: 0.0.0.0:4500
 client:
   vuex:
@@ -29,10 +29,13 @@ client:
     path: docs/static/openapi.yml
 validators:
 - name: alice
-  bonded: 100000000stake
+  bonded: 100000000uandr
 genesis:
   app_state:
     nibtdfvas:
       params:
-        TokenOutflowPerBlock: 3
+        TokenOutflowPerBlock: 30
         DirectToValidatorPercent: 20
+    staking:
+      params:
+        bond_denom: uandr

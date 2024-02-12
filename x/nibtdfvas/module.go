@@ -8,6 +8,12 @@ import (
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"github.com/spf13/cobra"
 
+	"cosmossdk.io/core/appmodule"
+	// "github.com/cosmos/cosmos-sdk/store"
+	"cosmossdk.io/depinject"
+	_ "cosmossdk.io/core/store"
+	// "cosmossdk.io/log"
+
 	abci "github.com/cometbft/cometbft/abci/types"
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/codec"
@@ -18,6 +24,11 @@ import (
 	"github.com/andromedaprotocol/andromedad/x/nibtdfvas/client/cli"
 	"github.com/andromedaprotocol/andromedad/x/nibtdfvas/keeper"
 	"github.com/andromedaprotocol/andromedad/x/nibtdfvas/types"
+
+	nibtdfvasmodule "github.com/andromedaprotocol/andromedad/api/andromeda/nibtdfvas/module"
+	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
+	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types"
+	storetypes "github.com/cosmos/cosmos-sdk/store/types"
 
 	// "andromedad/x/nibtdfvas/client/cli"
 	// "andromedad/x/nibtdfvas/keeper"
@@ -159,4 +170,67 @@ func (am AppModule) EndBlock(ctx sdk.Context, _ abci.RequestEndBlock) []abci.Val
 
 	// am.bankKeeper.storeKey
 	// return []abci.ValidatorUpdate{}
+}
+
+// IsOnePerModuleType implements the depinject.OnePerModuleType interface.
+func (am AppModule) IsOnePerModuleType() {}
+
+// IsAppModule implements the appmodule.AppModule interface.
+func (am AppModule) IsAppModule() {}
+
+
+
+func init() {
+	appmodule.Register(
+		&nibtdfvasmodule.Module{},
+		appmodule.Provide(ProvideModule),
+	)
+}
+
+type ModuleInputs struct {
+	depinject.In
+
+	StoreKey     *storetypes.KVStoreKey
+	// MemKey       storetypes.StoreKey
+	Cdc          codec.Codec
+	Config       *nibtdfvasmodule.Module
+
+	AccountKeeper types.AccountKeeper
+	BankKeeper    types.BankKeeper
+	StakingKeeper types.StakingKeeper
+}
+
+type ModuleOutputs struct {
+	depinject.Out
+
+	NibtdfvasKeeper keeper.Keeper
+	Module          appmodule.AppModule
+}
+
+func ProvideModule(in ModuleInputs) ModuleOutputs {
+	// default to governance authority if not provided
+	authority := authtypes.NewModuleAddress(govtypes.ModuleName)
+	if in.Config.Authority != "" {
+		authority = authtypes.NewModuleAddressOrBech32Address(in.Config.Authority)
+	}
+	// storeKey := sdk.NewKVStoreKey(types.StoreKey)
+	// memStoreKey := storetypes.NewMemoryStoreKey(types.MemStoreKey)
+	k := keeper.NewKeeper(
+		in.Cdc,
+		in.StoreKey,
+		// in.MemKey,
+		authority,
+		in.AccountKeeper,
+		in.BankKeeper,
+		in.StakingKeeper,
+	)
+	m := NewAppModule(
+		in.Cdc,
+		k,
+		in.AccountKeeper,
+		in.BankKeeper,
+		in.StakingKeeper,
+	)
+
+	return ModuleOutputs{NibtdfvasKeeper: k, Module: m}
 }

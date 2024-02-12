@@ -37,16 +37,16 @@ import (
 	stakingkeeper "github.com/cosmos/cosmos-sdk/x/staking/keeper"
 )
 
-func NibtdfvasKeeper(t testing.TB) (*keeper.Keeper, sdk.Context) {
+func NibtdfvasKeeper(t testing.TB) (keeper.Keeper, sdk.Context) {
 
 	const Bech32Prefix = "andr"
 	storeKey := sdk.NewKVStoreKey(types.StoreKey)
-	memStoreKey := storetypes.NewMemoryStoreKey(types.MemStoreKey)
+	// memStoreKey := storetypes.NewMemoryStoreKey(types.MemStoreKey)
 
 	db := tmdb.NewMemDB()
 	stateStore := store.NewCommitMultiStore(db)
 	stateStore.MountStoreWithDB(storeKey, storetypes.StoreTypeIAVL, db)
-	stateStore.MountStoreWithDB(memStoreKey, storetypes.StoreTypeMemory, nil)
+	// stateStore.MountStoreWithDB(memStoreKey, storetypes.StoreTypeMemory, nil)
 	require.NoError(t, stateStore.LoadLatestVersion())
 
 	registry := codectypes.NewInterfaceRegistry()
@@ -87,8 +87,8 @@ func NibtdfvasKeeper(t testing.TB) (*keeper.Keeper, sdk.Context) {
 	k := keeper.NewKeeper(
 		cdc,
 		storeKey,
-		memStoreKey,
-		authtypes.NewModuleAddress("nibtdfvas"),
+		// memStoreKey,
+		authtypes.NewModuleAddress("gov"),
 		accountKeeper,
 		bankKeeper,
 		stakingKeeper,
@@ -99,7 +99,7 @@ func NibtdfvasKeeper(t testing.TB) (*keeper.Keeper, sdk.Context) {
 	// Initialize params
 	_ = k.SetParams(ctx, types.DefaultParams())
 
-	// moduleAccount := auth.NewModuleAccount(types.ModuleName, auth.Burner, auth.Minter)
+	// moduleAccount := authtypes.NewModuleAccount(types.ModuleName, authtypes.Burner, authtypes.Minter)
 
 	// moduleAcc := k.GetNibtdfvasAccount(ctx)
 	// if moduleAcc == nil {

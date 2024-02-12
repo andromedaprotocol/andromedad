@@ -96,8 +96,8 @@ func (p *Params) Validate() error {
 
 func validateGenesisParams(p1 interface{}, p2 interface{}) error {
 
-	TokenOutflowPerBlock, ok1 := p1.(int64)
-	DirectToValidatorPercent, ok2 := p2.(int64)
+	_, ok1 := p1.(int64)
+	_, ok2 := p2.(int64)
 	
 	if !ok1 {
 		return fmt.Errorf("TokenOutflowPerBlock must be int64")
@@ -107,28 +107,15 @@ func validateGenesisParams(p1 interface{}, p2 interface{}) error {
 		return fmt.Errorf("DirectToValidatorPercent must be int64")
 	}
 
-	if TokenOutflowPerBlock != 3 && TokenOutflowPerBlock != 0 {
-		return fmt.Errorf("TokenOutflowPerBlock must be 3")
-	}
+	// if TokenOutflowPerBlock != 30 && TokenOutflowPerBlock != 0 {
+	// 	return fmt.Errorf("TokenOutflowPerBlock must be 3")
+	// }
 
-	if DirectToValidatorPercent != 20 && DirectToValidatorPercent != 0 {
-		return fmt.Errorf("DirectToValidatorPercent must be 20")
-	}
+	// if DirectToValidatorPercent != 20 && DirectToValidatorPercent != 0 {
+	// 	return fmt.Errorf("DirectToValidatorPercent must be 20")
+	// }
 
 	return nil
-	// if !ok {
-	// 	return fmt.Errorf("invalid parameter type: %T", v)
-	// }
-
-	// txNibtdfvasPercentInt, err := strconv.Atoi(txNibtdfvasPercent)
-	// if err != nil {
-	// 	return err
-	// }
-	// if txNibtdfvasPercentInt < 0 || txNibtdfvasPercentInt > 100 {
-	// 	return fmt.Errorf("fee must be between 0 and 100")
-	// }
-
-	// return nil
 }
 
 
