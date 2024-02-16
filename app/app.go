@@ -134,6 +134,10 @@ import (
 	feeburnmodulekeeper "github.com/andromedaprotocol/andromedad/x/feeburn/keeper"
 	feeburnmoduletypes "github.com/andromedaprotocol/andromedad/x/feeburn/types"
 
+	nibtdfvasmodule "github.com/andromedaprotocol/andromedad/x/nibtdfvas"
+	nibtdfvasmodulekeeper "github.com/andromedaprotocol/andromedad/x/nibtdfvas/keeper"
+	nibtdfvasmoduletypes "github.com/andromedaprotocol/andromedad/x/nibtdfvas/types"
+
 	alliancemodule "github.com/terra-money/alliance/x/alliance"
 	alliancemoduleclient "github.com/terra-money/alliance/x/alliance/client"
 	alliancemodulekeeper "github.com/terra-money/alliance/x/alliance/keeper"
@@ -262,7 +266,10 @@ var (
 		transfer.AppModuleBasic{},
 		ica.AppModuleBasic{},
 		ibcfee.AppModuleBasic{},
+		// 
 		feeburnmodule.AppModuleBasic{},
+		nibtdfvasmodule.AppModuleBasic{},
+		// 
 		alliancemodule.AppModuleBasic{},
 		ibchooks.AppModuleBasic{},
 	)
@@ -282,6 +289,7 @@ var (
 		wasmtypes.ModuleName:                {authtypes.Burner},
 		alliancemoduletypes.ModuleName:      {authtypes.Minter, authtypes.Burner},
 		alliancemoduletypes.RewardsPoolName: nil,
+		nibtdfvasmoduletypes.ModuleName:		 {authtypes.Minter, authtypes.Burner, authtypes.Staking},
 	}
 )
 
@@ -336,6 +344,8 @@ type App struct {
 	wasmKeeper          wasmkeeper.Keeper
 
 	FeeburnKeeper  feeburnmodulekeeper.Keeper
+	NibtdfvasKeeper nibtdfvasmodulekeeper.Keeper
+
 	AllianceKeeper alliancemodulekeeper.Keeper
 	IBCHooksKeeper ibchookskeeper.Keeper
 
@@ -390,6 +400,7 @@ func New(
 		wasmtypes.StoreKey, icahosttypes.StoreKey,
 		icacontrollertypes.StoreKey,
 		feeburnmoduletypes.StoreKey,
+		nibtdfvasmoduletypes.StoreKey,
 		alliancemoduletypes.StoreKey,
 		ibchookstypes.StoreKey,
 	)
@@ -571,6 +582,16 @@ func New(
 		authtypes.NewModuleAddress(govtypes.ModuleName),
 	)
 
+	app.NibtdfvasKeeper = nibtdfvasmodulekeeper.NewKeeper(
+		appCodec,
+		keys[nibtdfvasmoduletypes.StoreKey],
+		// keys[nibtdfvasmoduletypes.MemStoreKey],
+		authtypes.NewModuleAddress(govtypes.ModuleName),
+		app.AccountKeeper,
+		app.BankKeeper,
+		app.StakingKeeper,
+	)
+
 	// Create evidence Keeper for to register the IBC light client misbehaviour evidence route
 	evidenceKeeper := evidencekeeper.NewKeeper(
 		appCodec, keys[evidencetypes.StoreKey], app.StakingKeeper, app.SlashingKeeper,
@@ -691,7 +712,10 @@ func New(
 		groupmodule.NewAppModule(appCodec, app.GroupKeeper, app.AccountKeeper, app.BankKeeper, app.interfaceRegistry),
 		nftmodule.NewAppModule(appCodec, app.NFTKeeper, app.AccountKeeper, app.BankKeeper, app.interfaceRegistry),
 		consensus.NewAppModule(appCodec, app.ConsensusParamsKeeper),
+
 		feeburnmodule.NewAppModule(appCodec, app.FeeburnKeeper, app.AccountKeeper, app.BankKeeper),
+		nibtdfvasmodule.NewAppModule(appCodec, app.NibtdfvasKeeper, app.AccountKeeper, app.BankKeeper, app.StakingKeeper),
+
 		wasm.NewAppModule(appCodec, &app.wasmKeeper, app.StakingKeeper, app.AccountKeeper, app.BankKeeper, app.MsgServiceRouter(), app.GetSubspace(wasmtypes.ModuleName)),
 		ibc.NewAppModule(app.IBCKeeper),
 		ibcfee.NewAppModule(app.IBCFeeKeeper),
@@ -712,7 +736,10 @@ func New(
 		authtypes.ModuleName, sdkbanktypes.ModuleName, govtypes.ModuleName, crisistypes.ModuleName, genutiltypes.ModuleName,
 		authz.ModuleName, feegrant.ModuleName, nft.ModuleName, group.ModuleName,
 		paramstypes.ModuleName, vestingtypes.ModuleName, consensustypes.ModuleName,
+
 		feeburnmoduletypes.ModuleName,
+		nibtdfvasmoduletypes.ModuleName,
+		
 		// additional non simd modules
 		ibctransfertypes.ModuleName,
 		ibcexported.ModuleName,
@@ -730,7 +757,10 @@ func New(
 		genutiltypes.ModuleName, evidencetypes.ModuleName, authz.ModuleName,
 		feegrant.ModuleName, nft.ModuleName, group.ModuleName,
 		paramstypes.ModuleName, upgradetypes.ModuleName, vestingtypes.ModuleName, consensustypes.ModuleName,
+
 		feeburnmoduletypes.ModuleName,
+		nibtdfvasmoduletypes.ModuleName,
+
 		// additional non simd modules
 		ibctransfertypes.ModuleName,
 		ibcexported.ModuleName,
@@ -754,7 +784,10 @@ func New(
 		minttypes.ModuleName, crisistypes.ModuleName, genutiltypes.ModuleName, evidencetypes.ModuleName, authz.ModuleName,
 		feegrant.ModuleName, nft.ModuleName, group.ModuleName, paramstypes.ModuleName, upgradetypes.ModuleName,
 		vestingtypes.ModuleName, consensustypes.ModuleName,
+		
 		feeburnmoduletypes.ModuleName,
+		nibtdfvasmoduletypes.ModuleName,
+
 		// additional non simd modules
 		ibctransfertypes.ModuleName,
 		ibcexported.ModuleName,
@@ -876,7 +909,10 @@ func New(
 		transfer.NewAppModule(app.TransferKeeper),
 		ibcfee.NewAppModule(app.IBCFeeKeeper),
 		ica.NewAppModule(&app.ICAControllerKeeper, &app.ICAHostKeeper),
+
 		feeburnmodule.NewAppModule(appCodec, app.FeeburnKeeper, app.AccountKeeper, app.BankKeeper),
+		nibtdfvasmodule.NewAppModule(appCodec, app.NibtdfvasKeeper, app.AccountKeeper, app.BankKeeper, app.StakingKeeper),
+
 		alliancemodule.NewAppModule(appCodec, app.AllianceKeeper, app.StakingKeeper, app.AccountKeeper, app.BankKeeper, app.interfaceRegistry, app.GetSubspace(alliancemoduletypes.ModuleName)),
 	)
 
@@ -1061,6 +1097,8 @@ func initParamsKeeper(appCodec codec.BinaryCodec, legacyAmino *codec.LegacyAmino
 	paramsKeeper.Subspace(icacontrollertypes.SubModuleName)
 	paramsKeeper.Subspace(wasmtypes.ModuleName).WithKeyTable(wasmtypes.ParamKeyTable()) //nolint:staticcheck
 	paramsKeeper.Subspace(feeburnmoduletypes.ModuleName)
+	paramsKeeper.Subspace(nibtdfvasmoduletypes.ModuleName)
+
 	paramsKeeper.Subspace(alliancemoduletypes.ModuleName).WithKeyTable(alliancemoduletypes.ParamKeyTable()) //nolint:staticcheck
 	return paramsKeeper
 }
