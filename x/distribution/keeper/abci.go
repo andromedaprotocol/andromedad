@@ -3,7 +3,7 @@ package keeper
 import (
 	"time"
 
-	"cosmossdk.io/x/distribution/types"
+	"github.com/cosmos/cosmos-sdkosmos/cosmos-sdk/x/distribution/types"
 
 	"github.com/cosmos/cosmos-sdk/telemetry"
 	sdk "github.com/cosmos/cosmos-sdk/types"

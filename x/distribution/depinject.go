@@ -1,14 +1,14 @@
 package distribution
 
 import (
-	modulev1 "cosmossdk.io/api/cosmos/distribution/module/v1"
-	"cosmossdk.io/core/appmodule"
-	"cosmossdk.io/depinject"
-	"cosmossdk.io/depinject/appconfig"
-	authtypes "cosmossdk.io/x/auth/types"
-	"cosmossdk.io/x/distribution/keeper"
-	"cosmossdk.io/x/distribution/types"
-	staking "cosmossdk.io/x/staking/types"
+	agithub.com/cosmos/cosmos-sdkosmos/cosmos-sdksmossdk.io/x/auth/types"
+	"github.com/cosmos/cosmos-sdk/x/distribution/keeper"
+	"github.com/cosmos/cosmos-sdk/x/distribution/types"
+	staking "github.com/cosmos/cosmos-sdk/x/staking/types"
+	modulev1 "github.com/cosmos/cosmos-sdk/api/cosmos/distribution/module/v1"
+	"github.com/cosmos/cosmos-sdk/core/appmodule"
+	"github.com/cosmos/cosmos-sdk/depinject"
+	"github.com/cosmos/cosmos-sdk/depinject/appconfig"
 
 	"github.com/cosmos/cosmos-sdk/codec"
 )

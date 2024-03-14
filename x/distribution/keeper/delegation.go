@@ -5,10 +5,10 @@ import (
 	"errors"
 	"fmt"
 
-	"cosmossdk.io/collections"
-	"cosmossdk.io/core/event"
-	"cosmossdk.io/math"
-	"cosmossdk.io/x/distribution/types"
+	"github.com/cosmos/cosmos-sdkosmos/cosmos-sdkosmos/cosmos-sdkosmos/cosmos-sdkosmos/cosmos-sdk/core/event"
+	"github.com/cosmos/cosmos-sdkosmos/cosmos-sdkosmos/cosmos-sdkosmos/cosmos-sdkosmos/cosmos-sdk/math"
+	"github.com/cosmos/cosmos-sdkosmos/cosmos-sdkosmos/cosmos-sdkosmos/cosmos-sdkosmos/cosmos-sdk/x/distribution/types"
+	"github.com/cosmos/cosmos-sdkosmos/cosmos-sdkosmos/cosmos-sdkosmos/cosmos-sdkosmos/cosmos-sdkosmos/cosmos-sdk/collections"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )

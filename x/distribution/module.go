@@ -9,12 +9,12 @@ import (
 	"github.com/spf13/cobra"
 	"google.golang.org/grpc"
 
-	"cosmossdk.io/core/appmodule"
-	"cosmossdk.io/core/registry"
-	"cosmossdk.io/x/distribution/client/cli"
-	"cosmossdk.io/x/distribution/keeper"
-	"cosmossdk.io/x/distribution/simulation"
-	"cosmossdk.io/x/distribution/types"
+	"github.com/cosmos/cosmos-sdk/x/distribution/types"
+	"github.com/cosmos/cosmos-sdkosmos/cosmos-sdk/core/appmodule"
+	"github.com/cosmos/cosmos-sdkosmos/cosmos-sdk/core/registry"
+	"github.com/cosmos/cosmos-sdkosmos/cosmos-sdk/x/distribution/client/cli"
+	"github.com/cosmos/cosmos-sdkosmos/cosmos-sdk/x/distribution/keeper"
+	"github.com/cosmos/cosmos-sdkosmos/cosmos-sdk/x/distribution/simulation"
 
 	sdkclient "github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/codec"

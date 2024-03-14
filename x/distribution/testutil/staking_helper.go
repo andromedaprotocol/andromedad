@@ -3,9 +3,9 @@ package testutil
 import (
 	"fmt"
 
-	"cosmossdk.io/math"
-	"cosmossdk.io/x/distribution/keeper"
-	stakingtypes "cosmossdk.io/x/staking/types"
+	"github.com/cosmos/cosmos-sdk/math"
+	"github.com/andromedaprotocol/andromedad/x/distribution/keeper"
+	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 
 	cryptotypes "github.com/cosmos/cosmos-sdk/crypto/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"

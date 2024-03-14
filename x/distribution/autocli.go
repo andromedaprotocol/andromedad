@@ -3,8 +3,8 @@ package distribution
 import (
 	"fmt"
 
-	autocliv1 "cosmossdk.io/api/cosmos/autocli/v1"
-	distributionv1beta1 "cosmossdk.io/api/cosmos/distribution/v1beta1"
+	distributiogithub.com/cosmos/cosmos-sdksmossdk.io/api/cosmos/distribution/v1beta1"
+	autocliv1 "github.com/cosmos/cosmos-sdk/api/cosmos/autocli/v1"
 
 	"github.com/cosmos/cosmos-sdk/version"
 )

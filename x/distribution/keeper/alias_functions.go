@@ -4,8 +4,8 @@ import (
 	"context"
 	"errors"
 
-	"cosmossdk.io/collections"
-	"cosmossdk.io/x/distribution/types"
+	"github.com/cosmos/cosmos-sdk/x/distribution/types"
+	"github.com/cosmos/cosmos-sdkosmos/cosmos-sdk/collections"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )

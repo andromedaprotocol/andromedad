@@ -8,12 +8,12 @@ import (
 	"path/filepath"
 	"strings"
 
-	autocliv1 "cosmossdk.io/api/cosmos/autocli/v1"
-	reflectionv1 "cosmossdk.io/api/cosmos/reflection/v1"
 	dbm "github.com/cometbft/cometbft-db"
 	abci "github.com/cometbft/cometbft/abci/types"
 	"github.com/cometbft/cometbft/libs/log"
 	tmos "github.com/cometbft/cometbft/libs/os"
+	autocliv1 "github.com/cosmos/cosmos-sdk/api/cosmos/autocli/v1"
+	reflectionv1 "github.com/cosmos/cosmos-sdk/api/cosmos/reflection/v1"
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	"github.com/cosmos/cosmos-sdk/client"
 	nodeservice "github.com/cosmos/cosmos-sdk/client/grpc/node"
@@ -57,7 +57,7 @@ import (
 	crisiskeeper "github.com/cosmos/cosmos-sdk/x/crisis/keeper"
 	crisistypes "github.com/cosmos/cosmos-sdk/x/crisis/types"
 
-	// distrclient "github.com/cosmos/cosmos-sdk/x/distribution/client"
+	// distrclient "github.com/andromedaprotocol/andromedad/x/distribution/client"
 	distrkeeper "github.com/andromedaprotocol/andromedad/x/distribution/keeper"
 	distrtypes "github.com/andromedaprotocol/andromedad/x/distribution/types"
 	"github.com/cosmos/cosmos-sdk/x/evidence"

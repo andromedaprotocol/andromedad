@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 
-	"cosmossdk.io/collections"
-	"cosmossdk.io/x/distribution/types"
+	"github.com/cosmos/cosmos-sdk/collections"
+	"github.com/andromedaprotocol/andromedad/x/distribution/types"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )

@@ -3,8 +3,8 @@ package simulation
 import (
 	"math/rand"
 
-	sdkmath "cosmossdk.io/math"
-	"cosmossdk.io/x/distribution/types"
+	sdkmath "github.com/cosmos/cosmos-sdk/math"
+	"github.com/andromedaprotocol/andromedad/x/distribution/types"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/address"

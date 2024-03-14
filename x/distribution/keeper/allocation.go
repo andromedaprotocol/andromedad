@@ -4,11 +4,11 @@ import (
 	"context"
 	"errors"
 
-	"cosmossdk.io/collections"
-	"cosmossdk.io/core/comet"
-	"cosmossdk.io/core/event"
-	"cosmossdk.io/math"
-	"cosmossdk.io/x/distribution/types"
+	"github.com/cosmos/cosmos-sdk/math"
+	"github.com/cosmos/cosmos-sdk/x/distribution/types"
+	"github.com/cosmos/cosmos-sdkosmos/cosmos-sdk/collections"
+	"github.com/cosmos/cosmos-sdkosmos/cosmos-sdk/core/comet"
+	"github.com/cosmos/cosmos-sdkosmos/cosmos-sdk/core/event"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
