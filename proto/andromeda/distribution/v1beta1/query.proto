@@ -1,15 +1,15 @@
 syntax = "proto3";
-package andromeda.distribution;
+package andromeda.distribution.v1beta1;
 
 import "cosmos/base/query/v1beta1/pagination.proto";
 import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 import "cosmos/base/v1beta1/coin.proto";
-import "andromeda/distribution/distribution.proto";
+import "andromeda/distribution/v1beta1/distribution.proto";
 import "cosmos_proto/cosmos.proto";
 import "amino/amino.proto";
 
-option go_package = "github.com/andromedaprotocol/andromedad/x/distribution/types";
+option go_package = "github.com/cosmos/cosmos-sdk/x/distribution/types";
 
 // Query defines the gRPC querier service for distribution module.
 service Query {

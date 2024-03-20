@@ -18,5 +18,6 @@ var (
 	valConsAddr1 = sdk.ConsAddress(valConsPk1.Address())
 	valConsAddr2 = sdk.ConsAddress(valConsPk2.Address())
 
-	distrAcc = authtypes.NewEmptyModuleAccount(types.ModuleName)
+	distrAcc   = authtypes.NewEmptyModuleAccount(types.ModuleName)
+	rewardsAcc = authtypes.NewEmptyModuleAccount(types.RewardsDripperName)
 )

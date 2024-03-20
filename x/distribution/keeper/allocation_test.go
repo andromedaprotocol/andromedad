@@ -33,6 +33,8 @@ func TestAllocateTokensToValidatorWithCommission(t *testing.T) {
 	accountKeeper := distrtestutil.NewMockAccountKeeper(ctrl)
 
 	accountKeeper.EXPECT().GetModuleAddress("distribution").Return(distrAcc.GetAddress())
+	// set rewards dripper module
+	accountKeeper.EXPECT().GetModuleAddress("rewards_dripper").Return(rewardsAcc.GetAddress())
 
 	distrKeeper := keeper.NewKeeper(
 		encCfg.Codec,
@@ -80,6 +82,8 @@ func TestAllocateTokensToManyValidators(t *testing.T) {
 	feeCollectorAcc := authtypes.NewEmptyModuleAccount("fee_collector")
 	accountKeeper.EXPECT().GetModuleAddress("distribution").Return(distrAcc.GetAddress())
 	accountKeeper.EXPECT().GetModuleAccount(gomock.Any(), "fee_collector").Return(feeCollectorAcc)
+	// set for rewards dripper module
+	accountKeeper.EXPECT().GetModuleAddress("rewards_dripper").Return(rewardsAcc.GetAddress())
 
 	distrKeeper := keeper.NewKeeper(
 		encCfg.Codec,

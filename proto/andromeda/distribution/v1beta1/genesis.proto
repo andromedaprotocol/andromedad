@@ -1,12 +1,12 @@
 syntax = "proto3";
-package andromeda.distribution;
+package andromeda.distribution.v1beta1;
 
-option go_package            = "github.com/andromedaprotocol/andromedad/x/distribution/types";
+option go_package            = "github.com/cosmos/cosmos-sdk/x/distribution/types";
 option (gogoproto.equal_all) = true;
 
 import "gogoproto/gogo.proto";
 import "cosmos/base/v1beta1/coin.proto";
-import "andromeda/distribution/distribution.proto";
+import "andromeda/distribution/v1beta1/distribution.proto";
 import "cosmos_proto/cosmos.proto";
 import "amino/amino.proto";
 
