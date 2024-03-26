@@ -11,10 +11,11 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/cosmos/cosmos-sdk/types/query"
+	distrtypes "github.com/cosmos/cosmos-sdk/x/distribution/types"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 )
 
-var _ types.QueryServer = Querier{}
+var q types.QueryServer = Querier{}
 
 type Querier struct {
 	Keeper
@@ -292,4 +293,26 @@ func (k Querier) CommunityPool(c context.Context, req *types.QueryCommunityPoolR
 	pool := k.GetFeePoolCommunityCoins(ctx)
 
 	return &types.QueryCommunityPoolResponse{Pool: pool}, nil
+}
+
+// Create Adapter for distribution querier
+type QuerierAdapter struct {
+	Querier
+}
+
+// DelegationRewards the total rewards accrued by a delegation
+func (k QuerierAdapter) DelegationRewards(c context.Context, req *distrtypes.QueryDelegationRewardsRequest) (*distrtypes.QueryDelegationRewardsResponse, error) {
+	// Convert request from othertypes to distrtypes
+	convertedReq := *&types.QueryDelegationRewardsRequest{}
+	convertedReq.DelegatorAddress = req.DelegatorAddress
+	convertedReq.ValidatorAddress = req.ValidatorAddress
+	// Call the original Querier method
+	originalResp, err := k.Querier.DelegationRewards(c, &convertedReq)
+	if err != nil {
+		return nil, err
+	}
+
+	convertedResp := &distrtypes.QueryDelegationRewardsResponse{}
+	convertedResp.Rewards = originalResp.Rewards
+	return convertedResp, nil
 }

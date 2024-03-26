@@ -589,7 +589,7 @@ func New(
 	// if we want to allow any custom callbacks
 	// See https://github.com/CosmWasm/cosmwasm/blob/main/docs/CAPABILITIES-BUILT-IN.md
 	availableCapabilities := "iterator,staking,stargate,cosmwasm_1_1,cosmwasm_1_2"
-
+	adapter := distrkeeper.QuerierAdapter{Querier: distrkeeper.NewQuerier(app.DistrKeeper)}
 	app.wasmKeeper = wasmkeeper.NewKeeper(
 		appCodec,
 		keys[wasmtypes.StoreKey],
@@ -597,7 +597,7 @@ func New(
 		app.BankKeeper,
 		app.StakingKeeper,
 		// ad a distribution keeper to the wasm module
-		distrkeeper.NewQuerier(app.DistrKeeper),
+		adapter,
 		app.IBCFeeKeeper, // ISC4 Wrapper: fee IBC middleware
 		app.IBCKeeper.ChannelKeeper,
 		&app.IBCKeeper.PortKeeper,
