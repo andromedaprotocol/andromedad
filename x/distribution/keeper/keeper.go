@@ -70,7 +70,7 @@ func (k Keeper) SetWithdrawAddr(ctx sdk.Context, delegatorAddr sdk.AccAddress, w
 	}
 
 	if !k.GetWithdrawAddrEnabled(ctx) {
-		return types.ErrSetWithdrawAddrDisabled
+		return fmt.Errorf("withdraw address functionality is disabled")
 	}
 
 	ctx.EventManager().EmitEvent(
@@ -88,12 +88,12 @@ func (k Keeper) SetWithdrawAddr(ctx sdk.Context, delegatorAddr sdk.AccAddress, w
 func (k Keeper) WithdrawDelegationRewards(ctx sdk.Context, delAddr sdk.AccAddress, valAddr sdk.ValAddress) (sdk.Coins, error) {
 	val := k.stakingKeeper.Validator(ctx, valAddr)
 	if val == nil {
-		return nil, types.ErrNoValidatorDistInfo
+		return nil, fmt.Errorf("validator %s not found", valAddr)
 	}
 
 	del := k.stakingKeeper.Delegation(ctx, delAddr, valAddr)
 	if del == nil {
-		return nil, types.ErrEmptyDelegationDistInfo
+		return nil, fmt.Errorf("delegation from %s to %s not found", delAddr, valAddr)
 	}
 
 	// withdraw rewards
@@ -112,7 +112,7 @@ func (k Keeper) WithdrawValidatorCommission(ctx sdk.Context, valAddr sdk.ValAddr
 	// fetch validator accumulated commission
 	accumCommission := k.GetValidatorAccumulatedCommission(ctx, valAddr)
 	if accumCommission.Commission.IsZero() {
-		return nil, types.ErrNoValidatorCommission
+		return nil, fmt.Errorf("no commission to withdraw")
 	}
 
 	commission, remainder := accumCommission.Commission.TruncateDecimal()

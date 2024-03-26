@@ -20,3 +20,8 @@ func (k Keeper) GetFeePoolCommunityCoins(ctx sdk.Context) sdk.DecCoins {
 func (k Keeper) GetDistributionAccount(ctx sdk.Context) authtypes.ModuleAccountI {
 	return k.authKeeper.GetModuleAccount(ctx, types.ModuleName)
 }
+
+// GetRewardsDripperAccount returns the rewards dripper ModuleAccount
+func (k Keeper) GetRewardsDripperAccount(ctx sdk.Context) authtypes.ModuleAccountI {
+	return k.authKeeper.GetModuleAccount(ctx, types.RewardsDripperName)
+}

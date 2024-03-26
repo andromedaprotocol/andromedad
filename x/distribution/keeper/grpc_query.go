@@ -2,6 +2,7 @@ package keeper
 
 import (
 	"context"
+	"fmt"
 
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -9,7 +10,6 @@ import (
 	"github.com/andromedaprotocol/andromedad/x/distribution/types"
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/cosmos/cosmos-sdk/types/query"
 	distrtypes "github.com/cosmos/cosmos-sdk/x/distribution/types"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
@@ -53,14 +53,14 @@ func (k Querier) ValidatorDistributionInfo(c context.Context, req *types.QueryVa
 	// self-delegation rewards
 	val := k.stakingKeeper.Validator(ctx, valAdr)
 	if val == nil {
-		return nil, sdkerrors.Wrap(types.ErrNoValidatorExists, req.ValidatorAddress)
+		return nil, fmt.Errorf("validator not found for address %s", req.ValidatorAddress)
 	}
 
 	delAdr := sdk.AccAddress(valAdr)
 
 	del := k.stakingKeeper.Delegation(ctx, delAdr, valAdr)
 	if del == nil {
-		return nil, types.ErrNoDelegationExists
+		return nil, fmt.Errorf("delegation not found for delegator %s to validator %s", delAdr, valAdr)
 	}
 
 	endingPeriod := k.IncrementValidatorPeriod(ctx, val)
@@ -184,7 +184,7 @@ func (k Querier) DelegationRewards(c context.Context, req *types.QueryDelegation
 
 	val := k.stakingKeeper.Validator(ctx, valAdr)
 	if val == nil {
-		return nil, sdkerrors.Wrap(types.ErrNoValidatorExists, req.ValidatorAddress)
+		return nil, fmt.Errorf("validator not found for address %s", req.ValidatorAddress)
 	}
 
 	delAdr, err := sdk.AccAddressFromBech32(req.DelegatorAddress)
@@ -193,7 +193,7 @@ func (k Querier) DelegationRewards(c context.Context, req *types.QueryDelegation
 	}
 	del := k.stakingKeeper.Delegation(ctx, delAdr, valAdr)
 	if del == nil {
-		return nil, types.ErrNoDelegationExists
+		return nil, fmt.Errorf("delegation not found for delegator %s to validator %s", req.DelegatorAddress, req.ValidatorAddress)
 	}
 
 	endingPeriod := k.IncrementValidatorPeriod(ctx, val)

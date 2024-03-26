@@ -88,10 +88,19 @@ func (k Keeper) InitGenesis(ctx sdk.Context, data types.GenesisState) {
 	if moduleAcc == nil {
 		panic(fmt.Sprintf("%s module account has not been set", types.ModuleName))
 	}
-
+	// check if rewards dripper Acconut exists
+	rewardsDripperAcc := k.GetRewardsDripperAccount(ctx)
+	if rewardsDripperAcc == nil {
+		panic(fmt.Sprintf("%s module account has not been set", types.RewardsDripperName))
+	}
 	balances := k.bankKeeper.GetAllBalances(ctx, moduleAcc.GetAddress())
 	if balances.IsZero() {
 		k.authKeeper.SetModuleAccount(ctx, moduleAcc)
+	}
+	// get all balances for rewards dripper account
+	rewardBalance := k.bankKeeper.GetAllBalances(ctx, rewardsDripperAcc.GetAddress())
+	if rewardBalance.IsZero() {
+		k.authKeeper.SetModuleAccount(ctx, rewardsDripperAcc)
 	}
 	if !balances.IsEqual(moduleHoldingsInt) {
 		panic(fmt.Sprintf("distribution module balance does not match the module holdings: %s <-> %s", balances, moduleHoldingsInt))

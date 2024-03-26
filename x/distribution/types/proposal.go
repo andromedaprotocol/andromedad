@@ -26,10 +26,10 @@ func (csp *CommunityPoolSpendProposal) ValidateBasic() error {
 		return err
 	}
 	if !csp.Amount.IsValid() {
-		return ErrInvalidProposalAmount
+		return fmt.Errorf("invalid amount: %s", csp.Amount)
 	}
 	if csp.Recipient == "" {
-		return ErrEmptyProposalRecipient
+		return fmt.Errorf("proposal recipient cannot be empty")
 	}
 
 	return nil

@@ -79,6 +79,8 @@ var AppConfig = appconfig.Compose(&appv1alpha1.Config{
 				ModuleAccountPermissions: []*authmodulev1.ModuleAccountPermission{
 					{Account: authtypes.FeeCollectorName},
 					{Account: distrtypes.ModuleName},
+					// set for reward dist
+					{Account: distrtypes.RewardsDripperName},
 					{Account: minttypes.ModuleName, Permissions: []string{authtypes.Minter}},
 					{Account: stakingtypes.BondedPoolName, Permissions: []string{authtypes.Burner, stakingtypes.ModuleName}},
 					{Account: stakingtypes.NotBondedPoolName, Permissions: []string{authtypes.Burner, stakingtypes.ModuleName}},
