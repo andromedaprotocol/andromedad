@@ -1,6 +1,6 @@
 {
-  "genesis_time": "2023-11-13T21:39:30.920306409Z",
-  "chain_id": "andromeda-1",
+  "genesis_time": "2024-03-28T14:43:10.281998923Z",
+  "chain_id": "galileo-4",
   "initial_height": "1",
   "consensus_params": {
     "block": {
@@ -67,7 +67,7 @@
     "consensus": null,
     "crisis": {
       "constant_fee": {
-        "denom": "uandr",
+        "denom": "stake",
         "amount": "1000"
       }
     },
@@ -76,7 +76,8 @@
         "community_tax": "0.020000000000000000",
         "base_proposer_reward": "0.000000000000000000",
         "bonus_proposer_reward": "0.000000000000000000",
-        "withdraw_addr_enabled": true
+        "withdraw_addr_enabled": true,
+        "rewards_per_block": "0.000000000000000000"
       },
       "fee_pool": {
         "community_pool": []
@@ -122,13 +123,13 @@
       "params": {
         "min_deposit": [
           {
-            "denom": "uandr",
-            "amount": "20000000"
+            "denom": "stake",
+            "amount": "10000000"
           }
         ],
         "max_deposit_period": "172800s",
         "voting_period": "172800s",
-        "quorum": "0.200000000000000000",
+        "quorum": "0.334000000000000000",
         "threshold": "0.500000000000000000",
         "veto_threshold": "0.334000000000000000",
         "min_initial_deposit_ratio": "0.000000000000000000",
@@ -205,14 +206,14 @@
     },
     "mint": {
       "minter": {
-        "inflation": "0.000000000000000000",
+        "inflation": "0.130000000000000000",
         "annual_provisions": "0.000000000000000000"
       },
       "params": {
-        "mint_denom": "uandr",
-        "inflation_rate_change": "0.000000000000000000",
-        "inflation_max": "0.000000000000000000",
-        "inflation_min": "0.000000000000000000",
+        "mint_denom": "stake",
+        "inflation_rate_change": "0.130000000000000000",
+        "inflation_max": "0.200000000000000000",
+        "inflation_min": "0.070000000000000000",
         "goal_bonded": "0.670000000000000000",
         "blocks_per_year": "6311520"
       }
@@ -239,7 +240,7 @@
         "max_validators": 100,
         "max_entries": 7,
         "historical_entries": 10000,
-        "bond_denom": "uandr",
+        "bond_denom": "stake",
         "min_commission_rate": "0.000000000000000000"
       },
       "last_total_power": "0",
