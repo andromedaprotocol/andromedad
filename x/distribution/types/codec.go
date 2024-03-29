@@ -22,7 +22,7 @@ func RegisterLegacyAminoCodec(cdc *codec.LegacyAmino) {
 	legacy.RegisterAminoMsg(cdc, &MsgSetWithdrawAddress{}, "andromedad/MsgModifyWithdrawAddress")
 	legacy.RegisterAminoMsg(cdc, &MsgFundCommunityPool{}, "andromedad/MsgFundCommunityPool")
 	legacy.RegisterAminoMsg(cdc, &MsgUpdateParams{}, "andromedad/distribution/MsgUpdateParams")
-	legacy.RegisterAminoMsg(cdc, &MsgCommunityPoolSpend{}, "andromedad/distr/MsgCommunityPoolSpend")
+	legacy.RegisterAminoMsg(cdc, &MsgCommunityPoolSpend{}, "andromedad/distribution/MsgCommunityPoolSpend")
 
 	cdc.RegisterConcrete(Params{}, "andromedad/x/distribution/Params", nil)
 }
