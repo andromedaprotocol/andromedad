@@ -13,6 +13,7 @@ const (
 	TypeMsgWithdrawDelegatorReward     = "withdraw_delegator_reward"
 	TypeMsgWithdrawValidatorCommission = "withdraw_validator_commission"
 	TypeMsgFundCommunityPool           = "fund_community_pool"
+	TypeMsgFundRewardsPool             = "fund_rewards_pool"
 	TypeMsgUpdateParams                = "update_params"
 	TypeMsgCommunityPoolSpend          = "community_pool_spend"
 )
@@ -153,6 +154,46 @@ func (msg MsgFundCommunityPool) GetSignBytes() []byte {
 
 // ValidateBasic performs basic MsgFundCommunityPool message validation.
 func (msg MsgFundCommunityPool) ValidateBasic() error {
+	if !msg.Amount.IsValid() {
+		return sdkerrors.Wrap(sdkerrors.ErrInvalidCoins, msg.Amount.String())
+	}
+	if _, err := sdk.AccAddressFromBech32(msg.Depositor); err != nil {
+		return sdkerrors.ErrInvalidAddress.Wrapf("invalid depositor address: %s", err)
+	}
+	return nil
+}
+
+// NewMsgFundRewardsPool returns a new MsgFundRewardsPool with a sender and
+// a funding amount.
+func NewMsgFundRewardsPool(amount sdk.Coins, depositor sdk.AccAddress) *MsgFundRewardsPool {
+	return &MsgFundRewardsPool{
+		Amount:    amount,
+		Depositor: depositor.String(),
+	}
+}
+
+// Route returns the MsgFundRewardsPool message route.
+func (msg MsgFundRewardsPool) Route() string { return ModuleName }
+
+// Type returns the MsgFundRewardsPool message type.
+func (msg MsgFundRewardsPool) Type() string { return TypeMsgFundRewardsPool }
+
+// GetSigners returns the signer addresses that are expected to sign the result
+// of GetSignBytes.
+func (msg MsgFundRewardsPool) GetSigners() []sdk.AccAddress {
+	depositor, _ := sdk.AccAddressFromBech32(msg.Depositor)
+	return []sdk.AccAddress{depositor}
+}
+
+// GetSignBytes returns the raw bytes for a MsgFundCommunityPool message that
+// the expected signer needs to sign.
+func (msg MsgFundRewardsPool) GetSignBytes() []byte {
+	bz := ModuleCdc.MustMarshalJSON(&msg)
+	return sdk.MustSortJSON(bz)
+}
+
+// ValidateBasic performs basic MsgFundCommunityPool message validation.
+func (msg MsgFundRewardsPool) ValidateBasic() error {
 	if !msg.Amount.IsValid() {
 		return sdkerrors.Wrap(sdkerrors.ErrInvalidCoins, msg.Amount.String())
 	}

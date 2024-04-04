@@ -282,7 +282,7 @@ $ %s tx distribution fund-rewards-pool 100uandr --from mykey
 				return err
 			}
 
-			msg := types.NewMsgFundCommunityPool(amount, depositorAddr)
+			msg := types.NewMsgFundRewardsPool(amount, depositorAddr)
 
 			return tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msg)
 		},
