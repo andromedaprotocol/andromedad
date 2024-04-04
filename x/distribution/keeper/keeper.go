@@ -168,3 +168,15 @@ func (k Keeper) FundCommunityPool(ctx sdk.Context, amount sdk.Coins, sender sdk.
 
 	return nil
 }
+
+// FundRewardsPool allows an account to directly fund the rewards pool.
+// The amount is directly sent from the sender to the rewards pool module address.
+// An error is returned if the amount cannot be sent to the rewards pool module account.
+// As soon as the rewards pool receives the tokens, the next block it starts to distribute them
+// according to the distribution params set.s
+func (k Keeper) FundRewardsPool(ctx sdk.Context, amount sdk.Coins, sender sdk.AccAddress) error {
+	if err := k.bankKeeper.SendCoinsFromAccountToModule(ctx, sender, types.RewardsDripperName, amount); err != nil {
+		return err
+	}
+	return nil
+}

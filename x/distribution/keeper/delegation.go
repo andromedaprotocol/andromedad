@@ -140,7 +140,7 @@ func (k Keeper) CalculateDelegationRewards(ctx sdk.Context, val stakingtypes.Val
 func (k Keeper) withdrawDelegationRewards(ctx sdk.Context, val stakingtypes.ValidatorI, del stakingtypes.DelegationI) (sdk.Coins, error) {
 	// check existence of delegator starting info
 	if !k.HasDelegatorStartingInfo(ctx, del.GetValidatorAddr(), del.GetDelegatorAddr()) {
-		return nil, fmt.Errorf("delegation rewards not found for delegator %s on validator %s")
+		return nil, fmt.Errorf("delegation rewards not found for delegator on validator")
 	}
 
 	// end current period and calculate rewards
