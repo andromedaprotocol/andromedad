@@ -44,6 +44,7 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/rakyll/statik/fs"
 
+	distr "github.com/andromedaprotocol/andromedad/x/distribution"
 	sdkbank "github.com/cosmos/cosmos-sdk/x/bank"
 	sdkbanktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 	"github.com/cosmos/cosmos-sdk/x/capability"
@@ -55,11 +56,10 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/crisis"
 	crisiskeeper "github.com/cosmos/cosmos-sdk/x/crisis/keeper"
 	crisistypes "github.com/cosmos/cosmos-sdk/x/crisis/types"
-	distr "github.com/cosmos/cosmos-sdk/x/distribution"
 
-	// distrclient "github.com/cosmos/cosmos-sdk/x/distribution/client"
-	distrkeeper "github.com/cosmos/cosmos-sdk/x/distribution/keeper"
-	distrtypes "github.com/cosmos/cosmos-sdk/x/distribution/types"
+	// distrclient "github.com/andromedaprotocol/andromedad/x/distribution/client"
+	distrkeeper "github.com/andromedaprotocol/andromedad/x/distribution/keeper"
+	distrtypes "github.com/andromedaprotocol/andromedad/x/distribution/types"
 	"github.com/cosmos/cosmos-sdk/x/evidence"
 	evidencekeeper "github.com/cosmos/cosmos-sdk/x/evidence/keeper"
 	evidencetypes "github.com/cosmos/cosmos-sdk/x/evidence/types"
@@ -271,6 +271,7 @@ var (
 	maccPerms = map[string][]string{
 		authtypes.FeeCollectorName:          {authtypes.Burner},
 		distrtypes.ModuleName:               nil,
+		distrtypes.RewardsDripperName:       nil,
 		minttypes.ModuleName:                {authtypes.Minter},
 		stakingtypes.BondedPoolName:         {authtypes.Burner, authtypes.Staking},
 		stakingtypes.NotBondedPoolName:      {authtypes.Burner, authtypes.Staking},
@@ -589,13 +590,15 @@ func New(
 	// if we want to allow any custom callbacks
 	// See https://github.com/CosmWasm/cosmwasm/blob/main/docs/CAPABILITIES-BUILT-IN.md
 	availableCapabilities := "iterator,staking,stargate,cosmwasm_1_1,cosmwasm_1_2"
+	adapter := distrkeeper.QuerierAdapter{Querier: distrkeeper.NewQuerier(app.DistrKeeper)}
 	app.wasmKeeper = wasmkeeper.NewKeeper(
 		appCodec,
 		keys[wasmtypes.StoreKey],
 		app.AccountKeeper,
 		app.BankKeeper,
 		app.StakingKeeper,
-		distrkeeper.NewQuerier(app.DistrKeeper),
+		// ad a distribution keeper to the wasm module
+		adapter,
 		app.IBCFeeKeeper, // ISC4 Wrapper: fee IBC middleware
 		app.IBCKeeper.ChannelKeeper,
 		&app.IBCKeeper.PortKeeper,

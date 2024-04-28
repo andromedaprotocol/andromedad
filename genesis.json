@@ -1,6 +1,6 @@
 {
-  "genesis_time": "2023-11-13T21:39:30.920306409Z",
-  "chain_id": "andromeda-1",
+  "genesis_time": "2024-03-29T14:42:09.256995453Z",
+  "chain_id": "galileo-4",
   "initial_height": "1",
   "consensus_params": {
     "block": {
@@ -45,7 +45,22 @@
         "sig_verify_cost_ed25519": "590",
         "sig_verify_cost_secp256k1": "1000"
       },
-      "accounts": []
+      "accounts": [
+        {
+          "@type": "/cosmos.auth.v1beta1.BaseAccount",
+          "address": "andr13mrgyy08ju47kh6naflyc4qrcyj8d22kxkdncy",
+          "pub_key": null,
+          "account_number": "0",
+          "sequence": "0"
+        },
+        {
+          "@type": "/cosmos.auth.v1beta1.BaseAccount",
+          "address": "andr1rrymqwre6c9m5cqltjnfpahqaj3t5qw2g9kknk",
+          "pub_key": null,
+          "account_number": "1",
+          "sequence": "0"
+        }
+      ]
     },
     "authz": {
       "authorization": []
@@ -55,8 +70,32 @@
         "send_enabled": [],
         "default_send_enabled": true
       },
-      "balances": [],
-      "supply": [],
+      "balances": [
+        {
+          "address": "andr1rrymqwre6c9m5cqltjnfpahqaj3t5qw2g9kknk",
+          "coins": [
+            {
+              "denom": "uandr",
+              "amount": "700000000000000"
+            }
+          ]
+        },
+        {
+          "address": "andr13mrgyy08ju47kh6naflyc4qrcyj8d22kxkdncy",
+          "coins": [
+            {
+              "denom": "uandr",
+              "amount": "300000000000000"
+            }
+          ]
+        }
+      ],
+      "supply": [
+        {
+          "denom": "uandr",
+          "amount": "1000000000000000"
+        }
+      ],
       "denom_metadata": [],
       "send_enabled": []
     },
@@ -76,7 +115,8 @@
         "community_tax": "0.020000000000000000",
         "base_proposer_reward": "0.000000000000000000",
         "bonus_proposer_reward": "0.000000000000000000",
-        "withdraw_addr_enabled": true
+        "withdraw_addr_enabled": true,
+        "rewards_per_block": "1.000000000000000000"
       },
       "fee_pool": {
         "community_pool": []
@@ -123,12 +163,12 @@
         "min_deposit": [
           {
             "denom": "uandr",
-            "amount": "20000000"
+            "amount": "10000000"
           }
         ],
         "max_deposit_period": "172800s",
-        "voting_period": "172800s",
-        "quorum": "0.200000000000000000",
+        "voting_period": "3600s",
+        "quorum": "0.334000000000000000",
         "threshold": "0.500000000000000000",
         "veto_threshold": "0.334000000000000000",
         "min_initial_deposit_ratio": "0.000000000000000000",
@@ -235,8 +275,8 @@
     },
     "staking": {
       "params": {
-        "unbonding_time": "1814400s",
-        "max_validators": 100,
+        "unbonding_time": "3600s",
+        "max_validators": 5,
         "max_entries": 7,
         "historical_entries": 10000,
         "bond_denom": "uandr",
