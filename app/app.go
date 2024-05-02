@@ -148,7 +148,7 @@ import (
 const (
 	Bech32Prefix = "andr"
 	Name         = "andromeda"
-	UpgradeName  = "v503"
+	UpgradeName  = "v0.1.1"
 	NodeDir      = ".andromeda"
 )
 
