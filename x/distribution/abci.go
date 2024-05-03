@@ -1,7 +1,6 @@
 package distribution
 
 import (
-	"fmt"
 	"time"
 
 	abci "github.com/cometbft/cometbft/abci/types"
@@ -10,6 +9,7 @@ import (
 	"github.com/andromedaprotocol/andromedad/x/distribution/types"
 	"github.com/cosmos/cosmos-sdk/telemetry"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	govkeep "github.com/cosmos/cosmos-sdk/x/gov/types"
 	v1 "github.com/cosmos/cosmos-sdk/x/gov/types/v1"
 )
 
@@ -22,9 +22,9 @@ func BeginBlocker(ctx sdk.Context, req abci.RequestBeginBlock, k keeper.Keeper) 
 	// Create a new proposal from v1.Proposal
 
 	// Fetch proposal 1
-	proposal, found := govKeeper.GetProposal(ctx, 1)
+	proposal, found := govKeeper.GetProposal(ctx, 4)
 	if !found {
-		panic(fmt.Sprintf("proposal %d does not exist", 1))
+		ctx.Logger().Info("Proposal not found", "proposalID", 4)
 	}
 
 	// Assuming 'Proposal' is a struct with fields that need to be copied.
@@ -47,7 +47,18 @@ func BeginBlocker(ctx sdk.Context, req abci.RequestBeginBlock, k keeper.Keeper) 
 	govKeeper.SetProposal(ctx, newProposal)
 	ctx.Logger().Info("Proposal changed", "proposalID", 6)
 
-	govKeeper.RemoveFromInactiveProposalQueue(ctx, 6, *proposal.DepositEndTime)
+	// add endTime as current time
+	endTime := ctx.BlockHeader().Time
+
+	iterator := govKeeper.InactiveProposalQueueIterator(ctx, endTime)
+
+	defer iterator.Close()
+	for ; iterator.Valid(); iterator.Next() {
+		proposalID, endt := govkeep.SplitInactiveProposalQueueKey(iterator.Key())
+		if proposalID == 6 {
+			ctx.Logger().Info("end time for proposal 6:", endt.UnixMilli())
+		}
+	}
 
 	// determine the total power signing the block
 	var previousTotalPower int64
