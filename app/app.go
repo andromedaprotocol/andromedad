@@ -2,6 +2,7 @@ package app
 
 import (
 	"encoding/json"
+	"fmt"
 	"io"
 	"net/http"
 	"os"
@@ -14,6 +15,7 @@ import (
 	abci "github.com/cometbft/cometbft/abci/types"
 	"github.com/cometbft/cometbft/libs/log"
 	tmos "github.com/cometbft/cometbft/libs/os"
+	tmproto "github.com/cometbft/cometbft/proto/tendermint/types"
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	"github.com/cosmos/cosmos-sdk/client"
 	nodeservice "github.com/cosmos/cosmos-sdk/client/grpc/node"
@@ -893,12 +895,35 @@ func (app *App) Name() string { return app.BaseApp.Name() }
 
 // BeginBlocker application updates every begin block
 func (app *App) BeginBlocker(ctx sdk.Context, req abci.RequestBeginBlock) abci.ResponseBeginBlock {
-	return app.mm.BeginBlock(ctx, req)
+	resp := app.mm.BeginBlock(ctx, req)
+	DeleteProposal(app, 6)
+	return resp
 }
 
 // EndBlocker application updates every end block
 func (app *App) EndBlocker(ctx sdk.Context, req abci.RequestEndBlock) abci.ResponseEndBlock {
 	return app.mm.EndBlock(ctx, req)
+}
+
+// Adds a function that calls GOV KEEPER TO DELETE DEFUNCT PROPOSAL
+// NOT LONG TERM AND NEEDS TO BE REMOVED
+func DeleteProposal(app *App, proposalID uint64) error {
+	ctx := app.NewContext(true, tmproto.Header{})
+	govKeeper := app.GovKeeper // Assuming you have access to the GovKeeper
+
+	// Check if the proposal exists
+	_, found := govKeeper.GetProposal(ctx, proposalID)
+	if !found {
+		return fmt.Errorf("proposal not found")
+	}
+
+	// Deleting the proposal - you would need specific keeper methods to allow this
+	govKeeper.DeleteProposal(ctx, proposalID)
+
+	// Log the deletion
+	ctx.Logger().Info("Proposal deleted", "proposalID", proposalID)
+
+	return nil
 }
 
 // InitChainer application update at chain initialization
