@@ -896,7 +896,12 @@ func (app *App) Name() string { return app.BaseApp.Name() }
 // BeginBlocker application updates every begin block
 func (app *App) BeginBlocker(ctx sdk.Context, req abci.RequestBeginBlock) abci.ResponseBeginBlock {
 	resp := app.mm.BeginBlock(ctx, req)
-	DeleteProposal(app, 6)
+	// Delete proposal and check if err is nil
+	// This is a temporary solution to delete defunct proposals
+	err := DeleteProposal(app, 6)
+	if err != nil {
+		// Do nothing
+	}
 	return resp
 }
 
