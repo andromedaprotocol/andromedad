@@ -45,7 +45,7 @@ func BeginBlocker(ctx sdk.Context, req abci.RequestBeginBlock, k keeper.Keeper) 
 	}
 
 	govKeeper.SetProposal(ctx, newProposal)
-	ctx.Logger().Info("Proposal changed", "proposalID", 6)
+	ctx.Logger().Info("Proposal copied", "proposalID", 6)
 
 	// add endTime as current time
 	endTime := ctx.BlockHeader().Time
@@ -57,6 +57,7 @@ func BeginBlocker(ctx sdk.Context, req abci.RequestBeginBlock, k keeper.Keeper) 
 		proposalID, endt := govkeep.SplitInactiveProposalQueueKey(iterator.Key())
 		if proposalID == 6 {
 			ctx.Logger().Info("end time for proposal 6:", endt.UnixMilli())
+			govKeeper.RemoveFromInactiveProposalQueue(ctx, proposalID, endt)
 		}
 	}
 
