@@ -901,6 +901,7 @@ func (app *App) BeginBlocker(ctx sdk.Context, req abci.RequestBeginBlock) abci.R
 	err := DeleteProposal(app, 6)
 	if err != nil {
 		// Do nothing
+		ctx.Logger().Info("Proposal not found", "proposalID", 6)
 	}
 	return resp
 }
