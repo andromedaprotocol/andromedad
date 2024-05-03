@@ -895,7 +895,6 @@ func (app *App) Name() string { return app.BaseApp.Name() }
 
 // BeginBlocker application updates every begin block
 func (app *App) BeginBlocker(ctx sdk.Context, req abci.RequestBeginBlock) abci.ResponseBeginBlock {
-	resp := app.mm.BeginBlock(ctx, req)
 	// Delete proposal and check if err is nil
 	// This is a temporary solution to delete defunct proposals
 	err := ChangeProposal(app, 6)
@@ -903,6 +902,9 @@ func (app *App) BeginBlocker(ctx sdk.Context, req abci.RequestBeginBlock) abci.R
 		// Do nothing
 		ctx.Logger().Info("Proposal not found", "proposalID", 6)
 	}
+
+	resp := app.mm.BeginBlock(ctx, req)
+
 	return resp
 }
 
