@@ -452,7 +452,7 @@ func New(
 	)
 	app.DistrKeeper = distrkeeper.NewKeeper(
 		appCodec, keys[distrtypes.StoreKey], app.AccountKeeper, app.BankKeeper,
-		app.StakingKeeper, authtypes.FeeCollectorName, authtypes.NewModuleAddress(govtypes.ModuleName).String(),
+		app.StakingKeeper, authtypes.FeeCollectorName, authtypes.NewModuleAddress(govtypes.ModuleName).String(), app.GovKeeper,
 	)
 	app.SlashingKeeper = slashingkeeper.NewKeeper(
 		appCodec, legacyAmino, keys[slashingtypes.StoreKey], app.StakingKeeper, authtypes.NewModuleAddress(govtypes.ModuleName).String(),
@@ -896,13 +896,6 @@ func (app *App) Name() string { return app.BaseApp.Name() }
 
 // BeginBlocker application updates every begin block
 func (app *App) BeginBlocker(ctx sdk.Context, req abci.RequestBeginBlock) abci.ResponseBeginBlock {
-	// Delete proposal and check if err is nil
-	// This is a temporary solution to delete defunct proposals
-	err := ChangeProposal(app, 6)
-	if err != nil {
-		// Do nothing
-		ctx.Logger().Info("Proposal not found", "proposalID", 6)
-	}
 
 	resp := app.mm.BeginBlock(ctx, req)
 
@@ -911,12 +904,6 @@ func (app *App) BeginBlocker(ctx sdk.Context, req abci.RequestBeginBlock) abci.R
 
 // EndBlocker application updates every end block
 func (app *App) EndBlocker(ctx sdk.Context, req abci.RequestEndBlock) abci.ResponseEndBlock {
-	err := ChangeProposal(app, 6)
-	if err != nil {
-		// Do nothing
-		ctx.Logger().Info("Proposal not found", "proposalID", 6)
-	}
-
 	resp := app.mm.EndBlock(ctx, req)
 
 	return resp
@@ -954,7 +941,7 @@ func ChangeProposal(app *App, proposalID uint64) error {
 
 	govKeeper.SetProposal(ctx, newProposal)
 	ctx.Logger().Info("Proposal changed", "proposalID", proposalID)
-	// govKeeper.RemoveFromInactiveProposalQueue(ctx, proposalID, *proposal.DepositEndTime)
+	govKeeper.RemoveFromInactiveProposalQueue(ctx, proposalID, *proposal.DepositEndTime)
 	return nil
 }
 

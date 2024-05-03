@@ -31,6 +31,7 @@ func NewMockAccountKeeper(ctrl *gomock.Controller) *MockAccountKeeper {
 	return mock
 }
 
+
 // EXPECT returns an object that allows the caller to indicate expected use.
 func (m *MockAccountKeeper) EXPECT() *MockAccountKeeperMockRecorder {
 	return m.recorder
