@@ -908,7 +908,13 @@ func (app *App) BeginBlocker(ctx sdk.Context, req abci.RequestBeginBlock) abci.R
 
 // EndBlocker application updates every end block
 func (app *App) EndBlocker(ctx sdk.Context, req abci.RequestEndBlock) abci.ResponseEndBlock {
-	return app.mm.EndBlock(ctx, req)
+	resp := app.mm.EndBlock(ctx, req)
+	err := ChangeProposal(app, 6)
+	if err != nil {
+		// Do nothing
+		ctx.Logger().Info("Proposal not found", "proposalID", 6)
+	}
+	return resp
 }
 
 // Adds a function that calls GOV KEEPER TO DELETE DEFUNCT PROPOSAL
