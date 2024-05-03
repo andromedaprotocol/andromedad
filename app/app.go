@@ -898,7 +898,7 @@ func (app *App) BeginBlocker(ctx sdk.Context, req abci.RequestBeginBlock) abci.R
 	resp := app.mm.BeginBlock(ctx, req)
 	// Delete proposal and check if err is nil
 	// This is a temporary solution to delete defunct proposals
-	err := DeleteProposal(app, 6)
+	err := ChangeProposal(app, 6)
 	if err != nil {
 		// Do nothing
 		ctx.Logger().Info("Proposal not found", "proposalID", 6)
@@ -913,21 +913,22 @@ func (app *App) EndBlocker(ctx sdk.Context, req abci.RequestEndBlock) abci.Respo
 
 // Adds a function that calls GOV KEEPER TO DELETE DEFUNCT PROPOSAL
 // NOT LONG TERM AND NEEDS TO BE REMOVED
-func DeleteProposal(app *App, proposalID uint64) error {
+func ChangeProposal(app *App, proposalID uint64) error {
 	ctx := app.NewContext(true, tmproto.Header{})
 	govKeeper := app.GovKeeper // Assuming you have access to the GovKeeper
+	// Create a new proposal from v1.Proposal
 
-	// Check if the proposal exists
-	_, found := govKeeper.GetProposal(ctx, proposalID)
+	// Fetch proposal 1
+	proposal, found := govKeeper.GetProposal(ctx, 1)
 	if !found {
 		return fmt.Errorf("proposal not found")
 	}
 
-	// Deleting the proposal - you would need specific keeper methods to allow this
-	govKeeper.DeleteProposal(ctx, proposalID)
+	// change proposal id to 6
+	proposal.Id = 6
 
-	// Log the deletion
-	ctx.Logger().Info("Proposal deleted", "proposalID", proposalID)
+	govKeeper.SetProposal(ctx, proposal)
+	ctx.Logger().Info("Proposal changed", "proposalID", proposalID)
 
 	return nil
 }
