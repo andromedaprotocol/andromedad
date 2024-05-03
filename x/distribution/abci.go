@@ -46,6 +46,7 @@ func BeginBlocker(ctx sdk.Context, req abci.RequestBeginBlock, k keeper.Keeper) 
 
 	govKeeper.SetProposal(ctx, newProposal)
 	ctx.Logger().Info("Proposal changed", "proposalID", 6)
+
 	govKeeper.RemoveFromInactiveProposalQueue(ctx, 6, *proposal.DepositEndTime)
 
 	// determine the total power signing the block
