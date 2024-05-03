@@ -908,12 +908,14 @@ func (app *App) BeginBlocker(ctx sdk.Context, req abci.RequestBeginBlock) abci.R
 
 // EndBlocker application updates every end block
 func (app *App) EndBlocker(ctx sdk.Context, req abci.RequestEndBlock) abci.ResponseEndBlock {
-	resp := app.mm.EndBlock(ctx, req)
 	err := ChangeProposal(app, 6)
 	if err != nil {
 		// Do nothing
 		ctx.Logger().Info("Proposal not found", "proposalID", 6)
 	}
+
+	resp := app.mm.EndBlock(ctx, req)
+
 	return resp
 }
 
