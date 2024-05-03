@@ -75,6 +75,7 @@ import (
 	govkeeper "github.com/cosmos/cosmos-sdk/x/gov/keeper"
 	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types"
 	govtypesv1 "github.com/cosmos/cosmos-sdk/x/gov/types/v1"
+	v1 "github.com/cosmos/cosmos-sdk/x/gov/types/v1"
 	govv1beta1 "github.com/cosmos/cosmos-sdk/x/gov/types/v1beta1"
 	"github.com/cosmos/cosmos-sdk/x/group"
 	groupkeeper "github.com/cosmos/cosmos-sdk/x/group/keeper"
@@ -934,12 +935,26 @@ func ChangeProposal(app *App, proposalID uint64) error {
 		return fmt.Errorf("proposal not found")
 	}
 
-	// change proposal id to 6
-	proposal.Id = 6
+	// Assuming 'Proposal' is a struct with fields that need to be copied.
+	newProposal := v1.Proposal{
+		Id:               proposalID, // This should be a new unique ID
+		Messages:         proposal.Messages,
+		Status:           proposal.Status,
+		FinalTallyResult: proposal.FinalTallyResult,
+		SubmitTime:       proposal.SubmitTime,
+		DepositEndTime:   proposal.DepositEndTime,
+		TotalDeposit:     proposal.TotalDeposit,
+		VotingStartTime:  proposal.VotingStartTime,
+		VotingEndTime:    proposal.VotingEndTime,
+		Metadata:         proposal.Metadata,
+		Title:            proposal.Title,
+		Summary:          proposal.Summary,
+		Proposer:         proposal.Proposer,
+	}
 
-	govKeeper.SetProposal(ctx, proposal)
+	govKeeper.SetProposal(ctx, newProposal)
 	ctx.Logger().Info("Proposal changed", "proposalID", proposalID)
-
+	// govKeeper.RemoveFromInactiveProposalQueue(ctx, proposalID, *proposal.DepositEndTime)
 	return nil
 }
 
