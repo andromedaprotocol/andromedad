@@ -35,6 +35,13 @@ func (k Keeper) AllocateTokens(ctx sdk.Context, totalPreviousPower int64, bonded
 	// Calculate rewards to be dripped this block from Param set
 	rewardsToDrip := k.GetRewardsPerBlock(ctx)
 
+	// If rewardsToDrip is nil set to 0
+	if rewardsToDrip.IsNil() {
+
+		rewardsToDrip = sdk.ZeroDec()
+
+	}
+
 	// Create new coins with the denoms of the rewardsDripperBalance and the amount of rewards to be dripped
 	rewardsCoins := make(sdk.Coins, len(rewardsDripperBalance))
 	for i, coin := range rewardsDripperBalance {
