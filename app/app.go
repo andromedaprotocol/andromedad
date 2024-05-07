@@ -2,6 +2,7 @@ package app
 
 import (
 	"encoding/json"
+	"fmt"
 	"io"
 	"net/http"
 	"os"
@@ -14,6 +15,7 @@ import (
 	abci "github.com/cometbft/cometbft/abci/types"
 	"github.com/cometbft/cometbft/libs/log"
 	tmos "github.com/cometbft/cometbft/libs/os"
+	tmproto "github.com/cometbft/cometbft/proto/tendermint/types"
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	"github.com/cosmos/cosmos-sdk/client"
 	nodeservice "github.com/cosmos/cosmos-sdk/client/grpc/node"
@@ -73,6 +75,7 @@ import (
 	govkeeper "github.com/cosmos/cosmos-sdk/x/gov/keeper"
 	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types"
 	govtypesv1 "github.com/cosmos/cosmos-sdk/x/gov/types/v1"
+	v1 "github.com/cosmos/cosmos-sdk/x/gov/types/v1"
 	govv1beta1 "github.com/cosmos/cosmos-sdk/x/gov/types/v1beta1"
 	"github.com/cosmos/cosmos-sdk/x/group"
 	groupkeeper "github.com/cosmos/cosmos-sdk/x/group/keeper"
@@ -447,10 +450,7 @@ func New(
 		appCodec, keys[minttypes.StoreKey], app.StakingKeeper,
 		app.AccountKeeper, app.BankKeeper, authtypes.FeeCollectorName, authtypes.NewModuleAddress(govtypes.ModuleName).String(),
 	)
-	app.DistrKeeper = distrkeeper.NewKeeper(
-		appCodec, keys[distrtypes.StoreKey], app.AccountKeeper, app.BankKeeper,
-		app.StakingKeeper, authtypes.FeeCollectorName, authtypes.NewModuleAddress(govtypes.ModuleName).String(),
-	)
+
 	app.SlashingKeeper = slashingkeeper.NewKeeper(
 		appCodec, legacyAmino, keys[slashingtypes.StoreKey], app.StakingKeeper, authtypes.NewModuleAddress(govtypes.ModuleName).String(),
 	)
@@ -527,6 +527,10 @@ func New(
 		govtypes.NewMultiGovHooks(
 		// register the governance hooks
 		),
+	)
+	app.DistrKeeper = distrkeeper.NewKeeper(
+		appCodec, keys[distrtypes.StoreKey], app.AccountKeeper, app.BankKeeper,
+		app.StakingKeeper, authtypes.FeeCollectorName, authtypes.NewModuleAddress(govtypes.ModuleName).String(), app.GovKeeper,
 	)
 
 	app.NFTKeeper = nftkeeper.NewKeeper(
@@ -893,12 +897,53 @@ func (app *App) Name() string { return app.BaseApp.Name() }
 
 // BeginBlocker application updates every begin block
 func (app *App) BeginBlocker(ctx sdk.Context, req abci.RequestBeginBlock) abci.ResponseBeginBlock {
-	return app.mm.BeginBlock(ctx, req)
+
+	resp := app.mm.BeginBlock(ctx, req)
+
+	return resp
 }
 
 // EndBlocker application updates every end block
 func (app *App) EndBlocker(ctx sdk.Context, req abci.RequestEndBlock) abci.ResponseEndBlock {
-	return app.mm.EndBlock(ctx, req)
+	resp := app.mm.EndBlock(ctx, req)
+
+	return resp
+}
+
+// Adds a function that calls GOV KEEPER TO DELETE DEFUNCT PROPOSAL
+// NOT LONG TERM AND NEEDS TO BE REMOVED
+func ChangeProposal(app *App, proposalID uint64) error {
+	ctx := app.NewContext(true, tmproto.Header{})
+	govKeeper := app.GovKeeper // Assuming you have access to the GovKeeper
+	// Create a new proposal from v1.Proposal
+
+	// Fetch proposal 1
+	proposal, found := govKeeper.GetProposal(ctx, 1)
+	if !found {
+		return fmt.Errorf("proposal not found")
+	}
+
+	// Assuming 'Proposal' is a struct with fields that need to be copied.
+	newProposal := v1.Proposal{
+		Id:               proposalID, // This should be a new unique ID
+		Messages:         proposal.Messages,
+		Status:           proposal.Status,
+		FinalTallyResult: proposal.FinalTallyResult,
+		SubmitTime:       proposal.SubmitTime,
+		DepositEndTime:   proposal.DepositEndTime,
+		TotalDeposit:     proposal.TotalDeposit,
+		VotingStartTime:  proposal.VotingStartTime,
+		VotingEndTime:    proposal.VotingEndTime,
+		Metadata:         proposal.Metadata,
+		Title:            proposal.Title,
+		Summary:          proposal.Summary,
+		Proposer:         proposal.Proposer,
+	}
+
+	govKeeper.SetProposal(ctx, newProposal)
+	ctx.Logger().Info("Proposal changed", "proposalID", proposalID)
+	govKeeper.RemoveFromInactiveProposalQueue(ctx, proposalID, *proposal.DepositEndTime)
+	return nil
 }
 
 // InitChainer application update at chain initialization
