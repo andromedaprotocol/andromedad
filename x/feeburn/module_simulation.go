@@ -1,16 +1,15 @@
 package feeburn
 
 import (
-	"github.com/andromedaprotocol/andromedad/testutil/sample"
-
-	// simappparams "cosmossdk.io/simapp/params"
-	feeburnsimulation "github.com/andromedaprotocol/andromedad/x/feeburn/simulation"
-	"github.com/andromedaprotocol/andromedad/x/feeburn/types"
 	"github.com/cosmos/cosmos-sdk/baseapp"
-	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
 	simtypes "github.com/cosmos/cosmos-sdk/types/simulation"
 	"github.com/cosmos/cosmos-sdk/x/simulation"
+
+	"github.com/andromedaprotocol/andromedad/testutil/sample"
+	// simappparams "cosmossdk.io/simapp/params"
+	feeburnsimulation "github.com/andromedaprotocol/andromedad/x/feeburn/simulation"
+	"github.com/andromedaprotocol/andromedad/x/feeburn/types"
 )
 
 // avoid unused import issue
@@ -39,7 +38,7 @@ func (AppModule) ProposalContents(_ module.SimulationState) []simtypes.WeightedP
 }
 
 // RegisterStoreDecoder registers a decoder
-func (am AppModule) RegisterStoreDecoder(_ sdk.StoreDecoderRegistry) {}
+func (am AppModule) RegisterStoreDecoder(_ simtypes.StoreDecoderRegistry) {}
 
 // WeightedOperations returns the all the gov module operations with their respective weights.
 func (am AppModule) WeightedOperations(_ module.SimulationState) []simtypes.WeightedOperation {

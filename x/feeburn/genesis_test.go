@@ -3,12 +3,12 @@ package feeburn_test
 import (
 	"testing"
 
+	"github.com/stretchr/testify/require"
+
 	keepertest "github.com/andromedaprotocol/andromedad/testutil/keeper"
 	"github.com/andromedaprotocol/andromedad/testutil/nullify"
-
 	"github.com/andromedaprotocol/andromedad/x/feeburn"
 	"github.com/andromedaprotocol/andromedad/x/feeburn/types"
-	"github.com/stretchr/testify/require"
 )
 
 func TestGenesis(t *testing.T) {

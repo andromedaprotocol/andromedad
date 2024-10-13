@@ -1,8 +1,9 @@
 package keeper
 
 import (
-	"github.com/andromedaprotocol/andromedad/x/feeburn/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+
+	"github.com/andromedaprotocol/andromedad/x/feeburn/types"
 )
 
 // GetParams get all parameters as types.Params

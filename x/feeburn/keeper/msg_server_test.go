@@ -4,11 +4,11 @@ import (
 	"context"
 	"testing"
 
-	keepertest "github.com/andromedaprotocol/andromedad/testutil/keeper"
+	sdk "github.com/cosmos/cosmos-sdk/types"
 
+	keepertest "github.com/andromedaprotocol/andromedad/testutil/keeper"
 	"github.com/andromedaprotocol/andromedad/x/feeburn/keeper"
 	"github.com/andromedaprotocol/andromedad/x/feeburn/types"
-	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
 func setupMsgServer(t testing.TB) (types.MsgServer, context.Context) {

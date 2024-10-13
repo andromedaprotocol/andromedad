@@ -3,11 +3,12 @@ package keeper_test
 import (
 	"testing"
 
-	testkeeper "github.com/andromedaprotocol/andromedad/testutil/keeper"
-
-	"github.com/andromedaprotocol/andromedad/x/feeburn/types"
-	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
+
+	sdk "github.com/cosmos/cosmos-sdk/types"
+
+	testkeeper "github.com/andromedaprotocol/andromedad/testutil/keeper"
+	"github.com/andromedaprotocol/andromedad/x/feeburn/types"
 )
 
 func TestParamsQuery(t *testing.T) {

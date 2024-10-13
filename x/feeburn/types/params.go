@@ -3,8 +3,6 @@ package types
 import (
 	"fmt"
 	"strconv"
-
-	"gopkg.in/yaml.v2"
 )
 
 var (
@@ -32,12 +30,6 @@ func DefaultParams() Params {
 // Validate validates the set of params
 func (p Params) Validate() error {
 	return validateTxFeeBurnPercent(p.TxFeeBurnPercent)
-}
-
-// String implements the Stringer interface.
-func (p Params) String() string {
-	out, _ := yaml.Marshal(p)
-	return string(out)
 }
 
 // validateTxFeeBurnPercent validates the TxFeeBurnPercent param
