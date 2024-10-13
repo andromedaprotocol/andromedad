@@ -2,7 +2,7 @@ project_name: andromedad
 
 release:
   github:
-    owner: reecepbcups
+    owner: andromedaprotocol
     name: andromedad
   name_template: '{{.Tag}}'
 
