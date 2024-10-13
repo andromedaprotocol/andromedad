@@ -1,35 +1,49 @@
+
 run:
-  tests: false
-  # timeout for analysis, e.g. 30s, 5m, default is 1m
-  timeout: 5m
+  timeout: 10m
+  tests: true
+
+
+# These linter checks can be modified on a per project basis.
+# Simply remove them from the enable list to disable them.
+linters:
   disable-all: true
   enable:
-    - depguard
-    - dogsled
-    - exportloopref
-    - goconst
-    - gocritic
-    - gofumpt
-    - gosec
-    - gosimple
-    - govet
-    - revive
-    - ineffassign
-    - misspell
-    - nakedret
-    - nolintlint
-    - staticcheck
-    - stylecheck
-    - typecheck
-    - unconvert
-    - unused
-
-issues:
-  exclude-rules:
-    - text: "Use of weak random number generator"
-      linters:
-        - gosec
+  - dogsled
+  - goconst
+  - gocritic
+  - gofumpt
+  - gosimple
+  - ineffassign
+  - misspell
+  - nolintlint
+  - stylecheck
+  - typecheck
+  - unconvert
+  - usestdlibvars
+  - wastedassign
+  - whitespace
+  - typecheck
+  - unconvert
 
 linters-settings:
-  nolintlint:
-    allow-leading-space: true
+  gci:
+    custom-order: true
+    sections:
+      - standard # Standard section: captures all standard packages.
+      - default # Default section: contains all imports that could not be matched to another section type.
+      - blank # blank imports
+      - dot # dot imports
+      - prefix(cosmossdk.io)
+      - prefix(github.com/cosmos)
+      - prefix(github.com/cosmos/cosmos-sdk)
+      - prefix(github.com/cometbft/cometbft)
+      - prefix(github.com/andromedaprotocol/andromedad)
+  gosec:
+    excludes:
+      - G404 # disables checks on insecure random number source
+      - G115 # disables checks on type conversions between signed and unsigned integers
+      - G306 # disables checks on WriteFile perms. Not an issue since we are writing configs/logs in a local test env
+  gocritic:
+    disabled-checks:
+      - appendAssign # we use append to build cmds from a config and always assign to a new slice to not overwrite cfg

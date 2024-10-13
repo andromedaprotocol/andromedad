@@ -9,6 +9,8 @@ option go_package = "github.com/andromedaprotocol/andromedad/x/feeburn/types";
 
 // Msg defines the Msg service.
 service Msg {
+  option (cosmos.msg.v1.service) = true;
+
   // UpdateParams defines a governance operation for updating the feeburn module
   // parameters. The authority is defined in the keeper.
   rpc UpdateParams(MsgUpdateParams) returns (MsgUpdateParamsResponse);

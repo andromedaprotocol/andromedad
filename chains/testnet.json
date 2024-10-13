@@ -1,0 +1,168 @@
+{
+    "chains": [
+        {
+            "name": "andromedad",
+            "chain_id": "localchain-1",
+            "docker_image": {
+                "repository": "andromedad",
+                "version": "local",
+                "uid-gid": ""
+            },
+            "gas_prices": "0.0uandr",
+            "gas_adjustment": 2,
+            "genesis": {
+                "modify": [
+                    {
+                        "key": "app_state.gov.params.voting_period",
+                        "value": "10s"
+                    },
+                    {
+                        "key": "app_state.gov.params.max_deposit_period",
+                        "value": "10s"
+                    },
+                    {
+                        "key": "app_state.gov.params.min_deposit.0.denom",
+                        "value": "uandr"
+                    },
+                    {
+                        "key": "app_state.gov.params.min_deposit.0.amount",
+                        "value": "1"
+                    }
+                ],
+                "accounts": [
+                    {
+                        "name": "acc0",
+                        "amount": "25000000000%DENOM%",
+                        "address": "andr1hj5fveer5cjtn4wd6wstzugjfdxzl0xp786ssw",
+                        "mnemonic": "decorate bright ozone fork gallery riot bus exhaust worth way bone indoor calm squirrel merry zero scheme cotton until shop any excess stage laundry"
+                    },
+                    {
+                        "name": "acc1",
+                        "amount": "24000000000%DENOM%",
+                        "address": "andr1efd63aw40lxf3n4mhf7dzhjkr453axurznf5e8",
+                        "mnemonic": "wealth flavor believe regret funny network recall kiss grape useless pepper cram hint member few certain unveil rather brick bargain curious require crowd raise"
+                    },
+                    {
+                        "name": "user0",
+                        "amount": "100000%DENOM%",
+                        "address": "andr1cfcj9qlaz0e2dxtyf8k76t67qxec9kjl7hudtu",
+                        "mnemonic": "almost dust stairs slight ski bacon train across lock original doctor fortune violin upset cake odor shoulder rigid unhappy atom sudden mule satoshi banana"
+                    },
+                    {
+                        "name": "user1",
+                        "amount": "100000%DENOM%",
+                        "address": "andr1sz8cdkxtrs7vfd2ndzgk97l4gl6cxplg4pefeg",
+                        "mnemonic": "dream mountain adult section annual gentle fan impose beef alert hospital napkin plunge garment leopard camera deputy excuse whale baby jealous exchange ridge token"
+                    }
+                ]
+            },
+            "config_file_overrides": [
+                {
+                    "file": "config/app.toml",
+                    "paths": {
+                        "api.enabled-unsafe-cors": true
+                    }
+                },
+                {
+                    "file": "config/config.toml",
+                    "paths": {
+                        "rpc.cors_allowed_origins": [
+                            "*"
+                        ]
+                    }
+                }
+            ],
+            "ibc_paths": [
+                "localchain-1_localcosmos-1"
+            ],
+            "number_vals": 1,
+            "number_node": 0,
+            "chain_type": "cosmos",
+            "coin_type": 118,
+            "binary": "andromedad",
+            "bech32_prefix": "andr",
+            "denom": "uandr",
+            "trusting_period": "336h",
+            "debugging": false,
+            "block_time": "2000ms",
+            "host_port_override": {
+                "1317": "1317",
+                "26656": "26656",
+                "26657": "26657",
+                "9090": "9090"
+            },
+            "ics_version_override": {}
+        },
+        {
+            "name": "gaia",
+            "chain_id": "localcosmos-1",
+            "docker_image": {
+                "repository": "",
+                "version": "v15.1.0",
+                "uid-gid": "1025:1025"
+            },
+            "gas_prices": "0.0uatom",
+            "gas_adjustment": 2,
+            "genesis": {
+                "modify": [
+                    {
+                        "key": "app_state.gov.params.voting_period",
+                        "value": "10s"
+                    },
+                    {
+                        "key": "app_state.gov.params.max_deposit_period",
+                        "value": "10s"
+                    },
+                    {
+                        "key": "app_state.gov.params.min_deposit.0.denom",
+                        "value": "uatom"
+                    },
+                    {
+                        "key": "app_state.gov.params.min_deposit.0.amount",
+                        "value": "1"
+                    }
+                ],
+                "accounts": [
+                    {
+                        "name": "acc0",
+                        "amount": "25000000000%DENOM%",
+                        "address": "cosmos1hj5fveer5cjtn4wd6wstzugjfdxzl0xpxvjjvr",
+                        "mnemonic": "decorate bright ozone fork gallery riot bus exhaust worth way bone indoor calm squirrel merry zero scheme cotton until shop any excess stage laundry"
+                    },
+                    {
+                        "name": "acc1",
+                        "amount": "24000000000%DENOM%",
+                        "address": "cosmos1efd63aw40lxf3n4mhf7dzhjkr453axur6cpk92",
+                        "mnemonic": "wealth flavor believe regret funny network recall kiss grape useless pepper cram hint member few certain unveil rather brick bargain curious require crowd raise"
+                    },
+                    {
+                        "name": "user0",
+                        "amount": "100000%DENOM%",
+                        "address": "cosmos1pafu67xc4ap0vetfyhl3jdypyap4vv058dzp2d",
+                        "mnemonic": "boil burst slush father feel endless toe large found unlock wash rocket cage milk panic turkey answer involve grief recall much luxury box morning"
+                    },
+                    {
+                        "name": "user1",
+                        "amount": "100000%DENOM%",
+                        "address": "cosmos1kt2346tl3sjk7982ljqmym4mam2557agad8w4r",
+                        "mnemonic": "cloth educate fog evoke bread conduct cattle acoustic shell arrive skill april render what chimney away wheat lock correct fetch myself glass place fiction"
+                    }
+                ]
+            },
+            "ibc_paths": [
+                "localchain-1_localcosmos-1"
+            ],
+            "number_vals": 1,
+            "number_node": 0,
+            "chain_type": "cosmos",
+            "coin_type": 118,
+            "binary": "gaiad",
+            "bech32_prefix": "cosmos",
+            "denom": "uatom",
+            "trusting_period": "336h",
+            "debugging": true,
+            "block_time": "2000ms",
+            "ics_version_override": {}
+        }
+    ]
+}
