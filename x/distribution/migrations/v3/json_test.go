@@ -6,12 +6,14 @@ import (
 
 	"github.com/stretchr/testify/require"
 
+	sdkmath "cosmossdk.io/math"
+
+	"github.com/cosmos/cosmos-sdk/client"
+	moduletestutil "github.com/cosmos/cosmos-sdk/types/module/testutil"
+
 	"github.com/andromedaprotocol/andromedad/x/distribution"
 	v3 "github.com/andromedaprotocol/andromedad/x/distribution/migrations/v3"
 	"github.com/andromedaprotocol/andromedad/x/distribution/types"
-	"github.com/cosmos/cosmos-sdk/client"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	moduletestutil "github.com/cosmos/cosmos-sdk/types/module/testutil"
 )
 
 func TestMigrateJSON(t *testing.T) {
@@ -24,8 +26,8 @@ func TestMigrateJSON(t *testing.T) {
 	distrGenState := types.DefaultGenesisState()
 
 	oldDistrState := distrGenState
-	oldDistrState.Params.BaseProposerReward = sdk.NewDecWithPrec(1, 2)
-	oldDistrState.Params.BonusProposerReward = sdk.NewDecWithPrec(4, 2)
+	oldDistrState.Params.BaseProposerReward = sdkmath.LegacyNewDecWithPrec(1, 2)
+	oldDistrState.Params.BonusProposerReward = sdkmath.LegacyNewDecWithPrec(4, 2)
 
 	migrated := v3.MigrateJSON(oldDistrState)
 	require.Equal(t, migrated, distrGenState)
@@ -51,6 +53,7 @@ func TestMigrateJSON(t *testing.T) {
 		"base_proposer_reward": "0.000000000000000000",
 		"bonus_proposer_reward": "0.000000000000000000",
 		"community_tax": "0.020000000000000000",
+		"rewards_per_block": "0.000000000000000000",
 		"withdraw_addr_enabled": true
 	},
 	"previous_proposer": "",

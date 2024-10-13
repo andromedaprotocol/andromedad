@@ -3,9 +3,10 @@ package common
 import (
 	"fmt"
 
-	"github.com/andromedaprotocol/andromedad/x/distribution/types"
 	"github.com/cosmos/cosmos-sdk/client"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+
+	"github.com/andromedaprotocol/andromedad/x/distribution/types"
 )
 
 // QueryDelegationRewards queries a delegation rewards between a delegator and a
