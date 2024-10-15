@@ -6,8 +6,6 @@ go 1.22.3
 replace (
 	cosmossdk.io/core => cosmossdk.io/core v0.11.0
 	github.com/spf13/viper => github.com/spf13/viper v1.17.0 // v1.18+ breaks app overrides
-	// patch for proto annotations - https://github.com/terra-money/alliance/pull/383
-	github.com/terra-money/alliance => github.com/reecepbcups/alliance v0.0.0-20241003215851-052fe551e1b0
 )
 
 replace (
@@ -60,7 +58,6 @@ require (
 	github.com/spf13/pflag v1.0.5
 	github.com/spf13/viper v1.19.0
 	github.com/stretchr/testify v1.9.0
-	github.com/terra-money/alliance v0.4.3
 	google.golang.org/genproto/googleapis/api v0.0.0-20240814211410-ddb44dafa142
 	google.golang.org/grpc v1.65.0
 	google.golang.org/protobuf v1.34.2
