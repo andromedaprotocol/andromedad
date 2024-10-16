@@ -147,11 +147,7 @@ func (am AppModule) EndBlock(_ sdk.Context) ([]abci.ValidatorUpdate, error) {
 }
 
 // IsAppModule implements module.AppModule.
-func (am AppModule) IsAppModule() {
-	panic("unimplemented")
-}
+func (am AppModule) IsAppModule() {}
 
 // IsOnePerModuleType implements module.AppModule.
-func (am AppModule) IsOnePerModuleType() {
-	panic("unimplemented")
-}
+func (am AppModule) IsOnePerModuleType() {}

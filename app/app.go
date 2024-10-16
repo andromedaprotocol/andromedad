@@ -1272,9 +1272,9 @@ func initParamsKeeper(appCodec codec.BinaryCodec, legacyAmino *codec.LegacyAmino
 	paramsKeeper.Subspace(slashingtypes.ModuleName).WithKeyTable(slashingtypes.ParamKeyTable())
 	paramsKeeper.Subspace(govtypes.ModuleName).WithKeyTable(govv1types.ParamKeyTable())
 
-	// paramsKeeper.Subspace(nft.ModuleName)
-	// paramsKeeper.Subspace(group.ModuleName)
-	// paramsKeeper.Subspace(circuittypes.ModuleName)
+	paramsKeeper.Subspace(nft.ModuleName)
+	paramsKeeper.Subspace(group.ModuleName)
+	paramsKeeper.Subspace(circuittypes.ModuleName)
 	paramsKeeper.Subspace(consensusparamtypes.ModuleName)
 
 	// register the IBC key tables for legacy param subspaces
