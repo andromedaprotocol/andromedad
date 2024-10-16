@@ -649,7 +649,7 @@ func NewChainApp(
 		authtypes.NewModuleAddress(govtypes.ModuleName),
 	)
 
-	wasmDir := filepath.Join(homePath, "wasm")
+	wasmDir := filepath.Join(homePath, "data")
 	wasmConfig, err := wasm.ReadWasmConfig(appOpts)
 	if err != nil {
 		panic(fmt.Sprintf("error while reading wasm config: %s", err))
