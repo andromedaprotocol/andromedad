@@ -1,10 +1,11 @@
 package keeper_test
 
 import (
-	"github.com/andromedaprotocol/andromedad/x/distribution/types"
 	simtestutil "github.com/cosmos/cosmos-sdk/testutil/sims"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
+
+	"github.com/andromedaprotocol/andromedad/x/distribution/types"
 )
 
 var (

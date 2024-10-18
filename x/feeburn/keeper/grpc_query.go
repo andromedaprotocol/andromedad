@@ -3,10 +3,12 @@ package keeper
 import (
 	"context"
 
-	"github.com/andromedaprotocol/andromedad/x/feeburn/types"
-	sdk "github.com/cosmos/cosmos-sdk/types"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
+
+	sdk "github.com/cosmos/cosmos-sdk/types"
+
+	"github.com/andromedaprotocol/andromedad/x/feeburn/types"
 )
 
 var _ types.QueryServer = Keeper{}

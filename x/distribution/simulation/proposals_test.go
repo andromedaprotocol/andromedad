@@ -4,14 +4,18 @@ import (
 	"math/rand"
 	"testing"
 
-	tmproto "github.com/cometbft/cometbft/proto/tendermint/types"
 	"gotest.tools/v3/assert"
 
-	"github.com/andromedaprotocol/andromedad/x/distribution/simulation"
-	"github.com/andromedaprotocol/andromedad/x/distribution/types"
+	sdkmath "cosmossdk.io/math"
+
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/address"
 	simtypes "github.com/cosmos/cosmos-sdk/types/simulation"
+
+	cmtproto "github.com/cometbft/cometbft/proto/tendermint/types"
+
+	"github.com/andromedaprotocol/andromedad/x/distribution/simulation"
+	"github.com/andromedaprotocol/andromedad/x/distribution/types"
 )
 
 func TestProposalMsgs(t *testing.T) {
@@ -19,7 +23,7 @@ func TestProposalMsgs(t *testing.T) {
 	s := rand.NewSource(1)
 	r := rand.New(s)
 
-	ctx := sdk.NewContext(nil, tmproto.Header{}, true, nil)
+	ctx := sdk.NewContext(nil, cmtproto.Header{}, true, nil)
 	accounts := simtypes.RandomAccounts(r, 3)
 
 	// execute ProposalMsgs function
@@ -37,6 +41,6 @@ func TestProposalMsgs(t *testing.T) {
 	assert.Assert(t, ok)
 
 	assert.Equal(t, sdk.AccAddress(address.Module("gov")).String(), msgUpdateParams.Authority)
-	assert.DeepEqual(t, sdk.NewDec(0), msgUpdateParams.Params.CommunityTax)
+	assert.DeepEqual(t, sdkmath.LegacyNewDec(0), msgUpdateParams.Params.CommunityTax)
 	assert.Equal(t, true, msgUpdateParams.Params.WithdrawAddrEnabled)
 }

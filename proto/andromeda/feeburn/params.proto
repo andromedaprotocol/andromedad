@@ -7,7 +7,7 @@ option go_package = "github.com/andromedaprotocol/andromedad/x/feeburn/types";
 
 // Params defines the parameters for the module.
 message Params {
-  option (gogoproto.goproto_stringer) = false;
+  option (gogoproto.goproto_stringer) = true;
 
   string txFeeBurnPercent = 1
       [ (gogoproto.moretags) = "yaml:\"tx_fee_burn_percent\"" ];

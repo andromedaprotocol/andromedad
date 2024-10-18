@@ -3,10 +3,10 @@ package keeper_test
 import (
 	"testing"
 
-	testkeeper "github.com/andromedaprotocol/andromedad/testutil/keeper"
-
-	"github.com/andromedaprotocol/andromedad/x/feeburn/types"
 	"github.com/stretchr/testify/require"
+
+	testkeeper "github.com/andromedaprotocol/andromedad/testutil/keeper"
+	"github.com/andromedaprotocol/andromedad/x/feeburn/types"
 )
 
 func TestGetParams(t *testing.T) {

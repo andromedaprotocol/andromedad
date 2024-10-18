@@ -3,8 +3,9 @@ package types_test
 import (
 	"testing"
 
-	"github.com/andromedaprotocol/andromedad/x/feeburn/types"
 	"github.com/stretchr/testify/require"
+
+	"github.com/andromedaprotocol/andromedad/x/feeburn/types"
 )
 
 func TestGenesisState_Validate(t *testing.T) {

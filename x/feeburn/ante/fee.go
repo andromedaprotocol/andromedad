@@ -1,16 +1,19 @@
 package ante
 
 import (
+	"bytes"
 	"fmt"
 
 	errorsmod "cosmossdk.io/errors"
 	sdkmath "cosmossdk.io/math"
+
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	"github.com/cosmos/cosmos-sdk/x/auth/ante"
 	"github.com/cosmos/cosmos-sdk/x/auth/types"
 
 	feeburnkeeper "github.com/andromedaprotocol/andromedad/x/feeburn/keeper"
-	"github.com/cosmos/cosmos-sdk/x/auth/ante"
+	feeburntypes "github.com/andromedaprotocol/andromedad/x/feeburn/types"
 )
 
 // DeductFeeDecorator deducts fees from the first signer of the tx
@@ -87,9 +90,11 @@ func (dfd DeductFeeDecorator) checkDeductFee(ctx sdk.Context, sdkTx sdk.Tx, fee 
 	// if feegranter set deduct fee from feegranter account.
 	// this works with only when feegrant enabled.
 	if feeGranter != nil {
+		feeGranterAddr := sdk.AccAddress(feeGranter)
+
 		if dfd.feegrantKeeper == nil {
 			return sdkerrors.ErrInvalidRequest.Wrap("fee grants are not enabled")
-		} else if !feeGranter.Equals(feePayer) {
+		} else if !bytes.Equal(feeGranterAddr, feePayer) {
 			err := dfd.feegrantKeeper.UseGrantedFees(ctx, feeGranter, feePayer, fee, sdkTx.GetMsgs())
 			if err != nil {
 				return errorsmod.Wrapf(err, "%s does not allow to pay fees for %s", feeGranter, feePayer)
@@ -106,7 +111,7 @@ func (dfd DeductFeeDecorator) checkDeductFee(ctx sdk.Context, sdkTx sdk.Tx, fee 
 
 	// deduct the fees
 	if !fee.IsZero() {
-		feeBurnPercent, ok := sdk.NewIntFromString(dfd.feeburnKeeper.GetTxFeeBurnPercent(ctx))
+		feeBurnPercent, ok := sdkmath.NewIntFromString(dfd.feeburnKeeper.GetTxFeeBurnPercent(ctx))
 		if !ok {
 			return sdkerrors.ErrInvalidType
 		}
@@ -120,7 +125,7 @@ func (dfd DeductFeeDecorator) checkDeductFee(ctx sdk.Context, sdkTx sdk.Tx, fee 
 		sdk.NewEvent(
 			sdk.EventTypeTx,
 			sdk.NewAttribute(sdk.AttributeKeyFee, fee.String()),
-			sdk.NewAttribute(sdk.AttributeKeyFeePayer, deductFeesFrom.String()),
+			sdk.NewAttribute(sdk.AttributeKeyFeePayer, sdk.AccAddress(deductFeesFrom).String()),
 		),
 	}
 	ctx.EventManager().EmitEvents(events)
@@ -129,7 +134,7 @@ func (dfd DeductFeeDecorator) checkDeductFee(ctx sdk.Context, sdkTx sdk.Tx, fee 
 }
 
 // DeductFees deducts fees from the given account.
-func DeductFees(bankKeeper BankKeeper, ctx sdk.Context, acc types.AccountI, fees sdk.Coins, bp sdkmath.Int) error {
+func DeductFees(bankKeeper BankKeeper, ctx sdk.Context, acc sdk.AccountI, fees sdk.Coins, bp sdkmath.Int) error {
 	if !fees.IsValid() {
 		return errorsmod.Wrapf(sdkerrors.ErrInsufficientFee, "invalid fee amount: %s", fees)
 	}
@@ -137,7 +142,7 @@ func DeductFees(bankKeeper BankKeeper, ctx sdk.Context, acc types.AccountI, fees
 	// Calculate burning amounts by given percentage and fee amounts
 	burningFees := sdk.Coins{}
 	for _, fee := range fees {
-		burningAmount := fee.Amount.Mul(bp).Quo(sdk.NewInt(100))
+		burningAmount := fee.Amount.Mul(bp).Quo(sdkmath.NewInt(100))
 		burningFees = burningFees.Add(sdk.NewCoin(fee.Denom, burningAmount))
 	}
 
@@ -146,7 +151,12 @@ func DeductFees(bankKeeper BankKeeper, ctx sdk.Context, acc types.AccountI, fees
 		return errorsmod.Wrapf(sdkerrors.ErrInsufficientFunds, err.Error())
 	}
 
-	err = bankKeeper.BurnCoins(ctx, types.FeeCollectorName, burningFees)
+	err = bankKeeper.SendCoinsFromModuleToModule(ctx, types.FeeCollectorName, feeburntypes.ModuleName, burningFees)
+	if err != nil {
+		return errorsmod.Wrapf(sdkerrors.ErrInsufficientFunds, err.Error())
+	}
+
+	err = bankKeeper.BurnCoins(ctx, feeburntypes.ModuleName, burningFees)
 	if err != nil {
 		return errorsmod.Wrapf(sdkerrors.ErrInsufficientFunds, err.Error())
 	}

@@ -6,15 +6,16 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"cosmossdk.io/depinject"
 	"cosmossdk.io/math"
-	"github.com/andromedaprotocol/andromedad/x/distribution/simulation"
-	"github.com/andromedaprotocol/andromedad/x/distribution/testutil"
-	"github.com/andromedaprotocol/andromedad/x/distribution/types"
-	"github.com/cosmos/cosmos-sdk/codec"
+
 	"github.com/cosmos/cosmos-sdk/crypto/keys/ed25519"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/kv"
+	moduletestutil "github.com/cosmos/cosmos-sdk/types/module/testutil"
+
+	"github.com/andromedaprotocol/andromedad/x/distribution"
+	"github.com/andromedaprotocol/andromedad/x/distribution/simulation"
+	"github.com/andromedaprotocol/andromedad/x/distribution/types"
 )
 
 var (
@@ -25,9 +26,8 @@ var (
 )
 
 func TestDecodeDistributionStore(t *testing.T) {
-	var cdc codec.Codec
-	err := depinject.Inject(testutil.AppConfig, &cdc)
-	require.NoError(t, err)
+	encodingConfig := moduletestutil.MakeTestEncodingConfig(distribution.AppModuleBasic{})
+	cdc := encodingConfig.Codec
 
 	dec := simulation.NewDecodeStore(cdc)
 

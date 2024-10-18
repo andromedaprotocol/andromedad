@@ -1,9 +1,7 @@
 package types
 
 import (
-	"fmt"
-	"strings"
-
+	sdkdistrtypes "github.com/cosmos/cosmos-sdk/x/distribution/types"
 	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types/v1beta1"
 )
 
@@ -26,23 +24,11 @@ func (csp *CommunityPoolSpendProposal) ValidateBasic() error {
 		return err
 	}
 	if !csp.Amount.IsValid() {
-		return fmt.Errorf("invalid amount: %s", csp.Amount)
+		return sdkdistrtypes.ErrInvalidProposalAmount
 	}
 	if csp.Recipient == "" {
-		return fmt.Errorf("proposal recipient cannot be empty")
+		return sdkdistrtypes.ErrEmptyProposalRecipient
 	}
 
 	return nil
-}
-
-// String implements the Stringer interface.
-func (csp CommunityPoolSpendProposal) String() string {
-	var b strings.Builder
-	fmt.Fprintf(&b, `Community Pool Spend Proposal:
-  Title:       %s
-  Description: %s
-  Recipient:   %s
-  Amount:      %s
-`, csp.Title, csp.Description, csp.Recipient, csp.Amount)
-	return b.String()
 }

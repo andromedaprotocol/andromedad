@@ -4,10 +4,11 @@ import (
 	"bytes"
 	"fmt"
 
-	"github.com/andromedaprotocol/andromedad/x/distribution/types"
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/kv"
+
+	"github.com/andromedaprotocol/andromedad/x/distribution/types"
 )
 
 // NewDecodeStore returns a decoder function closure that unmarshals the KVPair's

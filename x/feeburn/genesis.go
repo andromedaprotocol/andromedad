@@ -2,9 +2,11 @@ package feeburn
 
 import (
 	errorsmod "cosmossdk.io/errors"
+
+	sdk "github.com/cosmos/cosmos-sdk/types"
+
 	"github.com/andromedaprotocol/andromedad/x/feeburn/keeper"
 	"github.com/andromedaprotocol/andromedad/x/feeburn/types"
-	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
 // InitGenesis initializes the module's state from a provided genesis state.
